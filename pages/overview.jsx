@@ -1,12 +1,15 @@
 import Header from '../components/Header'
 import Layout from '../components/MyLayout'
+import Link from 'next/link'
 
 const data = [
 		{
 			name: "Arduino Blinky LED Light",
+			repoName: "arduino-blinky-led-light",
+			createdBy:"joeyklee",
 			description:"Lorem ipsum dolor sit amet, epicuri maluisset ei eam. Illud solet singulis vix eu, fastidii explicari ex vim. Ad diam semper viderer vis, ius lorem dicta pertinacia ad. Meis instructior mel ut, ea numquam debitis qui, ad summo congue gloriatur per. Ex vim elit aliquando disputationi, at movet dicam dolores eam. Dico habemus te est, eu vide verterem urbanitas vix.",
 			collaborators:"@shiffman",
-			imageUrl:"https://picsum.photos/200/300",
+			imageUrl:"https://picsum.photos/g/200/300/?image=24",
 			tutorial:[
 				{
 					section: 0,
@@ -59,9 +62,11 @@ const data = [
 
 		{
 			name: "Arduino Awesomeness",
+			repoName: "arduino-awesomeness",
+			createdBy:"joeyklee",
 			description:"Lorem ipsum dolor sit amet, epicuri maluisset ei eam. Illud solet singulis vix eu, fastidii explicari ex vim. Ad diam semper viderer vis, ius lorem dicta pertinacia ad. Meis instructior mel ut, ea numquam debitis qui, ad summo congue gloriatur per. Ex vim elit aliquando disputationi, at movet dicam dolores eam. Dico habemus te est, eu vide verterem urbanitas vix.",
 			collaborators:"@vanevery",
-			imageUrl:"https://picsum.photos/200/300",
+			imageUrl:"https://picsum.photos/g/200/300/?image=100",
 			tutorial:[
 				{
 					section: 0,
@@ -113,9 +118,11 @@ const data = [
 		},
 		{
 			name: "Animated Typography",
+			repoName: "animated-typography",
+			createdBy:"joeyklee",
 			description:"Lorem ipsum dolor sit amet, epicuri maluisset ei eam. Illud solet singulis vix eu, fastidii explicari ex vim. Ad diam semper viderer vis, ius lorem dicta pertinacia ad. Meis instructior mel ut, ea numquam debitis qui, ad summo congue gloriatur per. Ex vim elit aliquando disputationi, at movet dicam dolores eam. Dico habemus te est, eu vide verterem urbanitas vix.",
-			collaborators:"@joeyklee",
-			imageUrl:"https://picsum.photos/200/300",
+			collaborators:"@shiffman",
+			imageUrl:"https://picsum.photos/g/200/300/?image=135",
 			tutorial:[
 				{
 					section: 0,
@@ -174,9 +181,16 @@ const TutorialCard = (props) => (
 
 		<div className="imageContainer"></div>
 		<p>{props.name}</p>
-		<p>{props.description}</p>
-		<p>collaborators: {props.collaborators}</p>
+		<p className="description">{props.description}</p>
+		<p className="collaborators">collaborators: {props.collaborators}</p>
 
+		<div className="controls"> 
+				
+					<Link as={`/p/${props.repoName}`} href={`/post?title=${props.repoName}`}> 
+							<button><a>Edit/Update</a></button> 
+					</Link>
+				
+		</div>
 
 		<style jsx>{`
 
@@ -194,12 +208,39 @@ const TutorialCard = (props) => (
 				margin: 4px;
 			}
 
+			.tutorialCard .controls{
+				display:flex;
+				width:100%;
+				flex-direction:column;
+				align-items:center;
+			}
+
+			.tutorialCard .description{
+				max-height:160px;
+				overflow-y:scroll;
+			}
+			.tutorialCard .collaborators{
+				max-height:30px;
+				overflow-y:scroll;
+			}
+
 			.tutorialCard .imageContainer{
 				width:100%;
-				background-image: url(${props.imageUrl});
+				 background-image: url('${props.imageUrl}');
+				 height:150px;
 				 background-position:center;
 				 background-repeat:none;
 				 background-size:cover;
+			}
+
+			.tutorialCard button{
+				width:200px;
+				height:20px;
+				border-radius:0px;
+				background:none;
+				background-color:#F4E68E;
+				border:2px solid black;
+				cursor:pointer;
 			}
 
 
@@ -246,15 +287,30 @@ return (
 
 const Overview = () => (
   <Layout>
-    <h1> Your Tutorials </h1>
+	  <section>
+    <h2> Your Tutorials </h2>
     <MyTutorials />
+    </section>
 
-    <h1> Discover Other Tutorials </h1>
-    
+    <section>
+    <h2> Discover Other Tutorials </h2>
+    </section>
 
     <style jsx>{`
           h1{
-          	color: purple
+          	color: black;
+            font-size:60px;
+            margin:10px 0px 10px 0px;
+          }
+
+          h2{
+            color: black;
+            font-size:48px;
+            margin:10px 0px 10px 0px;
+          }
+
+          section{
+          	margin-bottom:40px;
           }
         `}</style>
   </Layout>
