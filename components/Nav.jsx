@@ -14,10 +14,11 @@ const Nav = () => (
 
   	      nav{
   	      	width: 100%;
-  	      	height: 30px;
+  	      	height: 100%;
+            max-width:960px;
   	      	display:flex;
   	      	flex-direction: row;
-  	      	justify-content: flex-start;
+  	      	justify-content: center;
   	      	align-items:center;
   	      }
   	      nav a{
