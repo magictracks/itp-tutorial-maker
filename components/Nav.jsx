@@ -10,6 +10,9 @@ const Nav = () => (
   	<Link href="/about">
   		<a>About Page</a>
   	</Link>
+    <Link href="/overview">
+      <a>Overview</a>
+    </Link>
   	<style jsx>{`
 
   	      nav{

@@ -27,11 +27,12 @@ app.prepare()
             next();
         });
 
-        // server.get('/p/:id', (req, res) => {
-        //     const actualPage = '/post'
-        //     const queryParams = { id: req.params.id } 
-        //     app.render(req, res, actualPage, queryParams)
-        //  })
+        server.get('/tutorial/:id', (req, res) => {
+        		console.log(req.params)
+            const actualPage = '/tutorial'
+            const queryParams = { id: req.params.id} 
+            app.render(req, res, actualPage, queryParams)
+         })
 
         // server.get('/', function(req, res){
         //     res.sendFile("index.html");

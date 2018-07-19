@@ -11,7 +11,7 @@ exports.getTutorials = function(req, res){
 }
 
 exports.createTutorial = function(req, res){
-  db.Tutorials.create(req.body)
+  db.Tutorial.create(req.body)
   .then(function(newTutorial){
       res.status(201).json(newTutorial);
   })

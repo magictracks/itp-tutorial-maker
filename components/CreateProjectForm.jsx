@@ -7,7 +7,8 @@ class createProjectForm extends React.Component {
     this.state = {
       name: '',
       description: '',
-      collaborators:''
+      collaborators:'',
+      tags:'',
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -37,6 +38,11 @@ class createProjectForm extends React.Component {
         <label>Cheeky Description</label>
           <textarea type="text" name="description" value={this.state.description} onChange={this.handleChange} />
           <small>A short description of what someone might expect to learn from this tutorial</small>
+        </div>
+        <div className="inputSection">
+        <label>Tags</label>
+          <input type="text" name="tags" value={this.state.tags} onChange={this.handleChange} />
+          <small>A handful of tags so people can find your tutorial: e.g. typography, design, AR, VR, etc</small>
         </div>
         <div className="inputSection">
         <label>Add Collaborators</label>
@@ -79,15 +85,22 @@ class createProjectForm extends React.Component {
           }
           
           form input[name=name],
+          form input[name=tags],
           form textarea,
           form input[name=collaborators]{
             width:100%;
             border:2px solid black;
           }
 
+
           form input[name=name]{
             height:60px;
             background-color:#F58C93;
+          }
+
+          form input[name=tags]{
+            height:60px;
+            background-color:#83428F;
           }
 
           form input[name=collaborators]{
