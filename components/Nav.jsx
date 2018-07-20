@@ -5,11 +5,11 @@ import Link from 'next/link'
 const Nav = () => (
 	<nav>
     <Link href="/">
-        <a>Home Page</a>
+        <a>Home</a>
     </Link>
-  	<Link href="/about">
-  		<a>About Page</a>
-  	</Link>
+    <Link href="/create">
+        <a>Create</a>
+    </Link>
     <Link href="/overview">
       <a>Overview</a>
     </Link>
