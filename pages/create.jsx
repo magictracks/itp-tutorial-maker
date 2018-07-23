@@ -3,20 +3,19 @@ import Header from '../components/Header'
 import Layout from '../components/MyLayout'
 import Link from 'next/link'
 import fetch from 'isomorphic-unfetch'
+import CreateProjectForm from '../components/CreateProjectForm'
 
 
-const Index = (props) => (
+
+const Create = (props) => (
   <Layout>
     
-    <h1> Hello Magic Tutorial Maker! </h1>
+    <h1> Create New Tutorial!</h1>
 
-    <h1> I'm here to...</h1>
+    <h2> Let's get started...</h2>
 
     <div className="actions">
-      <Link href="/create">
-        <a><h2> 👉 Create a new tutorial!</h2></a> 
-      </Link>
-      <h2><strike>👉 Add an existing tutorial from Github!</strike></h2>
+      <CreateProjectForm />
     </div>
 
     <style jsx>{`
@@ -46,4 +45,4 @@ const Index = (props) => (
 )
 
 
-export default Index
+export default Create

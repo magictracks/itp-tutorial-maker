@@ -5,19 +5,23 @@ import Link from 'next/link'
 const Nav = () => (
 	<nav>
     <Link href="/">
-        <a>Home Page</a>
+        <a>Home</a>
     </Link>
-  	<Link href="/about">
-  		<a>About Page</a>
-  	</Link>
+    <Link href="/create">
+        <a>Create</a>
+    </Link>
+    <Link href="/overview">
+      <a>Overview</a>
+    </Link>
   	<style jsx>{`
 
   	      nav{
   	      	width: 100%;
-  	      	height: 30px;
+  	      	height: 100%;
+            max-width:960px;
   	      	display:flex;
   	      	flex-direction: row;
-  	      	justify-content: flex-start;
+  	      	justify-content: center;
   	      	align-items:center;
   	      }
   	      nav a{
