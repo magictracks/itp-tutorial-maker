@@ -9,7 +9,9 @@ const app = next({ dev })
 const handle = app.getRequestHandler()
 const cors = require("cors")
 
+
 /*** ROUTEs ***/
+const db = require("./models")
 const authRoutes = require("./routes/auth");
 const {loginRequired, ensureCorrectUser} = require('./middleware/auth')
 var tutorialRoutes = require("./routes/tutorials");
@@ -41,6 +43,22 @@ app.prepare()
           loginRequired,
           ensureCorrectUser,
           tutorialRoutes)
+
+        // get all tutorials for public consumption
+        server.get("/api/tutorials/all", async function(req, res, next){
+          try{
+
+            let tutorials = await db.Tutorial.find()
+                                    .sort()
+                                    .populate("user", {
+                                      username: true,
+                                      profileImageUrl:true
+                                    })
+            return res.status(200).json(tutorials)
+          } catch(err){
+            return next(err);
+          }
+        })
         
         /*** Dynamic page generation ***/
         server.get('/tutorial/:id', (req, res) => {
@@ -49,6 +67,8 @@ app.prepare()
             const queryParams = { id: req.params.id} 
             app.render(req, res, actualPage, queryParams)
         })
+
+
 
 
 
