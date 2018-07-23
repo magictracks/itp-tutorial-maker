@@ -1,14 +1,14 @@
 var express = require('express');
 var router = express.Router();
 var db = require("../models");
-var helpers = require("../helpers/tutorials");
+var handlers = require("../handlers/tutorials");
 
 router.route('/')
- .get(helpers.getTutorials)
- .post(helpers.createTutorial)
+ .get(handlers.getTutorials)
+ .post(handlers.createTutorial)
  
 router.route('/id/:tutorialId')
-  .get(helpers.getTutorial)
-  .put(helpers.updateTutorial)
+  .get(handlers.getTutorial)
+  .put(handlers.updateTutorial)
   
 module.exports = router;

@@ -7,6 +7,10 @@ mongoose.connect('mongodb://localhost/itp-tutorial-maker', {
   reconnectTries: Number.MAX_VALUE
 });
 
+// User routes
+module.exports.User = require("./user");
+
+// routes for tutorials, resources, and sections
 module.exports.Tutorial = require("./tutorial");
-module.exports.Resource = require("./resource");
 module.exports.Section = require("./section");
+module.exports.Resource = require("./resource");
