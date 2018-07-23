@@ -23,12 +23,21 @@ const resourceSchema = new mongoose.Schema({
         required: false,
         default:["https://user-images.githubusercontent.com/3622055/42908563-4778bd04-8aaf-11e8-95c1-47e18c0643a4.png"]
       },
-      dateSubmitted:{
-        type: Date, 
-        required: true, 
-        default: Date.now
-      }
-    });
+      users:[{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:"User"
+      }],
+      tutorials:[{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:"Tutorial"
+      }],
+      sections:[{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:"Section"
+      }]
+    }, {
+  timestamps: true
+});
 
 const Resource = mongoose.model("Resource", resourceSchema);
 

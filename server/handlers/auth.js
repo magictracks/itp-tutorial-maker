@@ -13,6 +13,7 @@ exports.signin = async function(req, res, next){
 	
 	try{
 
+		console.log(req.body)
 		// retrieve the user specified by email
 		let user = await db.User.findOne({
 			email: req.body.email

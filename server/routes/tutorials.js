@@ -1,14 +1,13 @@
-var express = require('express');
-var router = express.Router();
-var db = require("../models");
-var handlers = require("../handlers/tutorials");
+const express = require('express');
+const router = express.Router({mergeParams: true});
+// var db = require("../models");
+const {createTutorial, getTutorial, deleteTutorial} = require("../handlers/tutorials");
 
 router.route('/')
- .get(handlers.getTutorials)
- .post(handlers.createTutorial)
+ .post(createTutorial)
  
-router.route('/id/:tutorialId')
-  .get(handlers.getTutorial)
-  .put(handlers.updateTutorial)
+router.route('/:tutorial_id')
+  .get(getTutorial)
+  .put(deleteTutorial)
   
 module.exports = router;

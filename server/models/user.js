@@ -45,7 +45,9 @@ is hashed. Once it is hashed, go on to the next
 piece of middleware which is going to save that
 specific document.
 @*/
-async function ensurePasswordIntegrity(next){
+
+
+userSchema.pre("save", async function(next){
 	let hashedPassword;
 
 	try{
@@ -55,16 +57,15 @@ async function ensurePasswordIntegrity(next){
 		}
 		// bcrypt.hash is async and will return a hashed password
 		hashedPassword = await bcrypt.hash(this.password, 10);
-
+		this.password = hashedPassword;
+		
 		// if all is well, allow for the next operation
 		return next();
 
 	} catch (err){
 		return next(err);
 	}
-}
-
-userSchema.pre("save", ensurePasswordIntegrity)
+})
 
 /**
 @ Password comparison

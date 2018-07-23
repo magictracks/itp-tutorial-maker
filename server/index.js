@@ -8,10 +8,11 @@ const dev = process.env.NODE_ENV !== 'production'
 const app = next({ dev })
 const handle = app.getRequestHandler()
 const cors = require("cors")
+
 /*** ROUTEs ***/
-// var tutorialRoutes = require("./routes/tutorials");
 const authRoutes = require("./routes/auth");
 const {loginRequired, ensureCorrectUser} = require('./middleware/auth')
+var tutorialRoutes = require("./routes/tutorials");
 
 
 app.prepare()
@@ -35,10 +36,15 @@ app.prepare()
         /*** ROUTE PREFIXING ***/
         // server.use('/api/tutorials', tutorialRoutes);
         server.use('/api/auth', authRoutes);
+
+        server.use("/api/users/:id/tutorials",
+          loginRequired,
+          ensureCorrectUser,
+          tutorialRoutes)
         
         /*** Dynamic page generation ***/
         server.get('/tutorial/:id', (req, res) => {
-        		console.log(req.params)
+            console.log(req.params)
             const actualPage = '/tutorial'
             const queryParams = { id: req.params.id} 
             app.render(req, res, actualPage, queryParams)
