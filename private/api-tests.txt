@@ -1,0 +1,54 @@
+
+# Signup testUser1
+http POST localhost:3000/api/auth/signup username=testUser1 email=testUser1@test.com password=test
+
+```
+{
+    "id": "5b560ce2359b5614806668dd",
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjViNTYwY2UyMzU5YjU2MTQ4MDY2NjhkZCIsInVzZXJuYW1lIjoidGVzdFVzZXIxIiwiaWF0IjoxNTMyMzY2MDUwfQ.Jskgkr3DmaN2suYYHr3dyMDilxcqYlAbG8sGvFlNvhw",
+    "username": "testUser1"
+}
+```
+
+# Signup testUser2
+http POST localhost:3000/api/auth/signup username=testUser2 email=testUser2@test.com password=test
+
+```
+{
+    "id": "5b560ce2359b5614806668de",
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjViNTYwY2UyMzU5YjU2MTQ4MDY2NjhkZSIsInVzZXJuYW1lIjoidGVzdFVzZXIyIiwiaWF0IjoxNTMyMzY2MDUwfQ.68S9ifamwj7bYCBSP8DNSTDREWOhccs7b93aWBst-EQ",
+    "username": "testUser2"
+}
+```
+
+
+# Signin testUser1
+http POST localhost:3000/api/auth/signin username=testUser1 email=testUser1@test.com password=test
+
+```
+{
+    "id": "5b560ce2359b5614806668dd",
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjViNTYwY2UyMzU5YjU2MTQ4MDY2NjhkZCIsInVzZXJuYW1lIjoidGVzdFVzZXIxIiwiaWF0IjoxNTMyMzY2MTE5fQ.eAZiAhrV3n5t7YNWT0fYVtjQWsx-8U_HeRgd1s8tvS0",
+    "username": "testUser1"
+}
+```
+
+
+# Create Tutorial for testUser 1
+
+localhost:3000/api/users/5b560ce2359b5614806668dd/tutorials
+
+input
+```
+{
+"name": "test tutorial for learning magic",
+"description": "a super magical description",
+"collaborators": "",
+"sections": [] ,
+"resources": []
+}
+```
+output:
+```
+{ description: 'a super magical description', collaborators: [ '' ], imageUrls: [ 'https://user-images.githubusercontent.com/3622055/42908563-4778bd04-8aaf-11e8-95c1-47e18c0643a4.png' ], sections: [], resources: [], _id: ObjectId("5b561a60359b5614806668e1"), name: 'test tutorial for learning magic', repoName: 'test-tutorial-for-learning-magic', createdBy: '5b560ce2359b5614806668dd', user: ObjectId("5b560ce2359b5614806668dd"), createdAt: new Date("Mon, 23 Jul 2018 18:11:44 GMT"), updatedAt: new Date("Mon, 23 Jul 2018 18:11:44 GMT"), __v: 0 }
+```

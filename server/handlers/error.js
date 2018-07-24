@@ -1,7 +1,9 @@
-function errorHandler(err, req, res, next){
-	return res.status(err. status || 500).json({
-		err:{
-			message: err.message || "Oops! Something is not quite right."
+
+// custom error handlers
+function errorHandler( error, request, response, next) {
+	return response.status(error.status || 500).json({
+		error:{
+			message: error.message || "Oops! Something went wrong"
 		}
 	})
 }
