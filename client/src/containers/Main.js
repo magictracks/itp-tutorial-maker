@@ -10,12 +10,12 @@ import {authUser} from "../store/actions/auth";
 import {removeError} from "../store/actions/errors"
 
 const Main = props => {
-	const {authUser, errors, removeError} = props;
+	const {authUser, errors, removeError, currentUser} = props;
 	return (
 			<div className="container">
 				<Switch>
 					{/* Render me the homepage at this route with these props */}
-					<Route exact path="/" render={props => <Homepage {...props}/> }></Route>
+					<Route exact path="/" render={props => <Homepage currentUser={currentUser} {...props}/> }></Route>
 					{/* Render me the signin at this route with these props plus more */}
 					<Route exact path="/signin" render={props =>  {
 						return(

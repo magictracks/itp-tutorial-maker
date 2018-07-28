@@ -1,9 +1,15 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
+import { logout } from "../store/actions/auth";
 import Logo from "../images/magic-tracks-logo.png"
 
 class Navbar extends Component{
+	logout = e => {
+	  e.preventDefault();
+	  this.props.logout();
+	};
+
 	render(){
 
 		return(
@@ -14,11 +20,34 @@ class Navbar extends Component{
 						<img src={Logo} alt="Magic Tracks Home"/>
 					</Link>
 				</div>
-				<ul>
+				{this.props.currentUser.isAuthenticated ? (
+				  <ul className="nav-navbar-nav navbar-right">
+				    <li>
+				      <Link
+				        to={`/users/${this.props.currentUser.user.id}/tutorials/new`}
+				      >
+				        New tutorial
+				      </Link>
+				    </li>
+				    <li>
+				      <a onClick={this.logout}>Log out</a>
+				    </li>
+				  </ul>
+				) : (
+				  <ul className="nav navbar-nav navbar-right">
+				    <li>
+				      <Link to="/signup">Sign up</Link>
+				    </li>
+				    <li>
+				      <Link to="/signin">Log in</Link>
+				    </li>
+				  </ul>
+				)}
+				{/*<ul>
 					<li><Link to="/signup">Sign up</Link></li>
 					<li>|</li>
 					<li><Link to="/signin">Sign in</Link></li>
-				</ul>
+				</ul>*/}
 
 				<style jsx>{`
 
@@ -81,4 +110,4 @@ function mapStateToProps(state){
 	}
 }
 
-export default connect(mapStateToProps, null)(Navbar)
+export default connect(mapStateToProps, {logout} )(Navbar)
