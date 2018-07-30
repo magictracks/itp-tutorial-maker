@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Tutorial Maker IO</title>
+    <!-- codemirror -->
+    <link rel="stylesheet" type="text/css" href="node_modules/codemirror/lib/codemirror.css">
+    <link rel="stylesheet" type="text/css" href="node_modules/codemirror/theme/monokai.css">
+    <style type="text/css">
+    * {
+        box-sizing: border-box;
+        margin: 0;
+    }
+
+    html,
+    body {
+        width: 100%;
+        height: 100%;
+        font-family: sans-serif;
+    }
+
+    #editor-container {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: row;
+        margin-bottom: 10px;
+    }
+
+    .editor-panel{
+      display: flex;
+      flex-direction: column;
+    }
+
+    #visualEditor {
+        width: 60%;
+        height: 100%;
+        border: 2px solid black;
+    }
+
+    #jsonEditor {
+        width: 40%;
+        height: 100%;
+        border: 2px solid black;
+    }
+
+    form,
+    #code {
+        height: 100%;
+    }
+
+    .CodeMirror {
+        border: 1px solid black;
+        font-size: 16px;
+        height:100%;
+    }
+    .CodeMirror-scroll{
+      padding:0px;
+      margin-bottom: 20px;
+    }
+
+    nav{
+      width:100%;
+      height:48px;
+      border: 2px solid black;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0px 20px 0px 20px;
+    }
+
+    .editor-controls{
+      height: 40px;
+      width:100%;
+      background-color: #D8D8D8;
+    }
+
+    .editor-controls ul{
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      margin:0;
+      height:100%;
+      margin: 0;
+      padding:0;
+    }
+    .editor-controls li{
+      text-decoration: none;
+      list-style: none;
+      padding:10px;
+    }
+
+    .editor-controls .active{
+      color:tomato;
+    }
+
+    .element-controls{
+      position: relative;
+      top:0px;
+      left: 0px;
+      border:2px solid black;
+      padding: 0px 20px 0px 8px;
+    }
+    .element-controls ul{
+      margin:0;
+      padding:0;
+      text-align: left;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      height:30px;
+    }
+    .element-controls li{
+      list-style: none;
+      margin-right:10px;
+    }
+
+    #visualEditorSpace{
+      display: flex;
+      flex-direction: row;
+      width:100%;
+      height:100%;
+    }
+
+    #visualEditor #overview{
+      width:30%;
+      height:100%;
+      border-right:2px solid black;
+      display: flex;
+      flex-direction: column;
+    }
+    #visualEditor #workspace{
+      width:70%; 
+      height:100%;
+      display: flex;
+      flex-direction: column;
+    }
+    </style>
+</head>
+
+<body>
+    <nav>
+      <div class="nav-left">Tutorial Maker | about</div>
+      <div class="nav-right"> continue anonymously | login</div>
+    </nav>
+
+      <div id="editor-container">
+          <div id="visualEditor">
+              <div class="editor-controls">
+                <ul>
+                  <li>open</li>
+                  <li>save</li>
+                  <li>new</li>
+                  <li>share</li>
+                </ul>
+              </div>
+              <div class="element-controls">
+                <ul>
+                  <li id="create-tutorial-btn">new tutorial</li>
+                  <li>new section</li>
+                  <li>new resource</li>
+                </ul>
+              </div>
+              <div id="visualEditorSpace">
+              <div id="overview">
+                
+              </div>
+              <div id="workspace">
+                
+              </div>
+            </div>
+              
+
+          </div>
+          <div id="jsonEditor">
+              <div class="editor-controls">
+                <ul>
+                  <li class="active">JSON</li>
+                  <li>HELP</li>
+                </ul>
+              </div>
+              <form>
+                  <textarea id="code" name="code"></textarea>
+              </form>
+          </div>
+      </div>
+    <script type="text/javascript" src="static/bundle.js"></script>
+</body>
+
+</html>
