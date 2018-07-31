@@ -108,6 +108,7 @@
       text-align: left;
       display: flex;
       flex-direction: row;
+      justify-content: flex-end;
       align-items: center;
       height:30px;
     }
@@ -135,6 +136,9 @@
       height:100%;
       display: flex;
       flex-direction: column;
+      align-items: center;
+      max-height:600px;
+      overflow-y: scroll;
     }
     </style>
 </head>
@@ -158,8 +162,8 @@
               <div class="element-controls">
                 <ul>
                   <li id="create-tutorial-btn">new tutorial</li>
-                  <li>new section</li>
-                  <li>new resource</li>
+                  <li id="create-section-btn">new section</li>
+                  <li id="create-resource-btn">new resource</li>
                 </ul>
               </div>
               <div id="visualEditorSpace">

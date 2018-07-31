@@ -17,17 +17,20 @@ module.exports = function(){
 
 	editor.setSize("100%", "100%");
 
-	const dummyTextJson = {
-  "title":"i'm a title",
-  "description":"i'm a description"
-	}
+	// const dummyTextJson = {
+ //  "title":"i'm a title",
+ //  "description":"i'm a description"
+	// }
 
-	let dummyText = beautify(JSON.stringify(dummyTextJson), { indent_size: 2, space_in_empty_paren: true })
+	// let dummyText = beautify(JSON.stringify(dummyTextJson), { indent_size: 2, space_in_empty_paren: true })
 
-	editor.replaceRange(dummyText, {line: Infinity});
+	// editor.replaceRange(dummyText, {line: Infinity});
 
 	editor.on("change", function(e){
-		console.log(e)
+
+		let formattedText = beautify(e.getValue(), { indent_size: 2, space_in_empty_paren: true })
+		console.log( JSON.parse(e.getValue()) )
+
 	})
 
 }

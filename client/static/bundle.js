@@ -16172,6 +16172,193 @@ if (typeof define === "function" && define.amd) {
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 },{}],9:[function(require,module,exports){
+class Resource {
+	constructor(workspace, position, context){
+
+		this.context = context;
+		this.workspace = workspace;
+		this.headerImageUrl = "https://user-images.githubusercontent.com/3622055/42908563-4778bd04-8aaf-11e8-95c1-47e18c0643a4.png";
+		this.title = "resource title"
+		this.description = "resource description"
+		this.position = position;
+
+
+		this.ResourceStyle = `
+		border: 2px solid black;
+		display: flex;
+		flex-direction:row;
+		width:90%;
+		`;
+		this.ResourceInfoStyle = `
+		border: 2px solid black;
+		display: flex;
+		flex-direction:column;
+		width:60%;
+		height:100px;
+		`;
+		this.ResourceImageStyle = `
+		border: 2px solid black;
+		height: 100px;
+		width:40%;
+		background-image:url(${this.headerImageUrl});
+		background-position:center;
+		background-size:cover;
+		`;
+
+
+	}
+}
+
+Resource.prototype.create = function(){
+
+		let resource = `
+		<div style="${this.ResourceStyle}">
+			<div class="resource-info" style="${this.ResourceInfoStyle}">
+				<h2 contenteditable="true">${this.title}</h2>
+				<h4 contenteditable="true">${this.description}</h4>
+			</div>
+			<div class="resource-image" style="${this.ResourceImageStyle}"></div>
+		</div>
+		`
+
+
+		// this.workspace.innerHTML +=  resource;
+		// return resource;
+
+		let doc = new DOMParser().parseFromString(resource, 'text/html');
+		this.workspace.appendChild(doc.body.firstChild) 
+	
+}
+
+
+module.exports = Resource;
+
+
+
+
+		
+},{}],10:[function(require,module,exports){
+const Resource = require("./Resource.js");
+
+
+
+class AddResourceBtn {
+	constructor(elem, context){
+		this._elem = elem;
+		this.counter = 0;
+		this.context = context;
+		elem.onclick = this.onClick.bind(this);
+	}
+
+	add(){
+		console.log("add me!", this.counter)
+		
+		this.context.addResource(this._elem.parentElement)
+		console.log(this.context.resources, this._elem.parentElement)
+
+		// this.context.resources[this.context.resources.length-1].create()
+
+
+		this.counter++;
+	}
+
+	onClick(e){
+		let action = e.target.dataset.action;
+    if (action) {
+      this[action]();
+    }
+	}
+
+}
+
+
+
+
+class Section {
+	constructor(workspace, position, context){
+		this.context = context;
+		this.workspace = workspace;
+		this.title = "i'm a section title";
+		this.description = "i'm a section description";
+		this.position = position;
+		this.id = `section-${this.position}`;
+
+		this.resources = [];
+
+		this.SectionStyle =`
+		width:100%;
+		height: auto;
+		padding:10px;
+		border:2px solid black;
+		display:flex;
+		flex-direction: column;
+		align-items:center;
+		`
+
+	}
+}
+
+
+// <button id="addResourceTo-${this.id}" data-section="${this.id}">Add Resource</button>
+Section.prototype.create = function(){
+	
+
+	let section = `
+	<div id="${this.id}" style="${this.SectionStyle}">
+		<div class="section-info">
+			<h2 contenteditable="true">${this.title}</h2>
+			<h4 contenteditable="true">${this.description}</h4>
+		</div>
+		<div class="section-resources">
+
+			<div class="menu">
+				<button data-action="add">add resource</button>
+			</div>
+		</div>
+	</div>
+	`
+
+	// this.workspace.innerHTML += section;
+
+	let doc = new DOMParser().parseFromString(section, 'text/html');
+	this.workspace.appendChild(doc.body.firstChild) 
+
+	// let btn = new AddResourceBtn(document.createElement("button"))
+	let menu = document.querySelector(`#${this.id} .section-resources .menu`)
+	
+	// event delegation to menu
+	new AddResourceBtn(menu, this)
+	
+	return section;
+}
+
+
+
+Section.prototype.addResource = function(ws){
+	let resource, resourcesLength, resourcePosition;
+	
+	resourcesLength = this.resources.length;
+	if(this.resources.length == 0) {
+		resourcePosition = 0;
+	} else{
+		resourcePosition = resourcesLength;
+	}
+	
+
+	resource = new Resource(ws, resourcePosition, this)
+	resource.create();
+	// add to 
+	this.resources.push(resource)
+
+}
+
+
+
+module.exports = Section;
+},{"./Resource.js":9}],11:[function(require,module,exports){
+// const Resource = require("./Resource.js")
+const Section = require("./Section.js")
+
 class Tutorial{
 	constructor(workspace, title, description, headerImageUrl){
 		this.workspace = workspace;
@@ -16180,42 +16367,50 @@ class Tutorial{
 		this.headerImageUrl = headerImageUrl;
 		this.added = false;
 
+		this.sections = [];
+
 		this.TutorialStyle = `
-		border: 2px solid black;
-		display: flex;
-		flex-direction:row;
-		`;
-		this.TutorialInfoStyle = `
-		border: 2px solid black;
+		margin-top:40px;
 		display: flex;
 		flex-direction:column;
-		width:60%;
-		height:100px;
+		width:100%;
+		align-items:center;
+		`;
+		this.TutorialInfoStyle = `
+		display: flex;
+		flex-direction:column;
+		text-align:center;
+		align-items:center;
+		width:100%;
 		`;
 		this.TutorialImageStyle = `
-		border: 2px solid black;
-		height: 100px;
-		width:40%;
+		height: 200px;
+		width:80%;
 		background-image:url(${this.headerImageUrl});
 		background-position:center;
 		background-size:cover;
 		`;
+
 	}
 }
 
 Tutorial.prototype.create = function(){
+
 	if(this.added === false){
 		let tutorial = `
 		<div id="tutorial" style="${this.TutorialStyle}">
 			<div class="tutorial-info" style="${this.TutorialInfoStyle}">
 				<h2 contenteditable="true">${this.title}</h2>
 				<h4 contenteditable="true">${this.description}</h4>
+				<div class="tutorial-image" style="${this.TutorialImageStyle}"></div>
 			</div>
-			<div class="tutorial-image" style="${this.TutorialImageStyle}"></div>
+			
 		</div>
 		`
 
-		this.workspace.innerHTML +=  tutorial;
+		let doc = new DOMParser().parseFromString(tutorial, 'text/html');
+		this.workspace.appendChild(doc.body.firstChild) 
+
 		return tutorial;
 	} else{
 		console.log("from create: Tutorial already added!")
@@ -16239,18 +16434,25 @@ Tutorial.prototype.onDeleted = function(){
 }
 
 
-// Tutorial.prototype.update = function(){
+Tutorial.prototype.addSection = function(){
+	let section, sectionsLength, sectionPosition;
 	
-// }
+	sectionsLength = this.sections.length;
 
-// Tutorial.prototype.display = function(){
-
-// }
-
+	if( this.sections.length == 0) {
+		sectionPosition = 0;
+	} else{
+		sectionPosition = sectionsLength;
+	}
+	
+	section = new Section(this.workspace, sectionPosition, this)
+	// add to 
+	this.sections.push(section)
+}
 
 
 module.exports = Tutorial;
-},{}],10:[function(require,module,exports){
+},{"./Section.js":10}],12:[function(require,module,exports){
 const beautify = require('js-beautify').js;
 const CodeMirror = require("codemirror")
 require("codemirror/mode/javascript/javascript.js")
@@ -16270,42 +16472,81 @@ module.exports = function(){
 
 	editor.setSize("100%", "100%");
 
-	const dummyTextJson = {
-  "title":"i'm a title",
-  "description":"i'm a description"
-	}
+	// const dummyTextJson = {
+ //  "title":"i'm a title",
+ //  "description":"i'm a description"
+	// }
 
-	let dummyText = beautify(JSON.stringify(dummyTextJson), { indent_size: 2, space_in_empty_paren: true })
+	// let dummyText = beautify(JSON.stringify(dummyTextJson), { indent_size: 2, space_in_empty_paren: true })
 
-	editor.replaceRange(dummyText, {line: Infinity});
+	// editor.replaceRange(dummyText, {line: Infinity});
 
 	editor.on("change", function(e){
-		console.log(e)
+
+		let formattedText = beautify(e.getValue(), { indent_size: 2, space_in_empty_paren: true })
+		console.log( JSON.parse(e.getValue()) )
+
 	})
 
 }
-},{"codemirror":3,"codemirror/addon/edit/matchbrackets.js":1,"codemirror/addon/selection/active-line.js":2,"codemirror/mode/javascript/javascript.js":4,"js-beautify":5}],11:[function(require,module,exports){
+},{"codemirror":3,"codemirror/addon/edit/matchbrackets.js":1,"codemirror/addon/selection/active-line.js":2,"codemirror/mode/javascript/javascript.js":4,"js-beautify":5}],13:[function(require,module,exports){
 const jsonEditor = require("./jsonEditor.js")
 const visualEditor = require("./visualEditor.js")
+let state = require('./state.js')
 
 
 
 
 jsonEditor();
 visualEditor();
-},{"./jsonEditor.js":10,"./visualEditor.js":12}],12:[function(require,module,exports){
+},{"./jsonEditor.js":12,"./state.js":14,"./visualEditor.js":15}],14:[function(require,module,exports){
+module.exports = {
+	"title":"",
+	"description": "",
+	"headerImageUrl": ""
+}
+},{}],15:[function(require,module,exports){
 const Tutorial = require('./components/Tutorial.js');
+// const Section = require('./components/Section.js');
+const Resource = require('./components/Resource.js');
 
-module.exports = function(){
+module.exports = function() {
 	let workspace = document.querySelector("#workspace");
-	let createTutorialBtn =  document.querySelector("#create-tutorial-btn");
-	let tutorial = new Tutorial(workspace, "hello", "im a description", "https://user-images.githubusercontent.com/3622055/42908563-4778bd04-8aaf-11e8-95c1-47e18c0643a4.png");
-	
-	createTutorialBtn.addEventListener("click", function(e){
+	let createTutorialBtn = document.querySelector("#create-tutorial-btn");
+	let createSectionBtn = document.querySelector("#create-section-btn");
+	let createResourceBtn = document.querySelector("#create-resource-btn");
+
+	let tutorial;
+
+	createTutorialBtn.addEventListener("click", function(e) {
 		console.log("clicked")
-		 tutorial.create()
-		 tutorial.onAdded();
+
+		if (tutorial == undefined) {
+			tutorial = new Tutorial(workspace,
+				"I'm a title",
+				"I'm a description",
+				"https://user-images.githubusercontent.com/3622055/42908563-4778bd04-8aaf-11e8-95c1-47e18c0643a4.png");
+		}
+
+		if (tutorial.added == false) {
+			tutorial.create()
+			tutorial.onAdded();
+		} else {
+			console.log("already added")
+		}
+
+
 	})
 
+
+	createSectionBtn.addEventListener("click", function(e) {
+		tutorial.addSection();
+		let latestSection = tutorial.sections.length - 1;
+		tutorial.sections[latestSection].create();
+
+	});
+
+
+
 }
-},{"./components/Tutorial.js":9}]},{},[11]);
+},{"./components/Resource.js":9,"./components/Tutorial.js":11}]},{},[13]);

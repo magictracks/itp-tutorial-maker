@@ -1,3 +1,6 @@
+// const Resource = require("./Resource.js")
+const Section = require("./Section.js")
+
 class Tutorial{
 	constructor(workspace, title, description, headerImageUrl){
 		this.workspace = workspace;
@@ -6,42 +9,50 @@ class Tutorial{
 		this.headerImageUrl = headerImageUrl;
 		this.added = false;
 
+		this.sections = [];
+
 		this.TutorialStyle = `
-		border: 2px solid black;
-		display: flex;
-		flex-direction:row;
-		`;
-		this.TutorialInfoStyle = `
-		border: 2px solid black;
+		margin-top:40px;
 		display: flex;
 		flex-direction:column;
-		width:60%;
-		height:100px;
+		width:100%;
+		align-items:center;
+		`;
+		this.TutorialInfoStyle = `
+		display: flex;
+		flex-direction:column;
+		text-align:center;
+		align-items:center;
+		width:100%;
 		`;
 		this.TutorialImageStyle = `
-		border: 2px solid black;
-		height: 100px;
-		width:40%;
+		height: 200px;
+		width:80%;
 		background-image:url(${this.headerImageUrl});
 		background-position:center;
 		background-size:cover;
 		`;
+
 	}
 }
 
 Tutorial.prototype.create = function(){
+
 	if(this.added === false){
 		let tutorial = `
 		<div id="tutorial" style="${this.TutorialStyle}">
 			<div class="tutorial-info" style="${this.TutorialInfoStyle}">
 				<h2 contenteditable="true">${this.title}</h2>
 				<h4 contenteditable="true">${this.description}</h4>
+				<div class="tutorial-image" style="${this.TutorialImageStyle}"></div>
 			</div>
-			<div class="tutorial-image" style="${this.TutorialImageStyle}"></div>
+			
 		</div>
 		`
 
-		this.workspace.innerHTML +=  tutorial;
+		let doc = new DOMParser().parseFromString(tutorial, 'text/html');
+		this.workspace.appendChild(doc.body.firstChild) 
+
 		return tutorial;
 	} else{
 		console.log("from create: Tutorial already added!")
@@ -65,14 +76,21 @@ Tutorial.prototype.onDeleted = function(){
 }
 
 
-// Tutorial.prototype.update = function(){
+Tutorial.prototype.addSection = function(){
+	let section, sectionsLength, sectionPosition;
 	
-// }
+	sectionsLength = this.sections.length;
 
-// Tutorial.prototype.display = function(){
-
-// }
-
+	if( this.sections.length == 0) {
+		sectionPosition = 0;
+	} else{
+		sectionPosition = sectionsLength;
+	}
+	
+	section = new Section(this.workspace, sectionPosition, this)
+	// add to 
+	this.sections.push(section)
+}
 
 
 module.exports = Tutorial;
