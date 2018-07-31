@@ -1,12 +1,13 @@
 const Tutorial = require('./components/Tutorial.js');
-// const Section = require('./components/Section.js');
-const Resource = require('./components/Resource.js');
+const editor = require('./jsonEditor.js')
+const beautify = require('js-beautify').js;
+const CircularJSON = require('circular-json');
 
 module.exports = function() {
 	let workspace = document.querySelector("#workspace");
 	let createTutorialBtn = document.querySelector("#create-tutorial-btn");
 	let createSectionBtn = document.querySelector("#create-section-btn");
-	let createResourceBtn = document.querySelector("#create-resource-btn");
+	let updateJSON = document.querySelector("#updateJSON");
 
 	let tutorial;
 
@@ -38,6 +39,18 @@ module.exports = function() {
 		tutorial.sections[latestSection].create();
 
 	});
+
+	updateJSON.addEventListener("click", function(e){
+		let tut = CircularJSON.stringify(tutorial);
+		let t = beautify(tut, { indent_size: 2, space_in_empty_paren: true })
+		// console.log(tut)
+		editor().editor.replaceRange(t, {line: Infinity});
+
+		// console.log(tutorial)
+
+	})
+
+
 
 
 
