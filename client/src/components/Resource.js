@@ -13,7 +13,7 @@ class Resource {
 		border: 2px solid black;
 		display: flex;
 		flex-direction:row;
-		width:90%;
+		width:100%;
 		`;
 		this.ResourceInfoStyle = `
 		border: 2px solid black;

@@ -33,30 +33,28 @@
     }
 
     #visualEditor {
-        width: 60%;
+        width: 70%;
         height: 100%;
         border: 2px solid black;
+        overflow-y: hidden;
     }
 
     #jsonEditor {
-        width: 40%;
+        width: 30%;
         height: 100%;
         border: 2px solid black;
+        overflow-y:hidden;
     }
 
     form,
     #code {
         height: 100%;
+        position: relative;
     }
 
     .CodeMirror {
-        border: 1px solid black;
         font-size: 16px;
         height:100%;
-    }
-    .CodeMirror-scroll{
-      padding:0px;
-      margin-bottom: 20px;
     }
 
     nav{
@@ -137,8 +135,9 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      max-height:600px;
+      max-height:650px;
       overflow-y: scroll;
+      padding:4px 6px 4px 6px;
     }
     </style>
 </head>
@@ -181,6 +180,7 @@
               <div class="editor-controls">
                 <ul>
                   <li class="active">JSON</li>
+                  <li>MD</li>
                   <li>HELP</li>
                 </ul>
               </div>

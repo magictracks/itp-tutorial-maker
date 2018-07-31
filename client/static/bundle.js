@@ -16187,7 +16187,7 @@ class Resource {
 		border: 2px solid black;
 		display: flex;
 		flex-direction:row;
-		width:90%;
+		width:100%;
 		`;
 		this.ResourceInfoStyle = `
 		border: 2px solid black;
@@ -16289,10 +16289,15 @@ class Section {
 		width:100%;
 		height: auto;
 		padding:10px;
-		border:2px solid black;
+		border:2px solid grey;
 		display:flex;
 		flex-direction: column;
 		align-items:center;
+		margin-top:4px;
+		`
+
+		this.sectionResourcesStyle=`
+		width:100%;
 		`
 
 	}
@@ -16309,7 +16314,7 @@ Section.prototype.create = function(){
 			<h2 contenteditable="true">${this.title}</h2>
 			<h4 contenteditable="true">${this.description}</h4>
 		</div>
-		<div class="section-resources">
+		<div class="section-resources" style="${this.sectionResourcesStyle}">
 
 			<div class="menu">
 				<button data-action="add">add resource</button>
@@ -16470,16 +16475,16 @@ module.exports = function(){
     lineWrapping: true
 	});
 
-	editor.setSize("100%", "100%");
+	editor.setSize("100%", "95%");
 
-	// const dummyTextJson = {
- //  "title":"i'm a title",
- //  "description":"i'm a description"
-	// }
+	const dummyTextJson = {
+  "title":"i'm a title",
+  "description":"i'm a description"
+	}
 
-	// let dummyText = beautify(JSON.stringify(dummyTextJson), { indent_size: 2, space_in_empty_paren: true })
+	let dummyText = beautify(JSON.stringify(dummyTextJson), { indent_size: 2, space_in_empty_paren: true })
 
-	// editor.replaceRange(dummyText, {line: Infinity});
+	editor.replaceRange(dummyText, {line: Infinity});
 
 	editor.on("change", function(e){
 
@@ -16522,10 +16527,11 @@ module.exports = function() {
 		console.log("clicked")
 
 		if (tutorial == undefined) {
-			tutorial = new Tutorial(workspace,
+			tutorial = new Tutorial( workspace,
 				"I'm a title",
 				"I'm a description",
-				"https://user-images.githubusercontent.com/3622055/42908563-4778bd04-8aaf-11e8-95c1-47e18c0643a4.png");
+				"https://user-images.githubusercontent.com/3622055/42908563-4778bd04-8aaf-11e8-95c1-47e18c0643a4.png"
+				);
 		}
 
 		if (tutorial.added == false) {

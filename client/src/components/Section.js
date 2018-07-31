@@ -49,10 +49,15 @@ class Section {
 		width:100%;
 		height: auto;
 		padding:10px;
-		border:2px solid black;
+		border:2px solid grey;
 		display:flex;
 		flex-direction: column;
 		align-items:center;
+		margin-top:4px;
+		`
+
+		this.sectionResourcesStyle=`
+		width:100%;
 		`
 
 	}
@@ -69,7 +74,7 @@ Section.prototype.create = function(){
 			<h2 contenteditable="true">${this.title}</h2>
 			<h4 contenteditable="true">${this.description}</h4>
 		</div>
-		<div class="section-resources">
+		<div class="section-resources" style="${this.sectionResourcesStyle}">
 
 			<div class="menu">
 				<button data-action="add">add resource</button>

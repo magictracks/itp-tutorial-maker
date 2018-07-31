@@ -14,10 +14,11 @@ module.exports = function() {
 		console.log("clicked")
 
 		if (tutorial == undefined) {
-			tutorial = new Tutorial(workspace,
+			tutorial = new Tutorial( workspace,
 				"I'm a title",
 				"I'm a description",
-				"https://user-images.githubusercontent.com/3622055/42908563-4778bd04-8aaf-11e8-95c1-47e18c0643a4.png");
+				"https://user-images.githubusercontent.com/3622055/42908563-4778bd04-8aaf-11e8-95c1-47e18c0643a4.png"
+				);
 		}
 
 		if (tutorial.added == false) {
