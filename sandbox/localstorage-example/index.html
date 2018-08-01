@@ -56,14 +56,24 @@
             <button id="button2">2</button>
             <button id="button3">3</button>
             <button id="clearStorage" onclick="clearStorage()">CLEAR STORAGE</button>
+            <button id="saveStorage" onclick="saveStorage()">SAVE STORAGE</button>
         </div>
     </div>
     <script type="text/javascript">
-    	let  clearStorage = function(){
+    	const clearStorage = function(){
     		localStorage.clear();
     		location.reload(); 
     	}
+
+    	const saveStorage = function(){
+    		let data;
+    		data = Object.keys(localStorage).map(k => {
+    			return JSON.parse( localStorage.getItem(k) )[0]
+    		})
+    		console.log(data);
+    	}
     </script>
+    <script type="text/javascript" src="View.js"></script>
     <script type="text/javascript" src="app.js"></script>
 </body>
 
