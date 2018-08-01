@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>local storage example</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style type="text/css">
+    * {
+        box-sizing: border-box;
+        margin: 0;
+    }
+
+    html,
+    body {
+        width: 100%;
+        height: 100%;
+    }
+
+    .container{
+    	width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div id="views">
+            <div id="view1" class="view"></div>
+            <div id="view2" class="view"></div>
+            <div id="view3" class="view"></div>
+        </div>
+        <div id="buttons">
+            <button id="button1">1</button>
+            <button id="clearStorage" onclick="clearStorage()">CLEAR STORAGE</button>
+            <button id="saveStorage" onclick="saveStorage()">SAVE STORAGE</button>
+        </div>
+    </div>
+    <script type="text/javascript">
+    	const clearStorage = function(){
+    		localStorage.clear();
+    		location.reload(); 
+    	}
+
+    	const saveStorage = function(){
+    		let data;
+    		data = Object.keys(localStorage).map(k => {
+    			return JSON.parse( localStorage.getItem(k) )[0]
+    		})
+    		console.log(data);
+    	}
+    </script>
+    <script type="text/javascript" src="Tutorial.js"></script>
+    <script type="text/javascript" src="app.js"></script>
+</body>
+
+</html>
