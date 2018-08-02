@@ -18,11 +18,12 @@ window.onload = (function(){
 				"id": `section-${id}`
 			}
 	}
-	function createResource(title, description, headerImageUrl, id){
+	function createResource(title, description, headerImageUrl, sectionId, id){
 		return {title, 
 				description, 
 				headerImageUrl,
 				"type":"resource",
+				"sectionContainerId":sectionId,
 				"id": `resource-${id}`
 			}
 	}
@@ -66,9 +67,9 @@ window.onload = (function(){
 			this.updateState();
 		}
 
-		addResource(title, description, headerImageUrl, sectionPosition, id){
+		addResource(title, description, headerImageUrl, sectionPosition, sectionId, id){
 			this.state.sections[sectionPosition].resources.push( 
-				createResource(title, description, headerImageUrl, id) 
+				createResource(title, description, headerImageUrl, sectionId, id) 
 			)
 			this.updateState();
 		}
@@ -111,13 +112,16 @@ window.onload = (function(){
 
 			templateDom.querySelector(".addResource").addEventListener("click", e => {
 				let sectionPosition;
-
+				let sectionId;
 				this.state.sections.forEach( (section, idx) => {
-					if (section.id == e.target.parentElement.id) sectionPosition = idx;
+					if (section.id == e.target.parentElement.id){
+							sectionPosition = idx;
+							sectionId = section.id;
+					} 
 				})
 
 				console.log(sectionPosition);
-				this.addResource("resource title", "resource desc", "", sectionPosition, info.resources.length )
+				this.addResource("resource title", "resource desc", "", sectionPosition, sectionId, info.resources.length )
 				this.updateState();
 			})
 
@@ -135,12 +139,18 @@ window.onload = (function(){
 			`
 			let templateDom = parseTemplateString(template);
 
-			templateDom.querySelector(".removeResource").addEventListener("click", function(e){
-				// this.state.sections = this.state.sections.filter( section => {
-				// 	return section.id !== e.target.parentElement.id
-				// })
-				// e.target.parentElement.remove();
-				console.log(e.target)
+			templateDom.querySelector(".removeResource").addEventListener("click", e =>{
+				this.state.sections.forEach( (section, idx) => {
+					if(section.id == info.sectionContainerId){
+						
+						this.state.sections[idx].resources = this.state.sections[idx].resources.filter( resource => {
+							return resource.id !== e.target.parentElement.id
+						});
+					}
+				})
+
+				e.target.parentElement.remove();
+				this.updateState();
 			})
 
 			return templateDom
@@ -174,8 +184,6 @@ window.onload = (function(){
 	/* ************************* */
 	// TEMP: set state
 	// get initial state
-	// let initialState = JSON.parse(Object.keys(localStorage).map(name => localStorage.getItem(name)))[0]
-
 
 	let app = new App();
 	// app.addSection("hello", "world", "")
