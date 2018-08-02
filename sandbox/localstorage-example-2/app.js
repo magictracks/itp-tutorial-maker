@@ -92,11 +92,16 @@ window.onload = (function(){
 		makeSection(info){
 			let template = `
 				<div id="${info.id}" class="section">
-					<button class="removeSection">remove section</button>
+					
 					<h3>${info.title}</h3>
 					<small>${info.id}</small>
 					<p>${info.description}</p>
+
+					<div class="controls">
 					<button class="addResource">add resource</button>
+					<button class="removeSection">remove section</button>
+					</div>
+					
 				</div>
 			`
 			let templateDom = parseTemplateString(template);
@@ -104,9 +109,9 @@ window.onload = (function(){
 			// attach event listener to that element
 			templateDom.querySelector(".removeSection").addEventListener("click", e => {
 				this.state.sections = this.state.sections.filter( section => {
-					return section.id !== e.target.parentElement.id
+					return section.id !== e.target.parentNode.parentElement.id
 				})
-				e.target.parentElement.remove();
+				e.target.parentNode.parentElement.remove();
 				this.updateState();
 			})
 
@@ -114,7 +119,7 @@ window.onload = (function(){
 				let sectionPosition;
 				let sectionId;
 				this.state.sections.forEach( (section, idx) => {
-					if (section.id == e.target.parentElement.id){
+					if (section.id == e.target.parentNode.parentElement.id){
 							sectionPosition = idx;
 							sectionId = section.id;
 					} 
@@ -131,10 +136,13 @@ window.onload = (function(){
 		makeResource(info){
 			let template = `
 				<div id="${info.id}" class="resource">
-					<button class="removeResource">remove resource</button>
+					
 					<h3>${info.title}</h3>
 					<small>${info.id}</small>
 					<p>${info.description}</p>
+					<div class="controls">
+					<button class="removeResource">remove resource</button>
+					</div>
 				</div>
 			`
 			let templateDom = parseTemplateString(template);
@@ -144,12 +152,12 @@ window.onload = (function(){
 					if(section.id == info.sectionContainerId){
 						
 						this.state.sections[idx].resources = this.state.sections[idx].resources.filter( resource => {
-							return resource.id !== e.target.parentElement.id
+							return resource.id !== e.target.parentNode.parentElement.id
 						});
 					}
 				})
 
-				e.target.parentElement.remove();
+				e.target.parentNode.parentElement.remove();
 				this.updateState();
 			})
 
