@@ -6,7 +6,7 @@ const Task = ({task, id, removeTodo}) => (
   <li> {task}, {id}, <button onClick={removeTodo}>X</button></li>
 )
 
-class HelloBtn extends Component {
+class Todos extends Component {
 
 	constructor(props){
 		super(props)
@@ -39,4 +39,4 @@ class HelloBtn extends Component {
 		}
 }
 
-export default HelloBtn
+export default Todos

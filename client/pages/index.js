@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
-import HelloBtn from "../components/HelloBtn.js"
+import Todos from "../components/Todos.js"
 
 class Index extends Component {
 
@@ -11,16 +11,18 @@ class Index extends Component {
     //   return {custom: 'custom'}; 
     // }
 
-   
-   
-
-
     render() {
+      let todos = this.props.todos.map( ({task, id}) => <li>{task}, {id}</li>)
+
       return (
           <div id="Main">
-            <div>Prop from Redux</div>
-            {/*<div>Prop from getInitialProps {this.props.todos.id}</div>*/}
-            <HelloBtn {...this.props}/>
+            <div>Hello There!</div>
+            <div>
+              <ul>
+               {todos}
+              </ul>
+            </div>
+            <Todos {...this.props}/>
           </div>
       )
     }
@@ -31,11 +33,11 @@ class Index extends Component {
 export default connect(state => state)(Index);
 
 
-// export default connect(state => state)(({pathname}) => (
-//        <div className="other">
-//            <div>Using Next.js default prop in a wrapped component: {pathname}</div>
-//            <nav>
-//                <Link href="/"><a>Navigate to index</a></Link>
-//            </nav>
-//        </div>
-//    ));
+
+
+
+
+
+
+
+
