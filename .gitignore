@@ -23,3 +23,5 @@ yarn-error.log*
 private/
 
 node_modules/
+
+.next
