@@ -6,7 +6,8 @@ window.onload = (function(){
 				headerImageUrl,
 				"type":"tutorial",
 				"sections":[],
-				id: "tutorial"
+				id: "tutorial",
+				editable: false
 			}]
 	}
 	function createSection(title, description, headerImageUrl, id){
@@ -15,7 +16,8 @@ window.onload = (function(){
 				headerImageUrl,
 				"type":"section",
 				"resources":[],
-				"id": `section-${id}`
+				"id": `section-${id}`,
+				editable: false
 			}
 	}
 	function createResource(title, description, headerImageUrl, sectionId, id){
@@ -24,7 +26,8 @@ window.onload = (function(){
 				headerImageUrl,
 				"type":"resource",
 				"sectionContainerId":sectionId,
-				"id": `resource-${id}`
+				"id": `resource-${id}`,
+				editable: false
 			}
 	}
 
@@ -39,6 +42,7 @@ window.onload = (function(){
 			this.makeTutorial = this.makeTutorial.bind(this)
 			this.makeSection = this.makeSection.bind(this);
 			this.render = this.render.bind(this);
+			// this.toggleEditable = this.toggleEditable.bind(this);
 
 			// initialize with an empty tutorial if nothing is around
 			if (localStorage.getItem("tutorial") === null ){
@@ -51,7 +55,30 @@ window.onload = (function(){
 				this.addSection("im a title", "im a desc", "", this.state.sections.length );
 			}) 
 
+			// document.querySelector("#editTutorial").addEventListener("click", e => {
+			// 	this.toggleEditable(this.state, "h1", e)
+
+			// }) 
+
 		}
+
+		// toggleEditable(obj, elem, btn){
+
+		// 	if(obj.editable == false){
+		// 		btn.target.innerHTML = "save";
+		// 		obj.editable = true;
+		// 		document.querySelector(elem).setAttribute("contenteditable", true)
+
+		// 	} else {
+		// 		btn.target.innerHTML = "edit";
+		// 		obj.editable = false;
+
+		// 		document.querySelector(elem).setAttribute("contenteditable", false)
+
+		// 		this.updateState()
+		// 	}
+
+		// }
 
 
 		getState() {
@@ -82,8 +109,8 @@ window.onload = (function(){
 		makeTutorial(info){
 			let template = `
 				<div id="tutorial">
-					<h1>${info.title}</h1>
-					<p>${info.description}</p>
+					<h1 class="tutorialTitle">${info.title}</h1>
+					<p class="tutorialDescription">${info.description}</p>
 				</div>
 			`
 			return parseTemplateString(template);
@@ -93,9 +120,9 @@ window.onload = (function(){
 			let template = `
 				<div id="${info.id}" class="section">
 					
-					<h3>${info.title}</h3>
+					<h3 class="sectionTitle">${info.title}</h3>
 					<small>${info.id}</small>
-					<p>${info.description}</p>
+					<p class="sectionDescription">${info.description}</p>
 
 					<div class="controls">
 					<button class="addResource">add resource</button>
@@ -137,9 +164,9 @@ window.onload = (function(){
 			let template = `
 				<div id="${info.id}" class="resource">
 					
-					<h3>${info.title}</h3>
+					<h3 class="resourceTitle">${info.title}</h3>
 					<small>${info.id}</small>
-					<p>${info.description}</p>
+					<p class="resourceDescription">${info.description}</p>
 					<div class="controls">
 					<button class="removeResource">remove resource</button>
 					</div>
