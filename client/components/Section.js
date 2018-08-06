@@ -44,10 +44,15 @@ class Section extends Component {
     update(){
       return true;
     }
+    
 
     createElement(){
       return html`
         <div class="flex flex-column w-100 pa2" style="background-color: #9EEBCF; border-bottom:1px solid black;">
+          <select>
+              ${this.state.sections.map( (section) => html`<option ${section.position == this.feat.position ? "selected" : ""}>${section.position}</option>` )}
+          </select>
+
           <form onkeypress="return event.keyCode != 13;" class="flex flex-column w-100 pa2">
             <textarea type="textarea" name="title" value=${this.feat.properties.title} onkeyup=${this.handleChange} style="width: 100%;
                     height: 60px;
