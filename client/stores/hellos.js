@@ -8,6 +8,7 @@ function store (state, emitter) {
     emitter.on('hellos:add', function (hello) {
       state.totalHellos += 1;
       state.hellos.push(hello);
+      
       emitter.emit(state.events.RENDER)
     })
   })

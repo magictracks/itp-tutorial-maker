@@ -15,5 +15,4 @@ function HelloBtn (emit, greeting){
     </button>
   `
 
-  
 }

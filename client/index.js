@@ -10,6 +10,10 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 /* --- Access your stores --- */
+app.use(require('./stores/auth'))
+app.use(require('./stores/tutorial'))
+app.use(require('./stores/sections'))
+app.use(require('./stores/projects'))
 app.use(require('./stores/clicks'))
 app.use(require('./stores/hellos'))
 
