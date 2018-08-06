@@ -25,3 +25,5 @@ private/
 node_modules/
 
 .next
+
+client/out/*
