@@ -1,6 +1,5 @@
 var Component = require('choo/component')
 var html = require('choo/html')
-
 var Section = require("./Section");
 
 class Tutorial extends Component {
@@ -68,7 +67,8 @@ class Tutorial extends Component {
             resize: none;">${this.state.tutorial.description}</textarea>
         </form>
 
-        <div id="Section-container">
+        <div id="Section-container" class="outline ma2">
+           ${this.state.sections.map((section) => this.state.cache(Section, section.id, section).render())}
         </div>
         <div class="flex flex-column w-50 pa2 center">
           <button id="AddSectionBtn" onclick=${this.addSection}> add section

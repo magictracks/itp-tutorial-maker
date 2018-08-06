@@ -15,6 +15,7 @@ function store (state, emitter) {
       let newSection = {
         position: sectionsLength,
         id: uniqid(),
+        tutorialId: state.tutorial.id,
         properties: {
           title:"I'm a section title",
           description:"I'm a section description",
