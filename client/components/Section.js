@@ -1,5 +1,6 @@
 var Component = require('choo/component')
 var html = require('choo/html')
+var Resource = require('./Resource')
 
 
 class Section extends Component {
@@ -12,33 +13,22 @@ class Section extends Component {
 
 
       this.handleChange = this.handleChange.bind(this);
-      this.addReference = this.addReference.bind(this);
+      this.addResource = this.addResource.bind(this);
       this.removeSection = this.removeSection.bind(this);
       this.changePosition = this.changePosition.bind(this);
-      // this.local = this.state.components[name] = {}
-      // this.setState();
     }
 
     handleChange(e){
       e.preventDefault();
-
       let k = e.target.name
-      console.log(k, `position:${this.feat.position}`)
-      console.log(this)
-
-      // this.setState({k: e.target.value})
       this.emit("sections:update", k, e.target.value, this.feat.position)
     }
 
-    // setState(){
-    //   this.local.title = "I'm a section title"
-    //   this.local.description = "I'm a section description"
-    //   this.local.headerImageUrl = "I'm a section description"
-    // }
 
-    addReference(e){
+    addResource(e){
       e.preventDefault();
-      console.log("adding reference")
+      console.log("adding resource")
+      this.emit("sections:addResource", this.feat.position)
     }
 
     removeSection(e){
@@ -51,7 +41,6 @@ class Section extends Component {
       
       let k = e.target.name;
       let val = e.target.value;
-      // console.log("changing position", k, val)
       this.emit("sections:changePosition", k, val, this.feat.position)
     }
 
@@ -84,6 +73,7 @@ class Section extends Component {
                     resize: none;">${this.feat.properties.description}</textarea>
           </form>
           <div class="resource-container">
+           ${this.feat.resources.map((resource) => this.state.cache(Resource, resource.id).render()) }
           </div>
           <div class="flex flex-column w-50 pa2 center">
             <button onclick=${this.addResource}> add resource

@@ -18,7 +18,6 @@ class Tutorial extends Component {
     e.preventDefault();
 
     let k = e.target.name
-    console.log(k)
     // this.setState({k: e.target.value})
     this.emit("tutorial:update", k, e.target.value)
   }

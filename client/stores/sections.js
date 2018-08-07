@@ -20,7 +20,8 @@ function store (state, emitter) {
           title:"I'm a section title",
           description:"I'm a section description",
           headerImageUrl:""
-        }
+        },
+        resources:[]
       }
 
       state.sections.push(newSection)
@@ -28,15 +29,11 @@ function store (state, emitter) {
     })
 
     emitter.on('sections:update', function (k, val, position) {
-      // state.tutorial[k] = val;
       state.sections[position].properties[k] = val;
       emitter.emit(state.events.RENDER)
     })
 
     emitter.on('sections:changePosition', function (k, newPosition, currentPosition) {
-      // state.tutorial[k] = val;
-      // state.sections[position].properties[k] = val;
-      // console.log("new pos:" + newPosition, "current pos:" + currentPosition)
       // update the position in the data
       state.sections[currentPosition].properties[k] = newPosition;
       // move the object to that position in the array
@@ -48,10 +45,30 @@ function store (state, emitter) {
 
       emitter.emit(state.events.RENDER)
     })
+
+
+    emitter.on('sections:addResource', function (position) {
+      let resourcesLength = state.sections[position].resources.length
+
+      let newResource = {
+        position: resourcesLength,
+        id: uniqid(),
+        sectionId: state.sections[position].id,
+        tutorialId: state.tutorial.id,
+        properties: {
+          title:"I'm a resource title",
+          description:"I'm a resource description",
+          headerImageUrl:""
+        }
+      }
+
+      state.sections[position].resources.push(newResource)
+      emitter.emit(state.events.RENDER)
+    })
   })
 }
 
-
+// via https://www.w3resource.com/javascript-exercises/javascript-array-exercise-38.php
 function move(arr, old_index, new_index) {
     while (old_index < 0) {
         old_index += arr.length;
