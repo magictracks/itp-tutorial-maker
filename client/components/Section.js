@@ -46,9 +46,13 @@ class Section extends Component {
       console.log("removing section")
     }
 
-    changePosition(){
+    changePosition(e){
       e.preventDefault();
-      console.log("changing position")
+      
+      let k = e.target.name;
+      let val = e.target.value;
+      // console.log("changing position", k, val)
+      this.emit("sections:changePosition", k, val, this.feat.position)
     }
 
     update(){
@@ -59,7 +63,7 @@ class Section extends Component {
     createElement(){
       return html`
         <div class="flex flex-column w-100 pa2" style="background-color: #9EEBCF; border-bottom:1px solid black;">
-          <select>
+          <select name="position" onchange=${this.changePosition}>
               ${this.state.sections.map( (section) => html`<option ${section.position == this.feat.position ? "selected" : ""}>${section.position}</option>` )}
           </select>
 
