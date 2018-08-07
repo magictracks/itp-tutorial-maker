@@ -34,7 +34,7 @@ class Tutorial extends Component {
 
   createElement(){
     return html`
-      <div id="Tutorial" class="outline flex flex-column w-60">
+      <div id="Tutorial" class="outline flex flex-column w-80">
 
         <form onkeypress="return event.keyCode != 13;" class="flex flex-column w-100 pa2">
           <textarea 
@@ -66,7 +66,7 @@ class Tutorial extends Component {
             resize: none;">${this.state.tutorial.description}</textarea>
         </form>
 
-        <div id="Section-container" class="outline ma2">
+        <div id="Section-container" class="ma2">
            ${this.state.sections.map((section) => this.state.cache(Section, section.id, section).render())}
         </div>
         <div class="flex flex-column w-50 pa2 center">
