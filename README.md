@@ -4,6 +4,10 @@ A tool for building tutorials using a db of tagged and vetted resources. The ide
 
 ## Setup
 
+
+
+
+<!-- 
 1. Run mongodb in **terminal window #1**
 ```
 mongod
@@ -20,3 +24,4 @@ npm start
 cd itp-tutorial-maker
 npm run dev
 ```
+ -->
