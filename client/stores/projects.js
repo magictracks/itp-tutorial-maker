@@ -4,14 +4,28 @@ module.exports = store
 
 function store (state, emitter) {
   state.projects =  {
+      localStorageKeys: [],
       openModal: false,
       lastSavedToLocalStorage: new Date()
   }
-  // state.projects.openExisting = false;
-  // state.projects.lastSavedToLocalStorage = new Date();
 
+
+  // if(typeof localStorage !== undefined ){
+  //   if(Object.keys(localStorage) > 0){
+  //     state.projects.localStorageKeys = Object.keys(localStorage);
+  //   }else{
+  //     state.projects.localStorageKeys = []
+  //   }
+  // }
 
   emitter.on('DOMContentLoaded', function () {
+
+    emitter.on('projects:getLocalStorageKeys', function () {
+      state.projects.localStorageKeys = Object.keys(localStorage);
+      console.log(state.projects.localStorageKeys)
+      // emitter.emit(state.events.RENDER)
+    })
+
     emitter.on('projects:openModal', function () {
       state.projects.openModal = true;
 

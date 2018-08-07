@@ -18,6 +18,7 @@ class OpenExistingProjectBtn extends Component {
     this.getSavedProjects = this.getSavedProjects.bind(this) 
     this.openSelectedProject = this.openSelectedProject.bind(this)
 
+
     this.setState();
   }
 
@@ -38,6 +39,7 @@ class OpenExistingProjectBtn extends Component {
     if(this.state.projects.openModal === false){
       this.display = "none"
     } else{
+      this.getSavedProjects()
       this.display = "visible"
     }
   }
@@ -50,8 +52,7 @@ class OpenExistingProjectBtn extends Component {
   }
 
   getSavedProjects(){
-    return Object.keys(localStorage)
-    // return Object.keys(localState).map( k => JSON.parse(localState.getItem(k))[0]  )
+    this.emit("projects:getLocalStorageKeys")
   }
 
   openSelectedProject(e){
@@ -75,7 +76,7 @@ class OpenExistingProjectBtn extends Component {
           <div class="modal-content flex flex-column w-60 pa2 outline">
             <span onclick=${this.closeModal} class="close">X</span>
             <ul>
-              ${this.getSavedProjects().map(item => html`<li onclick=${this.openSelectedProject} data-id=${item}>${item}<li>`) }
+              ${this.state.projects.localStorageKeys.map(item => html`<li onclick=${this.openSelectedProject} data-id=${item}>${item}<li>`) }
             </ul>
           </div>
         </div>
