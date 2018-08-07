@@ -21,7 +21,11 @@ function store (state, emitter) {
     emitter.on('projects:saveToLocalStorage', function () {
       state.projects.lastSavedToLocalStorage = new Date();
 
-      localStorage.setItem(state.tutorial.id, [JSON.stringify(state.tutorial), JSON.stringify(state.sections), JSON.stringify(state.resources)])
+      /*
+      JSON.parse(localStorage.getItem("<id>"))[0].tutorial
+      JSON.parse(localStorage.getItem("<id>"))[0].sections
+      */
+      localStorage.setItem(state.tutorial.id,  JSON.stringify([ {"tutorial": state.tutorial, "sections":state.sections}]) )
 
       emitter.emit(state.events.RENDER)
     })
