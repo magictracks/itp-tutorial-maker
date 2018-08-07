@@ -73,6 +73,19 @@ function store (state, emitter) {
       emitter.emit(state.events.RENDER)
     })
 
+    emitter.on('sections:changeResourcePosition', function (k, val, sectionPosition, featPosition ) {
+      
+      state.sections[sectionPosition].resources[featPosition].properties[k] = val;
+      // move the object to that position in the array
+      state.sections[sectionPosition].resources = move(state.sections[sectionPosition].resources, val, featPosition)
+      // then re-assign position numbers
+      state.sections[sectionPosition].resources.forEach( (resource, idx) => {
+        resource.position = idx;
+      })
+
+      emitter.emit(state.events.RENDER)
+    })
+
 
   })
 }
