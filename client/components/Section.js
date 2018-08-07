@@ -73,7 +73,7 @@ class Section extends Component {
                     resize: none;">${this.feat.properties.description}</textarea>
           </form>
           <div class="resource-container ma3">
-           ${this.feat.resources.map((resource) => this.state.cache(Resource, resource.id, resource).render()) }
+           ${this.feat.resources.map((resource) => this.state.cache(Resource, resource.id, resource, this.feat.position).render()) }
           </div>
           <div class="flex flex-column w-50 pa2 center">
             <button onclick=${this.addResource}> add resource

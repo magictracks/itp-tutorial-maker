@@ -33,6 +33,7 @@ function store (state, emitter) {
       emitter.emit(state.events.RENDER)
     })
 
+
     emitter.on('sections:changePosition', function (k, newPosition, currentPosition) {
       // update the position in the data
       state.sections[currentPosition].properties[k] = newPosition;
@@ -45,7 +46,6 @@ function store (state, emitter) {
 
       emitter.emit(state.events.RENDER)
     })
-
 
     emitter.on('sections:addResource', function (position) {
       let resourcesLength = state.sections[position].resources.length
@@ -65,6 +65,15 @@ function store (state, emitter) {
       state.sections[position].resources.push(newResource)
       emitter.emit(state.events.RENDER)
     })
+
+
+    emitter.on('sections:updateResource', function (k, val, sectionPosition, featPosition ) {
+      // let resourcesLength = state.sections[position].resources.length
+      state.sections[sectionPosition].resources[featPosition].properties[k] = val;
+      emitter.emit(state.events.RENDER)
+    })
+
+
   })
 }
 

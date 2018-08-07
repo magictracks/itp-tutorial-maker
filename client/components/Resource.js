@@ -3,13 +3,23 @@ var html = require('choo/html')
 
 
 class Resource extends Component{
-  constructor(name, state, emit, feat){
+  constructor(name, state, emit, feat, sectionPosition){
     super(name)
 
     this.state = state;
     this.emit = emit;
+    this.sectionPosition = sectionPosition;
     this.feat = feat;
 
+    this.handleChange = this.handleChange.bind(this);
+
+  }
+
+  handleChange(e){
+    console.log(e.target.name)
+    let k  = e.target.name;
+    let val = e.target.value;
+    this.emit("sections:updateResource", k, val, this.sectionPosition, this.feat.position)
   }
 
   update(){
@@ -20,6 +30,7 @@ class Resource extends Component{
     return html`
       <div class="flex flex-column w-100 pa2" style="background-color:  #ffa3d7; margin-bottom:2px;">
         <select name="position" onchange="">
+          ${this.state.sections[this.sectionPosition].resources.map( (resource) => html`<option ${resource.position == this.feat.position ? "selected" : ""}>${resource.position}</option>` )}
         </select>
         <form onkeypress="return event.keyCode != 13;" class="flex flex-column w-100 pa2">
           <textarea type="textarea" name="title" value=${this.feat.properties.title} onkeyup=${this.handleChange} style="width: 100%;
