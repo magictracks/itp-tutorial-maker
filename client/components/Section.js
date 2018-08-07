@@ -15,16 +15,26 @@ class Section extends Component {
       this.addReference = this.addReference.bind(this);
       this.removeSection = this.removeSection.bind(this);
       this.changePosition = this.changePosition.bind(this);
+      // this.local = this.state.components[name] = {}
+      // this.setState();
     }
 
     handleChange(e){
       e.preventDefault();
 
       let k = e.target.name
-      console.log(k)
+      console.log(k, `position:${this.feat.position}`)
+      console.log(this)
+
       // this.setState({k: e.target.value})
-      // this.emit("section:update", k, e.target.value)
+      this.emit("sections:update", k, e.target.value, this.feat.position)
     }
+
+    // setState(){
+    //   this.local.title = "I'm a section title"
+    //   this.local.description = "I'm a section description"
+    //   this.local.headerImageUrl = "I'm a section description"
+    // }
 
     addReference(e){
       e.preventDefault();

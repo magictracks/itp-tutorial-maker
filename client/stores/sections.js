@@ -3,8 +3,8 @@ var uniqid = require('uniqid');
 module.exports = store
 
 
-
 function store (state, emitter) {
+
   state.sections = [];
 
   emitter.on('DOMContentLoaded', function () {
@@ -24,7 +24,12 @@ function store (state, emitter) {
       }
 
       state.sections.push(newSection)
+      emitter.emit(state.events.RENDER)
+    })
 
+    emitter.on('sections:update', function (k, val, position) {
+      // state.tutorial[k] = val;
+      state.sections[position].properties[k] = val;
       emitter.emit(state.events.RENDER)
     })
   })
