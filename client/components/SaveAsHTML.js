@@ -28,7 +28,7 @@ class SaveAsHTML extends Component {
     // encodeURIComponent(document.querySelector("main").outerHTML)
     return html`
       <div class="pa2 mr2 self-end tr">
-        <a class="tr" href="data:text/html;charset=utf-8,${""}" download="${this.state.tutorial.id}.html" onclick=${this._onclick}>Save as HTML</a>
+        <a class="tr" href="data:text/html;charset=utf-8,<h1>this will be your tutorial output in HTML</h1>" download="${this.state.tutorial.id}.html" onclick=${this._onclick}>Save as HTML</a>
       </div>
     `
   }
