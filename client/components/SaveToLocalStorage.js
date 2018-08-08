@@ -25,7 +25,7 @@ class SaveToLocalStorage extends Component {
   createElement () {
     return html`
       <div class="pa2 mr2 self-end tr">
-        <a href="#" class="tr" onclick=${this._onclick}>Save to Local Storage</a>
+        <a href="#" class="tr" onclick=${this._onclick}>Save to localStorage</a>
       </div>
     `
   }

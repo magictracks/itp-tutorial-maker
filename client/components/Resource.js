@@ -35,6 +35,7 @@ class Resource extends Component{
   }
 
   update(){
+    this.emit("projects:saveAsJSON");
     return true;
   }
 

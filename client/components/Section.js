@@ -45,6 +45,7 @@ class Section extends Component {
     }
 
     update(){
+      this.emit("projects:saveAsJSON");
       return true;
     }
     

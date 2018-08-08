@@ -1,22 +1,12 @@
-// let OpenProjectModal = require("../components/OpenProjectModal")
-
 module.exports = store
 
 function store (state, emitter) {
   state.projects =  {
       localStorageKeys: [],
       openModal: false,
-      lastSavedToLocalStorage: new Date()
+      lastSavedToLocalStorage: new Date(),
+      outputJSON:""
   }
-
-
-  // if(typeof localStorage !== undefined ){
-  //   if(Object.keys(localStorage) > 0){
-  //     state.projects.localStorageKeys = Object.keys(localStorage);
-  //   }else{
-  //     state.projects.localStorageKeys = []
-  //   }
-  // }
 
   emitter.on('DOMContentLoaded', function () {
 
@@ -50,12 +40,40 @@ function store (state, emitter) {
       emitter.emit(state.events.RENDER)
     })
 
+    emitter.on('projects:saveAsJSON', function () {
+      /*
+      JSON.parse(localStorage.getItem(choo.state.tutorial.id))[0]
+      */
+      // first save to localStorage
+      localStorage.setItem(state.tutorial.id,  JSON.stringify([ {"tutorial": state.tutorial, "sections":state.sections}]) )
+      // write to json file
+      // console.log(JSON.stringify({"tutorial": state.tutorial, "sections":state.sections}))
+      state.projects.outputJSON = JSON.stringify({"tutorial": state.tutorial, "sections":state.sections})
+
+      emitter.emit(state.events.RENDER)
+    })
+
+    emitter.on('projects:saveToHTML', function () {
+      /*
+      JSON.parse(localStorage.getItem(choo.state.tutorial.id))[0]
+      */
+      // first save to localStorage
+      localStorage.setItem(state.tutorial.id,  JSON.stringify([ {"tutorial": state.tutorial, "sections":state.sections}]) )
+      // write to json file
+      console.log(JSON.stringify({"tutorial": state.tutorial, "sections":state.sections}))
+
+
+      emitter.emit(state.events.RENDER)
+    })
+
     emitter.on('projects:openSelectedProject', function (selected) {
       console.log(selected)
 
       state.tutorial = JSON.parse(localStorage.getItem(selected))[0].tutorial
       state.sections = JSON.parse(localStorage.getItem(selected))[0].sections
-      
+      // TODO: there's probably a better way to do this
+      state.projects.outputJSON = JSON.stringify({"tutorial": state.tutorial, "sections":state.sections})
+
       emitter.emit(state.events.RENDER)
     })
 

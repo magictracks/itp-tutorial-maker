@@ -29,6 +29,7 @@ class Tutorial extends Component {
   }
 
   update(){
+    this.emit("projects:saveAsJSON");
     return true;
   }
 

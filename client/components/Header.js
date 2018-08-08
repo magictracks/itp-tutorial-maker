@@ -4,7 +4,8 @@ var html = require('choo/html')
 var AuthBtn = require('../components/AuthBtn')
 var OpenExistingProjectBtn = require('../components/OpenExistingProjectBtn')
 var SaveToLocalStorage = require('../components/SaveToLocalStorage')
-
+var SaveAsJSON = require('../components/SaveAsJSON')
+var SaveAsHTML = require('../components/SaveAsHTML')
 
 
 
@@ -30,6 +31,8 @@ class Header extends Component {
       ${this.state.cache(AuthBtn, "AuthBtn").render()}
       ${this.state.cache(OpenExistingProjectBtn, "OpenExistingProjectBtn").render()}
       ${this.state.cache(SaveToLocalStorage, "SaveToLocalStorage").render()}
+      ${this.state.cache(SaveAsJSON, "SaveAsJSON").render()}
+      ${this.state.cache(SaveAsHTML, "SaveAsHTML").render()}
     </header>
     `
   }
