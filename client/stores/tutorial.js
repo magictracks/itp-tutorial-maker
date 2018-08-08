@@ -15,5 +15,12 @@ function store (state, emitter) {
       state.tutorial[k] = val;
       emitter.emit(state.events.RENDER)
     })
+
+
+    emitter.on('tutorial:updateImage', function (base64img) {
+      state.tutorial.headerImageUrl = base64img;
+      emitter.emit(state.events.RENDER)
+    })
+
   })
 }

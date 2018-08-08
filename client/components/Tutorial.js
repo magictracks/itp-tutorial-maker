@@ -12,6 +12,8 @@ class Tutorial extends Component {
 
     this.handleChange = this.handleChange.bind(this);
     this.addSection = this.addSection.bind(this);
+    this.handleImageFile = this.handleImageFile.bind(this);
+
   }
 
   handleChange(e){
@@ -25,6 +27,31 @@ class Tutorial extends Component {
   addSection(e){
     e.preventDefault();
     this.emit("sections:add")
+
+  }
+
+  handleImageFile(e){
+    e.preventDefault();
+    console.log()
+    let file = e.target.files[0]
+    let reader = new FileReader();
+
+    // console.log(reader)
+
+    // var preview = document.querySelector('img');
+
+    // var file    = document.querySelector('input[type=file]').files[0];
+    // var reader  = new FileReader();
+
+    reader.addEventListener("load", () =>{
+      // reader.result
+      this.emit("tutorial:updateImage", reader.result);
+    }, false);
+
+    if (file) {
+      reader.readAsDataURL(file);
+      // this.emit("tutorial:updateImage", reader.result);
+    }
 
   }
 
@@ -50,8 +77,9 @@ class Tutorial extends Component {
             border: 2px solid #ccc;
             resize: none;">${this.state.tutorial.title}</textarea>
         </form>
-        <div class="w-100 flex flex-row justify-center pa2">
+        <div class="w-100 flex flex-column justify-center pa2">
         <img src=${this.state.tutorial.headerImageUrl} style="width:80%"/>
+        <input type="file" onchange=${this.handleImageFile}><br>
         </div>
         <form onkeypress="return event.keyCode != 13;" class="flex flex-column w-100 pa2">
           <textarea 
