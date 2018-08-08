@@ -1,5 +1,6 @@
 var Component = require('choo/component')
 var html = require('choo/html')
+var css = require("sheetify")
 
 
 class OpenExistingProjectBtn extends Component {
@@ -70,7 +71,6 @@ class OpenExistingProjectBtn extends Component {
       <div>
         <div class="pa2 mr2 self-end tr">
           <a href="#" class="tr" onclick=${this._onclick}>Open from localStorage</a>
-          <input type="file"/>
         </div>
         <!-- modal --> 
         <div id="OpenProjectModal" class="modal absolute flex flex-column justify-center items-center w-100 h-100 top-0 left-0 bg-white" style="display:${this.display}">

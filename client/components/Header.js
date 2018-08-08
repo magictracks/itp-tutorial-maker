@@ -6,6 +6,7 @@ var OpenExistingProjectBtn = require('../components/OpenExistingProjectBtn')
 var SaveToLocalStorage = require('../components/SaveToLocalStorage')
 var SaveAsJSON = require('../components/SaveAsJSON')
 var SaveAsHTML = require('../components/SaveAsHTML')
+var OpenExistingJSON = require('../components/OpenExistingJSON')
 
 
 
@@ -29,6 +30,7 @@ class Header extends Component {
         <code>Magic Tracks</code>
       </div>
       ${this.state.cache(AuthBtn, "AuthBtn").render()}
+      ${this.state.cache(OpenExistingJSON, "OpenExistingJSON").render()}
       ${this.state.cache(OpenExistingProjectBtn, "OpenExistingProjectBtn").render()}
       ${this.state.cache(SaveToLocalStorage, "SaveToLocalStorage").render()}
       ${this.state.cache(SaveAsJSON, "SaveAsJSON").render()}

@@ -77,6 +77,18 @@ function store (state, emitter) {
       emitter.emit(state.events.RENDER)
     })
 
+    emitter.on('projects:openJsonFile', function (selected) {
+      console.log(JSON.parse(selected))
+      selected = JSON.parse(selected);
+
+      console.log("i'm a tutorial", state.tutorial)
+
+      state.tutorial = selected.tutorial
+      state.sections = selected.sections
+
+      emitter.emit(state.events.RENDER)
+    })
+
 
   })
 }
