@@ -1,5 +1,5 @@
 var html = require('choo/html')
-var TITLE = 'client-choo - main'
+var TITLE = '🚂client-choo - main'
 
 var Header = require('../components/Header')
 var Tutorial = require('../components/Tutorial')
