@@ -69,7 +69,8 @@ class OpenExistingProjectBtn extends Component {
     return html`
       <div>
         <div class="pa2 mr2 self-end tr">
-          <a href="#" class="tr" onclick=${this._onclick}>Open Existing</a>
+          <a href="#" class="tr" onclick=${this._onclick}>Open from localStorage</a>
+          <input type="file"/>
         </div>
         <!-- modal --> 
         <div id="OpenProjectModal" class="modal absolute flex flex-column justify-center items-center w-100 h-100 top-0 left-0 bg-white" style="display:${this.display}">

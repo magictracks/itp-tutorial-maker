@@ -19,9 +19,12 @@ class Tutorial extends Component {
   handleChange(e){
     e.preventDefault();
 
-    let k = e.target.name
-    // this.setState({k: e.target.value})
-    this.emit("tutorial:update", k, e.target.value)
+    if(e.keyCode != 13){
+      let k = e.target.name
+      // this.setState({k: e.target.value})
+      this.emit("tutorial:update", k, e.target.value)  
+    }
+    
   }
 
   addSection(e){
@@ -32,16 +35,8 @@ class Tutorial extends Component {
 
   handleImageFile(e){
     e.preventDefault();
-    console.log()
     let file = e.target.files[0]
     let reader = new FileReader();
-
-    // console.log(reader)
-
-    // var preview = document.querySelector('img');
-
-    // var file    = document.querySelector('input[type=file]').files[0];
-    // var reader  = new FileReader();
 
     reader.addEventListener("load", () =>{
       // reader.result
@@ -50,7 +45,6 @@ class Tutorial extends Component {
 
     if (file) {
       reader.readAsDataURL(file);
-      // this.emit("tutorial:updateImage", reader.result);
     }
 
   }

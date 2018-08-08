@@ -24,7 +24,7 @@ class Header extends Component {
 
   createElement (){
     return html`
-    <header class="flex w-100 center pa2">
+    <header class="flex w-100 center pa2 flex-row flex-wrap">
       <div class="outline pa2 mr2">
         <code>Magic Tracks</code>
       </div>

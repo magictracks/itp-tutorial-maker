@@ -5,8 +5,8 @@ var Header = require('../components/Header')
 var Tutorial = require('../components/Tutorial')
 var HelloBtn = require('../components/HelloBtn')
 
-
 module.exports = view
+
 
 function view (state, emit) {
 
