@@ -35,7 +35,7 @@ function store (state, emitter) {
 
 
     emitter.on('sections:removeSection', function (currentPosition) {
-      // update the position in the data
+      // we should add a prompt "are you sure you want to remove?"
       state.sections = state.sections.filter(section => section.position !== currentPosition)
       // move the object to that position in the array
       // then re-assign position numbers
@@ -82,6 +82,18 @@ function store (state, emitter) {
     emitter.on('sections:updateResource', function (k, val, sectionPosition, featPosition ) {
       // let resourcesLength = state.sections[position].resources.length
       state.sections[sectionPosition].resources[featPosition].properties[k] = val;
+      emitter.emit(state.events.RENDER)
+    })
+
+    emitter.on('sections:removeResource', function (sectionPosition, featPosition ) {
+      // filter out the resource that was there
+      // we should add a prompt "are you sure you want to remove?"
+      state.sections[sectionPosition].resources = state.sections[sectionPosition].resources.filter( resource => resource.position !== featPosition)
+      // update the position index
+      state.sections[sectionPosition].resources.forEach( (resource, idx) => {
+        resource.position = idx;
+      })
+
       emitter.emit(state.events.RENDER)
     })
 

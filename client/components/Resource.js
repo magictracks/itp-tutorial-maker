@@ -13,7 +13,14 @@ class Resource extends Component{
 
     this.handleChange = this.handleChange.bind(this);
     this.changePosition = this.changePosition.bind(this);
+    this.removeResource = this.removeResource.bind(this);
 
+  }
+
+  removeResource(e){
+    e.preventDefault();
+    console.log("removing section")
+    this.emit("sections:removeResource", this.sectionPosition, this.feat.position)
   }
 
   handleChange(e){
@@ -67,7 +74,7 @@ class Resource extends Component{
             </button>
           </div>
           <div class="flex flex-row w-50 pa2 center">
-            <button style="background-color:  #ffa3d7; border:2px solid white; color:white"> remove resource
+            <button onclick=${this.removeResource} style="background-color:  #ffa3d7; border:2px solid white; color:white"> remove resource
             </button>
           </div>  
         </div>
