@@ -52,6 +52,8 @@ class Resource extends Component{
         <select name="position" onchange="${this.changePosition}">
           ${this.state.sections[this.sectionPosition].resources.map( (resource) => html`<option ${resource.position == this.feat.position ? "selected" : ""}>${resource.position}</option>` )}
         </select>
+        <button onclick=${this.removeResource}> remove resource
+            </button>
         <form onkeypress="return event.keyCode != 13;" class="flex flex-column w-100 pa2">
           <textarea type="textarea" name="title" value=${this.feat.properties.title} onkeyup=${this.handleChange} style="width: 100%;
                   height: 60px;
@@ -73,10 +75,6 @@ class Resource extends Component{
             <button style="background-color:  #ffa3d7; border:2px solid white; color:white"> save to nyu tagged resources
             </button>
           </div>
-          <div class="flex flex-row w-50 pa2 center">
-            <button onclick=${this.removeResource} style="background-color:  #ffa3d7; border:2px solid white; color:white"> remove resource
-            </button>
-          </div>  
         </div>
       </div>
     `
