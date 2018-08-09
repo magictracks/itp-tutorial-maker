@@ -34,23 +34,79 @@ class SaveAsHTML extends Component {
     <html>
       <head>
         <title>Magic Tracks!</title>
+        <meta charset="UTF-8">
+        <meta name="description" content="magic tracks tutorial">
+        <meta name="keywords" content="magic tracks">
+        <meta name="author" content="educators of the internet">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style type="text/css">
+          *{
+            box-sizing:border-box;
+            font-family:helvetica, sans-serif;
+          }
+          html,body{
+            width:100%;
+            height:100%;
+          }
+          #Tutorial{
+            width:100%;
+            height:auto;
+            display:flex;
+            flex-direction:column;
+            align-items:center;
+            max-width:800px;
+            border: 2px solid black;
+            padding:10px;
+          }
+          header{
+            width:100%;
+            height:auto;
+            display:flex;
+            flex-direction:column;
+            align-items:center;
+            padding:10px;
+          }
+          header img{
+            max-width:800px;
+            width:100%;
+          }
+          main{
+           width:100%;
+           display:flex;
+           flex-direction:column;
+           align-items:flex-start;
+           padding:10px; 
+           margin: 10px;
+           border: 2px solid black;
+          }
+          .section{
+            width:100%;
+            padding:10px;
+            border: 2px solid black;
+            margin:4px 0px 4px 0px;
+          }
+          .resource{
+            width:100%;
+            padding:10px;
+            border: 2px solid black;
+            margin:4px 0px 4px 0px;
+          }
+        </style>
       </head>
       <body>
         <div id="Tutorial">
           <header>
+            <p>Brought to you by the Magic Tracks...</p>
             <h1>${this.state.tutorial.title}</h1>
             <h2>${this.state.tutorial.description}</h2>
             <img src="${this.state.tutorial.headerImageUrl}"/>
           </header>
           <main>
-            <h2>Sections </h2>
-            ${this.state.sections.map( (section) => html`
+            ${this.state.sections.map( (section, sectionIndex) => html`
               <div class="section">
-                <h3>${section.properties.title}</h3>
+                <h3>Section ${sectionIndex + 1}: ${section.properties.title}</h3>
                 <h4>${section.properties.description}</h4>
                 <div class="resources">
-                  <h3>Resources</h3>
-                  
                   ${section.resources.map( (resource) => html`
                   <div class="resource">
                     <h3>${resource.properties.title}</h3>
