@@ -34,6 +34,7 @@ class Section extends Component {
     removeSection(e){
       e.preventDefault();
       console.log("removing section")
+      this.emit("sections:removeSection", this.feat.position)
     }
 
     changePosition(e){
@@ -56,6 +57,7 @@ class Section extends Component {
           <select name="position" onchange=${this.changePosition}>
               ${this.state.sections.map( (section) => html`<option ${section.position == this.feat.position ? "selected" : ""}>${section.position}</option>` )}
           </select>
+          <button onclick=${this.removeSection}> remove section</button>
 
           <form onkeypress="return event.keyCode != 13;" class="flex flex-column w-100 pa2">
             <textarea type="textarea" name="title" value=${this.feat.properties.title} onkeyup=${this.handleChange} style="width: 100%;

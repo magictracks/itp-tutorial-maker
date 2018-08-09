@@ -34,6 +34,19 @@ function store (state, emitter) {
     })
 
 
+    emitter.on('sections:removeSection', function (currentPosition) {
+      // update the position in the data
+      state.sections = state.sections.filter(section => section.position !== currentPosition)
+      // move the object to that position in the array
+      // then re-assign position numbers
+      state.sections.forEach( (section, idx) => {
+        section.position = idx;
+      })
+
+      emitter.emit(state.events.RENDER)
+    })
+
+
     emitter.on('sections:changePosition', function (k, newPosition, currentPosition) {
       // update the position in the data
       state.sections[currentPosition].properties[k] = newPosition;
@@ -65,7 +78,6 @@ function store (state, emitter) {
       state.sections[position].resources.push(newResource)
       emitter.emit(state.events.RENDER)
     })
-
 
     emitter.on('sections:updateResource', function (k, val, sectionPosition, featPosition ) {
       // let resourcesLength = state.sections[position].resources.length
