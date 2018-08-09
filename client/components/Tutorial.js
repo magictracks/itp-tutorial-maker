@@ -56,7 +56,7 @@ class Tutorial extends Component {
 
   createElement(){
     return html`
-      <div id="Tutorial" class="outline flex flex-column w-80">
+      <div id="Tutorial" class="outline flex flex-column w-100">
 
         <form onkeypress="return event.keyCode != 13;" class="flex flex-column w-100 pa2">
           <textarea 
@@ -71,7 +71,7 @@ class Tutorial extends Component {
             border: 2px solid #ccc;
             resize: none;">${this.state.tutorial.title}</textarea>
         </form>
-        <div class="w-100 flex flex-column justify-center pa2">
+        <div class="w-100 flex flex-column justify-center items-center pa2">
         <img src=${this.state.tutorial.headerImageUrl} style="width:80%"/>
         <input type="file" onchange=${this.handleImageFile}><br>
         </div>
