@@ -87,11 +87,12 @@ class SaveAsHTML extends Component {
            margin: 10px;
            border: 2px solid black;
           }
+          
           .section{
             width:100%;
             padding:10px;
-            border: 2px solid black;
             margin:4px 0px 4px 0px;
+            border: 2px solid black;
           }
           .resource{
             width:100%;
