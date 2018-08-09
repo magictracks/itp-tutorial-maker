@@ -72,8 +72,11 @@ class Tutorial extends Component {
             resize: none;">${this.state.tutorial.title}</textarea>
         </form>
         <div class="w-100 flex flex-column justify-center items-center pa2">
-        <img src=${this.state.tutorial.headerImageUrl} style="width:80%"/>
-        <input type="file" onchange=${this.handleImageFile}><br>
+        <img class="w-100 mw6-l" src=${this.state.tutorial.headerImageUrl}/><br>
+        <label>
+          <input type="file" onchange=${this.handleImageFile}/>
+          Upload an image of your project
+        </label>
         </div>
         <form onkeypress="return event.keyCode != 13;" class="flex flex-column w-100 pa2">
           <textarea 
