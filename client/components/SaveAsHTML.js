@@ -47,6 +47,14 @@ class SaveAsHTML extends Component {
           html,body{
             width:100%;
             height:100%;
+            margin:0;
+          }
+          .container{
+            width:100%;
+            height:auto;
+            display:flex;
+            flex-direction:column;
+            align-items:center;
           }
           #Tutorial{
             width:100%;
@@ -94,6 +102,7 @@ class SaveAsHTML extends Component {
         </style>
       </head>
       <body>
+        <div class="container">
         <div id="Tutorial">
           <header>
             <p>Brought to you by the Magic Tracks...</p>
@@ -119,6 +128,7 @@ class SaveAsHTML extends Component {
               `
               )}
           </main>
+        </div>
         </div>
       </body>
     </html>
