@@ -46,7 +46,7 @@ class OpenExistingJson extends Component {
   createElement(){
     return html`
       <div class="pa2 mr2 self-end tr">
-        <label for="openJsonFile">file dialog</label>
+        <label style="color:#0000EE; text-decoration:underline" for="openJsonFile">Open JSON file</label>
         <input onchange=${this.handleJSONFile} id="openJsonFile" type="file" style="position: fixed; top: -100em">
       </div>
     `
