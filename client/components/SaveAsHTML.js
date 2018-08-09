@@ -40,6 +40,7 @@ class SaveAsHTML extends Component {
           <header>
             <h1>${this.state.tutorial.title}</h1>
             <h2>${this.state.tutorial.description}</h2>
+            <img src="${this.state.tutorial.headerImageUrl}"/>
           </header>
           <main>
             <h2>Sections </h2>
