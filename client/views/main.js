@@ -5,15 +5,9 @@ var TITLE = 'client - main'
 
 module.exports = view
 
-/**
- * <small>Already have an account?</small>
- <h3><a>Login</a></h3>
- <small>Join the community & start building!</small>
- <h3><a>Sign up</a></h3>
- */
-
 function view (state, emit) {
   if (state.title !== TITLE) emit(state.events.DOMTITLECHANGE, TITLE)
+
 
   return html`
     <body class="code lh-copy w-100 h-100">

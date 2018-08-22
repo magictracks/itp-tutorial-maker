@@ -5,7 +5,6 @@ var css = require("sheetify")
 module.exports = function(state, emit) {
 
 
-
   let toggleLoginModal = function(){
     console.log("clicked")
     let els = document.querySelectorAll(".loginModal")
@@ -24,7 +23,7 @@ module.exports = function(state, emit) {
     <nav class="z-1 flex flex-row w-100 h-100 justify-between">
       <ul class="flex flex-row items-center navRight list ma0 pa2 h-100">
         <li class="mr4 f2">🚂🏳️‍🌈✨</li>
-        <li class="mr4">create</li>
+        <li class="mr4"><a class="link dark-pink" href="/create">create</a></li>
         <li>browse</li>
       </ul>
       <ul class="navLeft flex flex-row items-center navRight list ma0 pa2 h-100">
