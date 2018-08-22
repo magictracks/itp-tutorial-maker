@@ -24,7 +24,7 @@ module.exports = function(state, emit) {
       <ul class="flex flex-row items-center navRight list ma0 pa2 h-100">
         <li class="mr4 f2"><a href="/">🚂🏳️‍🌈✨</a></li>
         <li class="mr4"><a class="link dark-pink" href="/create">create</a></li>
-        <li>browse</li>
+        <li><a class="link dark-pink" href="/browse">browse</a></li>
       </ul>
       <ul class="navLeft flex flex-row items-center navRight list ma0 pa2 h-100">
         <li> <a onclick=${toggleLoginModal}>login</a> </li>

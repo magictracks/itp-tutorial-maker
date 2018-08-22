@@ -16,7 +16,6 @@ function view (state, emit) {
         <div class="pa4 flex flex-column bg-washed-blue w-60-l h-100 justify-center">
           <h1 class="pa0 ma0 f1 lh-solid">Welcome to the Magic Tutorial Maker!</h1>
           <p> This is a community and webspace dedicated to building and curating learning materials for the creative and the curious. </p>
-
         </div>
         <div class="pa4 flex flex-column bg-washed-blue w-40-l h-100 justify-center">
           <div class="flex flex-column w-100 pa4 br2 bg-washed-red dark-pink">

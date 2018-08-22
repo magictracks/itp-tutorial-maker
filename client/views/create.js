@@ -43,7 +43,7 @@ function view (state, emit) {
       <main class="pl4 pr4 mt3 flex flex-column bg-washed-blue w-100 h-100 dark-pink mb3">
       <div class="flex flex-row w-100 pt2 pb2">
         <div class="w-20 flex flex-column h5">
-          <div class="h4 w4 pa2 mr2 flex flex-column items-center justify-center outline">
+          <div class="br2 ba h4 w4 pa2 mr2 flex flex-column items-center justify-center">
               <div class="br-100">+</div>
           </div>
           <div class="info mt1 w4">
@@ -52,12 +52,17 @@ function view (state, emit) {
             <small>settings</small>
           </div>
         </div>
-        <div class="w-80 flex flex-column pa3 h5 outline ">
+        <div class="w-80 br2 ba flex flex-column pa3 h5">
           <h3 class="ma0 pa0">Recent stuffs</h3>
+          <div class="w-100">
+            <p class="ma0 pa0"><a class="link">added new section to Tutorial A</a></p>
+            <p class="ma0 pa0"><a class="link">added new resource to Tutorial B</a></p>
+            <p class="ma0 pa0"><a class="link">added new resource from youtube.com</a></p>
+          </div>
         </div>
       </div>
       <div class="flex flex-column w-100 h-100">
-          <section class="w-100 mt2 pa3 h4 br2 outline mb2">
+          <section class="w-100 mt2 pa3 h4 br2 ba mb2">
             <input class="pa2 w-100 ba bn h3" type="text" placeholder="🔍 Search or filter">
           </section>
 
