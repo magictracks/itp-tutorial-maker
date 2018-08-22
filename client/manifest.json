@@ -1,6 +1,6 @@
 {
-  "name": "client-choo",
-  "short_name": "client-choo",
+  "name": "client",
+  "short_name": "client",
   "description": "",
   "start_url": "/",
   "display": "standalone",
