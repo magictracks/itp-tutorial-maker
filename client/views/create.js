@@ -38,7 +38,7 @@ function view (state, emit) {
 
   // appendItem(myTutorials, "tutorial")
   return html`
-    <body class="code lh-copy w-100 h-100">
+    <body class="code lh-copy w-100 h-auto">
       ${state.cache(NavbarTop, "NavbarTop")}
       <main class="pl4 pr4 mt3 flex flex-column bg-washed-blue w-100 h-100 dark-pink mb3">
       <div class="flex flex-row w-100 pt2 pb2">
@@ -78,7 +78,7 @@ function view (state, emit) {
               ${myTutorials.map((d) =>
                 html`
                 <div class="card w-100 h5 pa2 mr2 mt2 bg-washed-yellow br2 ba flex flex-column">
-                  <div class="w-100 h-40 outline" style="min-height:100px"></div>
+                  <div class="w-100 h-40 ba br2" style="min-height:100px"></div>
                   <small>${d.title}</small>
                   <small>${d.description}</small>
                 </div>

@@ -10,7 +10,7 @@ function view (state, emit) {
 
 
   return html`
-    <body class="code lh-copy w-100 h-100">
+    <body class="code lh-copy w-100 h-auto">
       ${state.cache(NavbarTop, "NavbarTop")}
       <main class="pl4 pr4 flex flex-row bg-washed-blue w-100 h-100 dark-pink">
         <div class="pa4 flex flex-column bg-washed-blue w-60-l h-100 justify-center">
