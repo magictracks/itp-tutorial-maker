@@ -4,6 +4,13 @@ var css = require("sheetify")
 
 module.exports = function(state, emit) {
 
+  let loginBtn = function(){
+    if(state.authenticated === true){
+      return html`<li> <a href="/">logout</a> </li>`
+    }else{
+      return html`<li> <a onclick=${toggleLoginModal}>login</a> </li>`
+    }
+  }
 
   let toggleLoginModal = function(){
     console.log("clicked")
@@ -27,9 +34,7 @@ module.exports = function(state, emit) {
         <li><a class="link dark-pink" href="/browse">browse</a></li>
       </ul>
       <ul class="navLeft flex flex-row items-center navRight list ma0 pa2 h-100">
-        <li> <a onclick=${toggleLoginModal}>login</a> </li>
-        <li> | </li>
-        <li>logout</li>
+        <li>${loginBtn()}</li>
       </ul>
     </nav>
 
