@@ -2,6 +2,10 @@ var html = require('choo/html')
 var NavbarTop = require("../components/NavbarTop")
 var NavbarBottom = require("../components/NavbarBottom")
 var SearchBar = require("../components/SearchBar")
+var TutorialCard = require("../components/TutorialCard")
+var SectionCard = require("../components/SectionCard")
+var ResourceCard = require("../components/ResourceCard")
+
 
 var css = require("sheetify")
 
@@ -17,21 +21,17 @@ let myTutorials = [];
 let mySections = [];
 let myResources = [];
 
-
-for(let i = 0; i < 5; i++){
-  let output = {title: "hello I'm a title", description: "I'm a description"}
+for(let i = 0; i < 10; i++){
+  let output = {
+    title: "hello I'm a title",
+    url:"#",
+    urlName:"Link",
+    description: "Anim nisi nostrud aliquip officia eu laborum sint aliqua cupidatat minim dolor sint culpa."
+  }
   myTutorials.push( Object.assign({type:"tutorial"}, output) )
   mySections.push(Object.assign({type:"section"}, output))
   myResources.push(Object.assign({type:"resource"}, output))
 }
-
-let appendItem = function(arr, resourceType){
-    console.log("clicked!")
-    let output = {title: "hello I'm a title", description: "I'm a description"}
-    arr.push( Object.assign({type:"tutorial"}, output) )
-    console.log(arr.length)
-    return arr
-  }
 
 
 module.exports = view
@@ -47,6 +47,20 @@ function view (state, emit) {
       <main class="pl4 pr4 flex flex-column bg-washed-blue w-100 h-100 dark-pink mb3">
       ${state.cache(SearchBar, "SearchBar")}
 
+      <section class="flex flex-column w-100 mb2 br2">
+
+          <section class="mix w-100 pa2 h-auto br2 flex flex-row flex-wrap mb2 bg-washed-blue">
+            <div class="w-100 pa2 flex flex-row items-center justify-between">
+              <h3 class="pa0 ma0">Search Results: ${"search term"}</h3>
+            </div>
+            <div class="w-100 pa2 flex flex-row items-center flex-wrap justify-between" >
+              ${myTutorials.map((d) => new TutorialCard(d) )}
+              ${mySections.map((d) => new SectionCard(d) )}
+              ${myResources.map((d) => new ResourceCard(d) )}
+            </div>
+          </section>
+
+      </section>
       </main>
       ${state.cache(NavbarBottom, "NavbarBottom")}
     </body>

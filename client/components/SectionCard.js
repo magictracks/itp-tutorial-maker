@@ -8,7 +8,7 @@ module.exports = function(d){
   }
 
   return html`
-  <div class="card w-100 h5 pa2 mr2 mt2 bg-light-pink br2 ba flex flex-column">
+  <div class="card w-30 h5 pa2 mr2 mt2 bg-light-pink br2 ba flex flex-column">
     <div class="flex flex-column pl1 pr1">
       <p class="f6 ma0 pa0">${d.title}</p>
       <p class="f7 ma0 pa0">${d.description}</p>
