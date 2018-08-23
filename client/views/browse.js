@@ -2,6 +2,8 @@ var html = require('choo/html')
 var NavbarTop = require("../components/NavbarTop")
 var NavbarBottom = require("../components/NavbarBottom")
 var SearchBar = require("../components/SearchBar")
+var CuratorCards = require("../components/CuratorCards")
+var TutorialCards = require("../components/TutorialCards")
 var css = require("sheetify")
 
 css`
@@ -11,26 +13,6 @@ css`
 `
 
 var TITLE = 'client - browse'
-
-let myTutorials = [];
-let mySections = [];
-let myResources = [];
-let curators = [];
-
-for(let i = 0; i < 9; i++){
-  let output = {title: "hello I'm a title", description: "I'm a description", user:Math.random()*1000}
-  myTutorials.push( Object.assign({type:"tutorial"}, output) )
-  mySections.push(Object.assign({type:"section"}, output))
-  myResources.push(Object.assign({type:"resource"}, output))
-}
-
-curators.push({user:"joeyklee", name:"Joey L", description:"Skateboards + Pixels = tools for awesome"})
-curators.push({user:"sandy", name:"Sandy H", description:"I can make anything from fabric"})
-curators.push({user:"hongky", name:"Hong K", description:"prosthetics are my thing"})
-curators.push({user:"shiffman", name:"Dan Shiffman", description:"Prof. @ ITP"})
-curators.push({user:"dano1234", name:"Dan O", description:"Prof. @ ITP"})
-curators.push({user:"vanevery", name:"Shawn Van E", description:"Prof. @ ITP"})
-
 
 
 module.exports = view
@@ -70,17 +52,7 @@ function view (state, emit) {
               <h3 class="pa0 ma0">Recently Added</h3>
               <a class="link">See all</a>
             </div>
-            <div class="w-100 pa2 flex flex-row items-center flex-wrap justify-between" >
-              ${myTutorials.map((d) =>
-                html`
-                <div class="card w-30 h5 pa2 mt2 bg-washed-yellow br2 ba flex flex-column">
-                  <div class="w-100 h-40 ba br2" style="min-height:100px"></div>
-                  <small>${d.title}</small>
-                  <small>${d.description}</small>
-                </div>
-                `
-              )}
-            </div>
+            ${state.cache(TutorialCards, "TutorialCards")}
           </section>
 
           <section class="w-100 pa2 h-auto br2 flex flex-column bg-light-green">
@@ -88,18 +60,7 @@ function view (state, emit) {
               <h3 class="pa0 ma0">Browse by Curator</h3>
               <a class="link">See all</a>
             </div>
-            <div class="w-100 pa2 flex flex-row items-center flex-wrap justify-between" >
-              ${curators.map((d) =>
-                html`
-                <div class="card w4 h4 pa2 mt2 bg-washed-green br2 ba flex flex-column justify-end">
-                  <p class="ma0 pa0">${d.name}</p>
-                  <small>@${d.user}</small>
-                  <small>${d.description}</small>
-
-                </div>
-                `
-              )}
-            </div>
+            ${state.cache(CuratorCards, "CuratorCards")}
           </section>
 
       </section>

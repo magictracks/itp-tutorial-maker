@@ -2,6 +2,9 @@ var html = require('choo/html')
 var NavbarTop = require("../components/NavbarTop")
 var NavbarBottom = require("../components/NavbarBottom")
 var SearchBar = require("../components/SearchBar")
+var TutorialCard = require("../components/TutorialCard")
+var SectionCard = require("../components/SectionCard")
+var ResourceCard = require("../components/ResourceCard")
 var css = require("sheetify")
 
 css`
@@ -16,8 +19,13 @@ let myTutorials = [];
 let mySections = [];
 let myResources = [];
 
-for(let i = 0; i < 5; i++){
-  let output = {title: "hello I'm a title", description: "I'm a description"}
+for(let i = 0; i < 10; i++){
+  let output = {
+    title: "hello I'm a title",
+    url:"#",
+    urlName:"Link",
+    description: "Anim nisi nostrud aliquip officia eu laborum sint aliqua cupidatat minim dolor sint culpa."
+  }
   myTutorials.push( Object.assign({type:"tutorial"}, output) )
   mySections.push(Object.assign({type:"section"}, output))
   myResources.push(Object.assign({type:"resource"}, output))
@@ -25,7 +33,7 @@ for(let i = 0; i < 5; i++){
 
 let appendItem = function(arr, resourceType){
     console.log("clicked!")
-    let output = {title: "hello I'm a title", description: "I'm a description"}
+    let output = {title: "hello I'm a title", description: "Anim nisi nostrud aliquip officia eu laborum sint aliqua cupidatat minim dolor sint culpa."}
     arr.push( Object.assign({type:"tutorial"}, output) )
     console.log(arr.length)
     return arr
@@ -70,26 +78,18 @@ function view (state, emit) {
 
       <div class="flex flex-column w-100 h-100 mt1">
 
-          <section class="w-100 pa3 h6 br2 bg-yellow">
+          <section class="w-100 pa3 h-auto flex flex-column br2 bg-yellow">
             <div class="w-100 flex flex-row items-center justify-between">
               <h3 class="pa0 ma0">My Tutorials</h3>
-              <a class="link">See all</a>
             </div>
-            <div class="w-100 pa2 flex flex-row items-center overflow-x-scroll" >
-              <div onclick=${() => appendItem(myTutorials, "tutorial") } class="card w-100 h5 pa2 mr2 mt2 flex flex-column items-center justify-center br2 ba">
+            <div class="w-100 pa2 flex flex-row flex-wrap items-center justify-between">
+              <div onclick=${() => appendItem(myTutorials, "tutorial") } class="card w-30 h5 pa2 mr2 mt2 flex flex-column items-center justify-center br2 ba">
                   <div class="br-100">Add new :)</div>
               </div>
-              ${myTutorials.map((d) =>
-                html`
-                <div class="card w-100 h5 pa2 mr2 mt2 bg-washed-yellow br2 ba flex flex-column">
-                  <div class="w-100 h-40 ba br2" style="min-height:100px"></div>
-                  <small>${d.title}</small>
-                  <small>${d.description}</small>
-                </div>
-                `
-              )}
+              ${myTutorials.map((d) => new TutorialCard(d))}
             </div>
           </section>
+
           <section class="w-100 pa3 mt2 h6 br2 bg-dark-pink black">
             <div class="w-100 flex flex-row items-center justify-between">
               <h3 class="pa0 ma0">My Sections</h3>
@@ -99,15 +99,7 @@ function view (state, emit) {
               <div onclick=${() => appendItem(mySections, "section") } class="card w-100 h5 pa2 mr2 mt2 flex flex-column items-center justify-center br2 ba">
                   <div class="br-100">Add new :)</div>
               </div>
-              ${mySections.map((d) =>
-                html`
-                <div class="card w-100 h5 pa2 mr2 mt2 bg-light-pink br2 ba flex flex-column">
-                  <div class="w-100 h-40 outline" style="min-height:100px"></div>
-                  <small>${d.title}</small>
-                  <small>${d.description}</small>
-                </div>
-                `
-              )}
+              ${mySections.map((d) => new SectionCard(d))}
             </div>
           </section>
           <section class="w-100 mt2 pa3 h6 br2 bg-light-green mb3">
@@ -119,15 +111,7 @@ function view (state, emit) {
               <div onclick=${() => appendItem(myResources, "resource") } class="card w-100 h5 pa2 mr2 mt2 flex flex-column items-center justify-center br2 ba">
                   <div class="br-100">Add new :)</div>
               </div>
-              ${myResources.map((d) =>
-                html`
-                <div class="card w-100 h5 pa2 mr2 mt2 bg-washed-green br2 ba flex flex-column">
-                  <div class="w-100 h-40 outline" style="min-height:100px"></div>
-                  <small>${d.title}</small>
-                  <small>${d.description}</small>
-                </div>
-                `
-              )}
+              ${myResources.map((d) => new ResourceCard(d))}
             </div>
           </section>
         </div>
