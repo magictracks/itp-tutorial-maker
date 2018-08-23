@@ -1,6 +1,7 @@
 var html = require('choo/html')
 var NavbarTop = require("../components/NavbarTop")
 var NavbarBottom = require("../components/NavbarBottom")
+var SearchBar = require("../components/SearchBar")
 var css = require("sheetify")
 
 css`
@@ -44,27 +45,9 @@ function view (state, emit) {
       ${state.cache(NavbarTop, "NavbarTop")}
       <main class="pl4 pr4 flex flex-column bg-washed-blue w-100 h-100 dark-pink mb3">
 
-      <section class="flex flex-column w-100 mt3 mb2 br2 pa2 bg-washed-red">
-            <div>
-              <h3 class="ma0 pa0 mb2"> What will you learn today? </h3>
-            </div>
-            <section class="w-100 h2 br2 flex flex-column justify-center items-center">
-              <input class="pa2 w-100 ba br2 bn h3" type="text" placeholder="🔍 Search by tags, user, topic">
-            </section>
-            <section class="w-100 h-auto br2 flex flex-column items-start mt2">
-              <small>some popular tags: </small>
-              <ul class="list ma0 pa0 pl0 flex flex-row flex-wrap justify-between">
-                <li class="mr2 pa1 ba f6 br2"><a>coding train</a></li>
-                <li class="mr2 pa1 ba f6 br2"><a>javascript</a></li>
-                <li class="mr2 pa1 ba f6 br2"><a>p5js</a></li>
-                <li class="mr2 pa1 ba f6 br2"><a>arduino</a></li>
-                <li class="mr2 pa1 ba f6 br2"><a>open source</a></li>
-                <li class="mr2 pa1 ba f6 br2"><a>github</a></li>
-              </ul>
-            </section>
-          </section>
+      ${state.cache(SearchBar, "SearchBar")}
 
-      <section class="flex flex-row w-100 h-5 mb3 mt3 pa2 br2" style="min-height:300px">
+      <section class="flex flex-row w-100 h5 mb3 mt3 pa2 br2" style="min-height:300px">
         <div class="flex flex-column w-40 h-100 justify-center">
           <h2>Curate, learn, and share with Magic Tutorial Maker!</h2>
           <small>An open educational initiative by ITP</small>

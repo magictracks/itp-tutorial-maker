@@ -10,14 +10,13 @@ module.exports = function(state, emit) {
       <div class="w-100 flex flex-row pa2 pl4">
         <div class="w-40 flex flex-column">
             <small>An open education initiative by ITP.</small>
-            <small>Made with ♡ by @joeyklee and @blahah using Choo.js & Feathers.js.</small>
+            <small>Made with ♡ using Choo.js & Feathers.js.</small>
         </div>
         <div class="w-60 pl2 pr4 flex flex-row justify-between">
           <div>
             <ul class="list ma0 pl0">
               <li>about</li>
               <li>contact</li>
-              <li>report issue</li>
             </ul>
           </div>
           <div>

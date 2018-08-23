@@ -1,5 +1,7 @@
 var html = require('choo/html')
 var NavbarTop = require("../components/NavbarTop")
+var NavbarBottom = require("../components/NavbarBottom")
+var SearchBar = require("../components/SearchBar")
 var css = require("sheetify")
 
 css`
@@ -40,9 +42,12 @@ function view (state, emit) {
   return html`
     <body class="code lh-copy w-100 h-auto">
       ${state.cache(NavbarTop, "NavbarTop")}
-      <main class="pl4 pr4 mt3 flex flex-column bg-washed-blue w-100 h-100 dark-pink mb3">
-      <div class="flex flex-row w-100 pt2 pb2">
-        <div class="w-20 flex flex-column h5">
+      <main class="pl4 pr4 flex flex-column bg-washed-blue w-100 h-100 dark-pink mb3">
+
+      ${state.cache(SearchBar, "SearchBar")}
+
+      <section class="flex flex-row w-100 pt2 pb2 mt1 pa2" style="min-height:300px">
+        <div class="w-30 flex flex-column justify-center items-center h5">
           <div class="br2 ba h4 w4 pa2 mr2 flex flex-column items-center justify-center">
               <div class="br-100">+</div>
           </div>
@@ -52,7 +57,7 @@ function view (state, emit) {
             <small>settings</small>
           </div>
         </div>
-        <div class="w-80 br2 ba flex flex-column pa3 h5">
+        <div class="w-70 br2 ba flex flex-column pa3 h5">
           <h3 class="ma0 pa0">Recent stuffs</h3>
           <div class="w-100">
             <p class="ma0 pa0"><a class="link">added new section to Tutorial A</a></p>
@@ -60,16 +65,15 @@ function view (state, emit) {
             <p class="ma0 pa0"><a class="link">added new resource from youtube.com</a></p>
           </div>
         </div>
-      </div>
-      <div class="flex flex-column w-100 h-100">
-          <section class="w-100 mt2 pa3 h4 br2 ba mb2">
-            <input class="pa2 w-100 ba bn h3" type="text" placeholder="🔍 Search by tags, user, topic">
-          </section>
+      </section>
+
+
+      <div class="flex flex-column w-100 h-100 mt1">
 
           <section class="w-100 pa3 h6 br2 bg-yellow">
             <div class="w-100 flex flex-row items-center justify-between">
               <h3 class="pa0 ma0">My Tutorials</h3>
-              <a class="link">See all in their full glory</a>
+              <a class="link">See all</a>
             </div>
             <div class="w-100 pa2 flex flex-row items-center overflow-x-scroll" >
               <div onclick=${() => appendItem(myTutorials, "tutorial") } class="card w-100 h5 pa2 mr2 mt2 flex flex-column items-center justify-center br2 ba">
@@ -89,7 +93,7 @@ function view (state, emit) {
           <section class="w-100 pa3 mt2 h6 br2 bg-dark-pink black">
             <div class="w-100 flex flex-row items-center justify-between">
               <h3 class="pa0 ma0">My Sections</h3>
-              <a class="link">See all in their full glory</a>
+              <a class="link">See all</a>
             </div>
             <div class="w-100 pa2 flex flex-row h-auto items-center overflow-x-scroll" >
               <div onclick=${() => appendItem(mySections, "section") } class="card w-100 h5 pa2 mr2 mt2 flex flex-column items-center justify-center br2 ba">
@@ -109,7 +113,7 @@ function view (state, emit) {
           <section class="w-100 mt2 pa3 h6 br2 bg-light-green mb3">
             <div class="w-100 flex flex-row items-center justify-between">
               <h3 class="pa0 ma0">My Resources</h3>
-              <a class="link">See all in their full glory</a>
+              <a class="link">See all</a>
             </div>
             <div class="w-100 pa2 flex flex-row h-auto items-center overflow-x-scroll" >
               <div onclick=${() => appendItem(myResources, "resource") } class="card w-100 h5 pa2 mr2 mt2 flex flex-column items-center justify-center br2 ba">
@@ -128,6 +132,7 @@ function view (state, emit) {
           </section>
         </div>
       </main>
+      ${state.cache(NavbarBottom, "NavbarBottom")}
     </body>
   `
 }
