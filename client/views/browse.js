@@ -24,6 +24,7 @@ for(let i = 0; i < 9; i++){
 
 curators.push({user:"joeyklee", name:"Joey L", description:"Skateboards + Pixels = tools for awesome"})
 curators.push({user:"sandy", name:"Sandy H", description:"I can make anything from fabric"})
+curators.push({user:"hongky", name:"Hong K", description:"prosthetics are my thing"})
 curators.push({user:"shiffman", name:"Dan Shiffman", description:"Prof. @ ITP"})
 curators.push({user:"dano1234", name:"Dan O", description:"Prof. @ ITP"})
 curators.push({user:"vanevery", name:"Shawn Van E", description:"Prof. @ ITP"})
@@ -42,7 +43,27 @@ function view (state, emit) {
       ${state.cache(NavbarTop, "NavbarTop")}
       <main class="pl4 pr4 flex flex-column bg-washed-blue w-100 h-100 dark-pink mb3">
 
-      <section class="flex flex-row w-100 h-5 mb3 mt3 pa2" style="min-height:300px">
+      <section class="flex flex-column w-100 mt3 mb2 br2 pa2 bg-washed-red">
+            <div>
+              <h3 class="ma0 pa0 mb2"> What will you learn today? </h3>
+            </div>
+            <section class="w-100 h2 br2 flex flex-column justify-center items-center">
+              <input class="pa2 w-100 ba br2 bn h3" type="text" placeholder="🔍 Search by tags, user, topic">
+            </section>
+            <section class="w-100 h-auto br2 flex flex-column items-start mt2">
+              <small>some popular tags: </small>
+              <ul class="list ma0 pa0 pl0 flex flex-row flex-wrap justify-between">
+                <li class="mr2 pa1 ba f6 br2"><a>coding train</a></li>
+                <li class="mr2 pa1 ba f6 br2"><a>javascript</a></li>
+                <li class="mr2 pa1 ba f6 br2"><a>p5js</a></li>
+                <li class="mr2 pa1 ba f6 br2"><a>arduino</a></li>
+                <li class="mr2 pa1 ba f6 br2"><a>open source</a></li>
+                <li class="mr2 pa1 ba f6 br2"><a>github</a></li>
+              </ul>
+            </section>
+          </section>
+
+      <section class="flex flex-row w-100 h-5 mb3 mt3 pa2 br2" style="min-height:300px">
         <div class="flex flex-column w-40 h-100 justify-center">
           <h2>Curate, learn, and share with Magic Tutorial Maker!</h2>
           <small>An open educational initiative by ITP</small>
@@ -58,23 +79,7 @@ function view (state, emit) {
 
 
 
-      <section class="flex flex-column w-100 mb2 pa2 bg-navy br2">
-          <div class="flex flex-column w-100 mb2">
-            <section class="w-100 h2 br2 flex flex-column justify-center items-center">
-              <input class="pa2 w-100 ba br2 bn h3" type="text" placeholder="🔍 Search by tags, user, topic">
-            </section>
-            <section class="w-100 h-auto br2 flex flex-column items-start mt2">
-              <small>some popular tags: </small>
-              <ul class="list ma0 pa0 pl0 flex flex-row flex-wrap justify-between">
-                <li class="mr2 pa1 ba f6"><a>coding train</a></li>
-                <li class="mr2 pa1 ba f6"><a>javascript</a></li>
-                <li class="mr2 pa1 ba f6"><a>p5js</a></li>
-                <li class="mr2 pa1 ba f6"><a>arduino</a></li>
-                <li class="mr2 pa1 ba f6"><a>open source</a></li>
-                <li class="mr2 pa1 ba f6"><a>github</a></li>
-              </ul>
-            </section>
-          </div>
+      <section class="flex flex-column w-100 mb2 br2">
 
           <section class="mix w-100 pa2 h-auto br2 flex flex-row flex-wrap mb2 bg-yellow">
             <div class="w-100 pa2 flex flex-row items-center justify-between">
@@ -93,6 +98,7 @@ function view (state, emit) {
               )}
             </div>
           </section>
+
           <section class="w-100 pa2 h-auto br2 flex flex-column bg-light-green">
             <div class="w-100 pa2 flex flex-row items-center justify-between">
               <h3 class="pa0 ma0">Browse by Curator</h3>
@@ -101,15 +107,17 @@ function view (state, emit) {
             <div class="w-100 pa2 flex flex-row items-center flex-wrap justify-between" >
               ${curators.map((d) =>
                 html`
-                <div class="card w4 h4 pa2 mt2 bg-washed-yellow br2 ba flex flex-column">
-                  <small>${d.user}</small>
-                  <small>${d.name}</small>
+                <div class="card w4 h4 pa2 mt2 bg-washed-green br2 ba flex flex-column justify-end">
+                  <p class="ma0 pa0">${d.name}</p>
+                  <small>@${d.user}</small>
                   <small>${d.description}</small>
+
                 </div>
                 `
               )}
             </div>
           </section>
+
       </section>
       </main>
     </body>
