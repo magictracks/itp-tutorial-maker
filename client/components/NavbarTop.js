@@ -36,7 +36,7 @@ module.exports = function(state, emit) {
     <div class="w-100 h-100 absolute dn loginModal bg-navy">
       <div class="w-40">
         <div class="w-100 flex flex-row items-end justify-end">
-          <a class="right" onclick=${toggleLoginModal}>CLOSE</a>
+          <a class="right" onclick=${toggleLoginModal}>close</a>
         </div>
         <h3>Welcome back lovely person!</h3>
         <form class="w-100 mt1">

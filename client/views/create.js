@@ -63,7 +63,7 @@ function view (state, emit) {
       </div>
       <div class="flex flex-column w-100 h-100">
           <section class="w-100 mt2 pa3 h4 br2 ba mb2">
-            <input class="pa2 w-100 ba bn h3" type="text" placeholder="🔍 Search or filter">
+            <input class="pa2 w-100 ba bn h3" type="text" placeholder="🔍 Search by tags, user, topic">
           </section>
 
           <section class="w-100 pa3 h6 br2 bg-yellow">
