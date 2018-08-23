@@ -52,7 +52,7 @@ function view (state, emit) {
       ${state.cache(NavbarTop, "NavbarTop")}
       <main class="pl4 pr4 flex flex-column bg-washed-blue w-100 h-100 dark-pink mb3">
 
-      ${state.cache(SearchBar, "SearchBar")}
+      ${state.cache(SearchBar, "SearchBar", state, emit)}
 
       <section class="flex flex-row w-100 pt2 pb2 mt1 pa2" style="min-height:300px">
         <div class="w-30 flex flex-column justify-center items-center h5">

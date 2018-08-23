@@ -44,14 +44,13 @@ module.exports = view
 function view (state, emit) {
   if (state.title !== TITLE) emit(state.events.DOMTITLECHANGE, TITLE)
 
-
-  // appendItem(myTutorials, "tutorial")
   return html`
     <body class="code lh-copy w-100 h-auto">
       ${state.cache(NavbarTop, "NavbarTop")}
       <main class="pl4 pr4 flex flex-column bg-washed-blue w-100 h-100 dark-pink mb3">
 
-      ${state.cache(SearchBar, "SearchBar")}
+
+      ${state.cache(SearchBar, "SearchBar", state, emit)}
 
       <section class="flex flex-row w-100 h5 mb3 mt3 pa2 br2" style="min-height:300px">
         <div class="flex flex-column w-40 h-100 pa1 justify-center">
@@ -90,8 +89,8 @@ function view (state, emit) {
               ${ curators.map((curator) => new CuratorCard(curator)) }
             </div>
           </section>
-
       </section>
+
       </main>
       ${state.cache(NavbarBottom, "NavbarBottom")}
     </body>

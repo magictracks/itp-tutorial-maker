@@ -45,7 +45,7 @@ function view (state, emit) {
     <body class="code lh-copy w-100 h-auto">
       ${state.cache(NavbarTop, "NavbarTop")}
       <main class="pl4 pr4 flex flex-column bg-washed-blue w-100 h-100 dark-pink mb3">
-      ${state.cache(SearchBar, "SearchBar")}
+      ${state.cache(SearchBar, "SearchBar", state, emit)}
 
       <section class="flex flex-column w-100 mb2 br2">
 
