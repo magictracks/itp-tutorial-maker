@@ -16,7 +16,7 @@ module.exports = function(d){
       <p class="f7 ma0 pa0">${d.description}</p>
     </div>
 
-    <div class="flex flex-column w-100 h-100 overflow-y-scroll pa1">
+    <div class="flex flex-column w-100 h-100 overflow-y-auto pa1">
       ${tutorialSections.map( (d) => {
         let sectionResource = [];
         for(let i=0; i< Math.round(Math.random() * 20); i++ ){

@@ -22,6 +22,7 @@ app.route('/', require('./views/main'))
 app.route('/create', require('./views/create'))
 app.route('/browse', require('./views/browse'))
 app.route('/search', require('./views/search'))
+app.route('/edit', require('./views/edit'))
 app.route('/*', require('./views/404'))
 
 module.exports = app.mount('body')

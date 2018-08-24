@@ -14,7 +14,7 @@ module.exports = function(d){
       <p class="f7 ma0 pa0">${d.description}</p>
     </div>
 
-    <div class="flex flex-row w-100 h-100 flex-wrap items-start justify-start content-start overflow-y-scroll">
+    <div class="flex flex-row w-100 h-100 flex-wrap items-start justify-start content-start overflow-y-auto">
       ${sectionResource.map( (d) => html`<div class="pa0 h2 bg-washed-green br2 w2 mt1 mr1"></div>`)}
     </div>
   </div>
