@@ -23,6 +23,13 @@ app.route('/create', require('./views/create'))
 app.route('/browse', require('./views/browse'))
 app.route('/search', require('./views/search'))
 app.route('/edit', require('./views/edit'))
+app.route('/preview', require('./views/preview'))
 app.route('/*', require('./views/404'))
+
+// app.use((state, emitter) => {                  // 1.
+//   emitter.on('navigate', () => {               // 2.
+//     console.log(`Navigated to ${state.route}`) // 3.
+//   })
+// })
 
 module.exports = app.mount('body')

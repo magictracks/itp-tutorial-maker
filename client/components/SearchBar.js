@@ -15,7 +15,7 @@ module.exports = function(name, state, emit){
               <h3 class="ma0 pa0 mb2"> What will you learn today? </h3>
             </div>
             <div class="w-100 h2 br2 flex flex-column justify-center items-center">
-              <form class="w-100 h3" onsubmit=${navigate}>
+              <form class="w-100" onsubmit=${navigate}>
                 <input class="pa2 w-100 ba br2 bn h-100" type="text" placeholder="🔍 Search by tags, user, topic">
                 <input type="submit" style="display: none" />
               </form>

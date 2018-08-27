@@ -8,7 +8,7 @@ module.exports = function(name, state, emit){
           <li class="mr4">new</li>
           <li class="mr4">import</li>
           <li class="mr4">export</li>
-          <li class="mr4">preview</li>
+          <li class="mr4"><a href="/preview">preview</a></li>
           <li class="">share</li>
         </ul>
     </div>
