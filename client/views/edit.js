@@ -76,9 +76,11 @@ function view (state, emit) {
                         <li>🌴${resource.title}</li>
                         `
                       )}
+                      <li class="list f6 blue">+ add resource</li>
                       </ul>
                     </li>
                     `)}
+                    <li class="list f6 blue">+ add section</li>
                 </ul>
               </div>
             </section>
@@ -95,14 +97,14 @@ function view (state, emit) {
             <section class="w-100 h-auto br2">
                 <div class="w-100 mt2">
                   <fieldset class="w-100 ba br2 bg-yellow bw1 b--gold">
-                    <legend class="f3 pa3 bw1 ba bg-yellow br2 mb2 b--gold navy">Tutorial Title</legend>
-                    <input class="w-100 h3 pa2 br2 ba input-reset" type="text" placeholder="Tutorial Title">
+                    <legend class="f5 pa3 bw1 ba bg-yellow br2 mb2 b--gold navy">Tutorial Title</legend>
+                    <input class="w-100 h3 pa2 br2 ba input-reset " type="text" placeholder="Tutorial Title">
                   </fieldset>
                 </div>
 
                 <div class="w-100 br2 mt2 h5">
                   <fieldset class="w-100 h-100 ba br1 bw1 b--gold bg-yellow">
-                    <legend class="f3 pa3 bw1 ba bg-yellow br2 mb2 navy b--gold">Tutorial Image</legend>
+                    <legend class="f5 pa3 bw1 ba bg-yellow br2 mb2 navy b--gold">Tutorial Image</legend>
                     <div class="flex flex-column justify-center items-center w-100 h-50 bg-gold bg-near-white br2">
                       <div class="w2 h2 navy tc flex flex-column justify-center items-center"><h3>+</h3></div>
                     </div>
@@ -111,7 +113,7 @@ function view (state, emit) {
 
                 <div class="w-100 mt2">
                   <fieldset class="w-100 ba br2 bg-yellow bw1 b--gold">
-                    <legend class="f3 pa3 bw1 ba bg-yellow br2 mb2 b--gold navy">Tutorial Description</legend>
+                    <legend class="f5 pa3 bw1 ba bg-yellow br2 mb2 b--gold navy">Tutorial Description</legend>
                     <textarea class="w-100 h4 pa2 br2 ba input-reset" type="text" style="resize: none;">Some description text about your new tutorial</textarea>
                   </fieldset>
                 </div>
@@ -122,7 +124,7 @@ function view (state, emit) {
                 html`
                   <div class="w-100 flex flex-column mt3">
                     <fieldset class="w-100 ba br2 bg-washed-red pl3 pr3 pb3 bw1 ba b--dark-pink">
-                      <legend class="f3 pa3 bw1 ba bg-washed-red br2">Section ${idx}</legend>
+                      <legend class="f6 pa3 bw1 ba bg-washed-red br2">Section ${idx}</legend>
                       <div class="w-100 h2 flex flex-row justify-end items-center">
                         <button class="button-reset b--none br2 dark-pink bg-washed-red">change</button>
                         <button class="button-reset b--none br2 dark-pink bg-washed-red">remove</button>
@@ -136,7 +138,7 @@ function view (state, emit) {
                           html`
                             <div class="w-100 flex flex-column mt2">
                               <fieldset class="w-100 ba br2 bg-washed-green pl3 pr3 pb3 bw1 ba b--dark-pink">
-                                <legend class="f3 pa3 bw1 ba bg-washed-green br2">Resource ${idx2}</legend>
+                                <legend class="f6 pa3 bw1 ba bg-washed-green br2">Resource ${idx2}</legend>
                                   <div class="w-100 h2 flex flex-row justify-end items-center">
                                     <button class="button-reset b--none br2 dark-pink bg-washed-green">change</button>
                                     <button class="button-reset b--none br2 dark-pink bg-washed-green">remove</button>
@@ -180,7 +182,7 @@ function view (state, emit) {
                 `)}
             </section>
             <div class="w-100 h4 flex flex-row justify-start items-center pt3 pb3">
-              <button class="ba bw1 b--dark-pink br2 dark-pink bg-washed-red pa3 h3 f3 mb3" style="box-shadow:none;">+ section</button>
+              <button class="ba bw1 b--dark-pink br2 dark-pink bg-washed-red pa3 h3 f6 mb3" style="box-shadow:none;">+ section</button>
             </div>
           </section>
         </section>
