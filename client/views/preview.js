@@ -2,7 +2,7 @@ var html = require('choo/html')
 var NavbarTop = require("../components/NavbarTop")
 var BackBtn = require("../components/BackBtn")
 var NavbarBottom = require("../components/NavbarBottom")
-var EditorToolbar = require("../components/EditorToolbar")
+var PreviewToolbar = require("../components/PreviewToolbar")
 
 var TITLE = 'client - edit'
 
@@ -55,6 +55,7 @@ function view (state, emit) {
           ${state.cache(BackBtn, "BackBtn", state, emit)}
         </div>
         <h2 class="f2 ma0 pa0 pl2">Preview</h2>
+        ${state.cache(PreviewToolbar, "PreviewToolbar", state, emit)}
 
         <section class="w-100 h-auto flex flex-row mb4">
           <!-- overview panel -->
@@ -121,8 +122,6 @@ function view (state, emit) {
               </section>
             </div>
           </section>
-
-
         </section>
       </main>
 
