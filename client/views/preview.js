@@ -89,10 +89,11 @@ function view (state, emit) {
           <section class="w-75 h-auto flex flex-column pl2">
             <div class="w-100 h-auto br2 pa4">
               <h1 class="pa0 ma0">Making Tutorials with the Magic Tutorial Maker</h1>
+              <p>A tutorial curated by: @Joeyklee</p>
+              <p>On this learning pathway, you will find the resources you'll need to make amazing tutorials with the Magic Tutorial Maker</p>
               <div class="flex flex-column justify-center items-center">
                 <img class="w-50" src="../assets/magic-tracks-logo.png">
               </div>
-              <p>On this learning pathway, you will find the resources you'll need to make amazing tutorials with the Magic Tutorial Maker</p>
 
               <section>
                 ${mySections.map((section, idx1) =>

@@ -106,15 +106,15 @@ function view (state, emit) {
           <section class="ba br2 bw1 flex flex-column list pa2 mb4 h-100 w-100 overflow-y-auto">
 
             <!-- Tutorial info -->
-            <section class="w-100 h-auto br2">
+            <section class="w-100 h-auto br2 mt3">
                 <div class="w-100 mt2">
-                  <input class="w-100 h3 f1 pa4 bg-washed-blue ba b--washed-green" type="text" placeholder="Title">
+                  <input class="w-100 h3 f2 pa4 bg-washed-blue ba b--washed-green black" type="text" value="Add a title here" placeholder="Title">
                 </div>
                 <div class="w-100 mt2">
 
                 </div>
                 <div class="w-100 mt2">
-                    <textarea class="w-100 h4 pa2 br2 ba b--washed-green input-reset pl4 pr4 pt4 pb2 f4 bg-washed-blue" type="text" style="resize: none;">Some description text about your new tutorial</textarea>
+                    <textarea class="w-100 h4 pa2 br2 ba b--washed-green input-reset pl4 pr4 pt4 pb2 f2 bg-washed-blue" type="text" style="resize: none;">Some description text about your new tutorial</textarea>
                 </div>
             </section>
             <!-- Sections -->
