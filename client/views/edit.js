@@ -4,6 +4,7 @@ var BackBtn = require("../components/BackBtn")
 var NavbarBottom = require("../components/NavbarBottom")
 var EditorToolbar = require("../components/EditorToolbar")
 var AddResourceModal = require("../components/AddResourceModal")
+var AddSectionModal = require("../components/AddSectionModal")
 
 var TITLE = 'client - edit'
 
@@ -47,7 +48,7 @@ mySections = mySections.map( (section) => {
 function view (state, emit) {
   if (state.title !== TITLE) emit(state.events.DOMTITLECHANGE, TITLE)
 
-  let toggleModal = function(){
+  let toggleResourceModal = function(){
     console.log("clicked")
     let modal = document.querySelector("#addResourceModal")
     modal.classList.toggle("dn")
@@ -61,31 +62,20 @@ function view (state, emit) {
     document.querySelector("#addResourceStep-1").classList.remove("dn");
   }
 
-  let nextStep = function(e){
+  let toggleSectionModal = function(){
+    console.log("clicked")
+    let modal = document.querySelector("#addSectionModal")
+    modal.classList.toggle("dn")
 
-    let currentElNumber = e.target.dataset.step;
-    let currentEl = document.querySelector(`#addResourceStep-${currentElNumber}`)
-    currentEl.classList.add("class","dn");
-
-    let nextElNumber = parseInt(currentEl.id.split("-").slice(-1)[0]) + 1
-    let nextEl = document.querySelector(`#addResourceStep-${nextElNumber}`)
-    nextEl.classList.remove("class", "dn");
-
-  }
-  let backStep = function(e,  step){
-    let currentElNumber = e.target.dataset.step;
-    let currentEl = document.querySelector(`#addResourceStep-${currentElNumber}`)
-    currentEl.classList.add("dn");
-
-    let nextElNumber = parseInt(currentEl.id.split("-").slice(-1)[0]) - 1
-    let nextEl = document.querySelector(`#addResourceStep-${nextElNumber}`)
-    nextEl.classList.remove("dn");
+    let els = document.querySelectorAll(".addSectionStep")
+    for(let i = 0; i < els.length; i++){
+      console.log(els[i].classList)
+      els[i].classList.add("dn")
+    }
+    // default to having step 1 open
+    document.querySelector("#addSectionStep-1").classList.remove("dn");
   }
 
-  let addResource = function(e){
-    console.log("added resource!")
-    toggleModal();
-  }
 
   return html`
     <body class="code lh-copy w-100 h-100">
@@ -116,11 +106,11 @@ function view (state, emit) {
                         <li>🌴${resource.title}</li>
                         `
                       )}
-                      <li class="list f6 blue" onclick=${toggleModal}>+ add resource</li>
+                      <li class="list f6 blue" onclick=${toggleResourceModal}>+ add resource</li>
                       </ul>
                     </li>
                     `)}
-                    <li class="list f6 blue">+ add section</li>
+                    <li class="list f6 blue" onclick=${toggleSectionModal}>+ add section</li>
                 </ul>
               </div>
             </section>
@@ -202,14 +192,14 @@ function view (state, emit) {
                       </section>
 
                       <div class="w-100 h2 flex flex-row justify-start items-center mt3">
-                        <button class="button-reset pa2 bw1 ba b--dark-pink br2 dark-pink bg-washed-green" onclick=${toggleModal}>+ add resource</button>
+                        <button class="button-reset pa2 bw1 ba b--dark-pink br2 dark-pink bg-washed-green" onclick=${toggleResourceModal}>+ add resource</button>
                       </div>
                     </fieldset>
                   </div>
                 `)}
             </section>
             <div class="w-100 h4 flex flex-row justify-start items-center pt3 pb3">
-              <button class="ba bw1 b--washed-green br2 dark-pink bg-washed-blue pa3 h3 f6 mb3" style="box-shadow:none;">+ section</button>
+              <button class="ba bw1 b--washed-green br2 dark-pink bg-washed-blue pa3 h3 f6 mb3" style="box-shadow:none;" onclick=${toggleSectionModal}>+ section</button>
             </div>
           </section>
         </section>
@@ -219,6 +209,8 @@ function view (state, emit) {
       <!-- popups for add new, and change -->
       <!-- new resource -->
       ${state.cache(AddResourceModal, "AddResourceModal", state, emit)}
+      ${state.cache(AddSectionModal, "AddSectionModal", state, emit)}
     </body>
+
   `
 }

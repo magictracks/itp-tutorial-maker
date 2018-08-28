@@ -35,7 +35,7 @@ module.exports = function(name, state, emit){
     })
 
 
-  let toggleModal = function(){
+  let toggleResourceModal = function(){
     console.log("clicked")
     let modal = document.querySelector("#addResourceModal")
     modal.classList.toggle("dn")
@@ -72,14 +72,14 @@ module.exports = function(name, state, emit){
 
   let addResource = function(e){
     console.log("added resource!")
-    toggleModal();
+    toggleResourceModal();
   }
 
   return html`
   <div id="addResourceModal" class="dn w-100 h-100" style="top:0; left:0; position:absolute; background-color:rgba(0,0,0,0.5)">
           <div class="w-100 h-100 flex flex-column justify-center items-center">
             <div class="w-50 bg-washed-blue pa2 ba br2">
-              <div class="w-100 flex flex-row justify-end items-center"><small onclick=${toggleModal}>close</small></div>
+              <div class="w-100 flex flex-row justify-end items-center"><small onclick=${toggleResourceModal}>close</small></div>
               <ul class="w-100 flex flex-row justify-center items-center">
                 <li class="list mr2">1: add url</li>
                 <li class="list mr2"> → </li>
@@ -131,7 +131,7 @@ module.exports = function(name, state, emit){
                           </div>
                         </section>
                         <section id="addResourceStep-3" class="addResourceStep dn">
-                          <div class="w-100 flex flex-column mt2">
+                          <div class="w-100 flex flex-column mt2 mb2">
                             <small>step 3: select the section you want your resource to live in</small>
                             <select>
                             ${mySections.map((section, idx) =>
