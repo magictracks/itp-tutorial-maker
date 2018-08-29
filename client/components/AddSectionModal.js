@@ -76,7 +76,9 @@ module.exports = function(name, state, emit){
   }
 
   return html`
-  <div id="addSectionModal" class="dn w-100 h-100" style="top:0; left:0; position:absolute; background-color:rgba(0,0,0,0.5)">
+
+  <div id="addSectionModal" class="dn w-100 h-100">
+    <div class="w-100 h-100 fixed flex flex-column justify-center items-center dark-pink" style="top:50%; left:50%; transform: translate(-50%, -50%); max-height:100%; max-width:100%; background-color:rgba(0,0,0,0.5);">
           <div class="w-100 h-100 flex flex-column justify-center items-center">
             <div class="w-50 bg-washed-blue pa2 ba br2">
               <div class="w-100 flex flex-row justify-end items-center"><small onclick=${toggleSectionModal}>close</small></div>
@@ -133,5 +135,6 @@ module.exports = function(name, state, emit){
             </div>
           </div>
         </div>
+      </div>
   `
 }
