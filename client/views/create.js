@@ -146,7 +146,7 @@ function view (state, emit) {
       </section>
 
       <!-- project container -->
-      <section class="w-100 h-auto pa2 br2 flex flex-column">
+      <section class="w-100 h-auto pa2 br2 flex flex-column mb4">
 
         <div class="w-100 mt2 mb2">
           <ul class="w-100 flex flex-row pa0 ma0">
