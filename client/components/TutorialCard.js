@@ -15,6 +15,7 @@ module.exports = function(d){
         <!-- information -->
           <div class="flex flex-column pa2">
             <p class="f4 ma0 pa0">${d.title}</p>
+            <small>by @username</small>
             <p class="f7 ma0 pa0 mt1">${d.description}</p>
             <p class="f7 ma0 pa0 mt1">tagged: magic, awesome, wonderful, computation</p>
           </div>
