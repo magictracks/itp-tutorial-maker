@@ -12,7 +12,7 @@ var TITLE = 'client - edit'
 
 module.exports = view
 
-  let myTutorials = [];
+let myTutorials = [];
 let mySections = [];
 let myResources = [];
 
@@ -62,6 +62,7 @@ function view (state, emit) {
     document.querySelector("#addResourceStep-1").classList.remove("dn");
   }
 
+
   let toggleSectionModal = function(){
     console.log("clicked")
     let modal = document.querySelector("#addSectionModal")
@@ -78,9 +79,9 @@ function view (state, emit) {
 
 
   return html`
-    <body class="code lh-copy w-100 h-100">
-      ${state.cache(NavbarTop, "NavbarTop")}
-      <main class="pl4 pr4 pb6 flex flex-column bg-washed-blue w-100 h-100 dark-pink mb4">
+  <body class="code w-100 h-100 bg-washed-blue flex flex-column items-center">
+    ${state.cache(NavbarTop, "NavbarTop", state, emit)}
+    <main class="w-100 h-auto flex flex-column mt2 mb2 pr4 pl4 dark-pink" style="flex-grow:1; max-width:1200px">
         <div class="h2 w-100 mt3 flex-column flex justify-center">
           ${state.cache(BackBtn, "BackBtn", state, emit)}
         </div>
@@ -204,8 +205,8 @@ function view (state, emit) {
           </section>
         </section>
       </main>
-      ${state.cache(NavbarBottom, "NavbarBottom")}
 
+      ${state.cache(NavbarBottom, "NavbarBottom")}
       <!-- popups for add new, and change -->
       <!-- new resource -->
       ${state.cache(AddResourceModal, "AddResourceModal", state, emit)}

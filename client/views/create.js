@@ -5,6 +5,10 @@ var SearchBar = require("../components/SearchBar")
 var TutorialCard = require("../components/TutorialCard")
 var SectionCard = require("../components/SectionCard")
 var ResourceCard = require("../components/ResourceCard")
+
+var AddResourceModal = require("../components/AddResourceModal")
+var AddSectionModal = require("../components/AddSectionModal")
+
 var css = require("sheetify")
 
 css`
@@ -45,40 +49,205 @@ module.exports = view
 function view (state, emit) {
   if (state.title !== TITLE) emit(state.events.DOMTITLECHANGE, TITLE)
 
+  let toggleResourceModal = function(){
+    console.log("clicked")
+    let modal = document.querySelector("#addResourceModal")
+    modal.classList.toggle("dn")
+
+    let els = document.querySelectorAll(".addResourceStep")
+    for(let i = 0; i < els.length; i++){
+      console.log(els[i].classList)
+      els[i].classList.add("dn")
+    }
+    // default to having step 1 open
+    document.querySelector("#addResourceStep-1").classList.remove("dn");
+  }
+
+
+  let toggleSectionModal = function(){
+    console.log("clicked")
+    let modal = document.querySelector("#addSectionModal")
+    modal.classList.toggle("dn")
+
+    let els = document.querySelectorAll(".addSectionStep")
+    for(let i = 0; i < els.length; i++){
+      console.log(els[i].classList)
+      els[i].classList.add("dn")
+    }
+    // default to having step 1 open
+    document.querySelector("#addSectionStep-1").classList.remove("dn");
+  }
+
+
+  let toggleView = function(e){
+    console.log("clicked!");
+
+    let selected = e.target.dataset.id;
+
+    let btns = document.querySelectorAll(".contributionToggler")
+
+    for(let i = 0; i < btns.length; i++){
+      if(btns[i].dataset.id == selected){
+          btns[i].parentElement.classList.add("bg-dark-pink")
+          btns[i].parentElement.classList.add("black")
+      } else{
+          btns[i].parentElement.classList.remove("bg-dark-pink")
+          btns[i].parentElement.classList.remove("black")
+      }
+    }
+
+
+    let els = document.querySelectorAll(".contributions")
+
+    for(let i = 0; i < els.length; i++){
+      console.log(els[i].dataset)
+      if(els[i].id == selected){
+          els[i].classList.remove("dn")
+      } else{
+          els[i].classList.add("dn")
+      }
+    }
+
+  }
+
+
 
   // appendItem(myTutorials, "tutorial")
   return html`
-    <body class="code lh-copy w-100 h-auto">
-      ${state.cache(NavbarTop, "NavbarTop")}
-      <main class="pl4 pr4 flex flex-column bg-washed-blue w-100 h-100 dark-pink mb3">
+  <body class="code w-100 h-100 bg-washed-blue flex flex-column items-center">
+    ${state.cache(NavbarTop, "NavbarTop", state, emit)}
+    <main class="w-100 h-auto flex flex-column mt2 mb2 pr4 pl4 dark-pink" style="flex-grow:1; max-width:1200px">
 
       ${state.cache(SearchBar, "SearchBar", state, emit)}
 
-      <section class="flex flex-row w-100 pt2 pb2 mt1 pa2" style="min-height:300px">
+      <!-- User Info view -->
+      <section class="flex flex-row items-center w-100 pt2 pb2 mt4 pa2 mb4 ba br2" style="min-height:300px">
         <div class="w-30 flex flex-column justify-center items-center h5">
-          <div class="br2 ba h4 w4 pa2 mr2 flex flex-column items-center justify-center">
-              <div class="br-100">+</div>
+          <div class="br-100 ba h4 w4 pa2 mr2 flex flex-column items-center justify-center">
+              <div class="br-100 f2">🧠</div>
           </div>
-          <div class="info mt1 w4">
-            <p class="pa0 ma0"> First, Last </p>
+          <div class="info mt2 w4 tl">
+            <p class="pa0 ma0"> First Last </p>
             <p class="pa0 ma0"> @username </p>
             <small>settings</small>
           </div>
         </div>
-        <div class="w-70 br2 ba flex flex-column pa3 h5">
-          <h3 class="ma0 pa0">Recent stuffs</h3>
-          <div class="w-100">
-            <p class="ma0 pa0"><a class="link">added new section to Tutorial A</a></p>
-            <p class="ma0 pa0"><a class="link">added new resource to Tutorial B</a></p>
-            <p class="ma0 pa0"><a class="link">added new resource from youtube.com</a></p>
-          </div>
+        <div class="w-70 br2 flex flex-column items-center h5">
+
+          <fieldset class="w-90 flex flex-column h-100 ba br2 dark-pink b--dark-pink">
+            <legend class="br-pill f4 ba pa3">Recent 🎉</legend>
+            <ul>
+              <li class="ma0 pa0"><a class="link">added new section to Tutorial A</a></li>
+              <li class="ma0 pa0"><a class="link">added new resource to Tutorial B</a></li>
+              <li class="ma0 pa0"><a class="link">added new resource from youtube.com</a></li>
+            </ul>
+          </fieldset>
         </div>
       </section>
 
+      <!-- project container -->
+      <section class="w-100 h-auto pa2 br2 flex flex-column">
 
-      <div class="flex flex-column w-100 h-100 mt1">
+        <div class="w-100 mt2 mb2">
+          <ul class="w-100 flex flex-row pa0 ma0">
+            <li class="list mr2 f4 br-pill pa3 bg-dark-pink black"><a class="contributionToggler" onclick=${toggleView} data-id="tutorials">Tutorials</a></li>
+            <li class="list mr2 f4 br-pill pa3"><a class="contributionToggler" onclick=${toggleView} data-id="sections">Sections</a></li>
+            <li class="list mr2 f4 br-pill pa3"><a class="contributionToggler" onclick=${toggleView} data-id="resources">Resources</a></li>
+          </ul>
+        </div>
+        <!-- tutorials -->
+        <section id="tutorials" class="contributions">
+          <div class="w-100 br2 h-auto mt2 flex flex-column">
+            <div class="w-100 mb2 mt2">
+              <h2 class="pa0 ma0">Tutorials</h2>
+            </div>
+            <div class="w-100 h-auto flex flex-row flex-wrap justify-between content-between">
+              <!-- add new -->
+              <div onclick=${() => appendItem(myTutorials, "tutorial")} class="card w-30 h5 pa2 mr2 mt3 flex flex-column items-center justify-center br2 ba" style="width:324px; height:324px">
+                  <div class="br-100">Add new :)</div>
+              </div>
 
-          <section class="w-100 pa3 h-auto flex flex-column br2 bg-yellow">
+              ${myTutorials.map((d) => new TutorialCard(d))}
+            </div>
+          </div>
+        </section>
+
+        <!-- Sections -->
+        <section id="sections" class="contributions dn">
+          <div class="w-100 br2 h-auto mt2 flex flex-column">
+            <div class="w-100 mb2 mt2">
+              <h2 class="pa0 ma0">Sections</h2>
+            </div>
+            <div class="w-100 h-auto flex flex-row flex-wrap justify-between">
+              <!-- add new -->
+              <div class="card w-30 h4 pa2 mr2 mt3 ba br2 flex flex-column grow items-center justify-center" style="width:320px;">
+                  <div class="br-100">Add new :)</div>
+              </div>
+
+              ${mySections.map((d) => new SectionCard(d))}
+            </div>
+          </div>
+        </section>
+
+        <!-- Resources -->
+        <section id="resources" class="contributions dn">
+          <div class="w-100 br2 h-auto mt2 flex flex-column">
+            <div class="w-100 mb2 mt2">
+              <h2 class="pa0 ma0">Resources</h2>
+            </div>
+            <div class="w-100 h-auto flex flex-row flex-wrap justify-between">
+                <!-- add new -->
+              <div class="card w-30 h5 pa2 mr2 mt3 flex flex-column items-center justify-center br2 ba" style="width:324px; height:324px">
+                  <div class="br-100">Add new :)</div>
+              </div>
+
+              ${myResources.map((d) => new ResourceCard(d))}
+            </div>
+          </div>
+        </section>
+
+      </section>
+
+
+
+      </main>
+
+      ${state.cache(NavbarBottom, "NavbarBottom")}
+      ${state.cache(AddResourceModal, "AddResourceModal", state, emit )}
+      ${state.cache(AddSectionModal, "AddSectionModal", state, emit )}
+    </body>
+  `
+}
+
+
+
+/**
+
+
+<!-- Sections -->
+<section class="w-100 ba br2 h-auto mt2 flex flex-column">
+  <div class="w-100">
+    <h2 class="pa0 ma0">Sections</h2>
+  </div>
+  <div class="w-100 h5 flex flex-row overflow-x-scroll">
+    ${mySections.map((d) => new SectionCard(d))}
+  </div>
+</section>
+
+<!-- Resources -->
+<section class="w-100 ba br2 h5 mt2 flex flex-column">
+  <div class="w-100">
+      <h2 class="pa0 ma0">Resources</h2>
+    </div>
+    <div class="w-100 h-auto flex flex-row flex-wrap">
+    </div>
+</section>
+</section>
+
+
+<div class="flex flex-column w-100 h-100 mt1">
+
+          <section class="w-100 pa3 h-auto flex flex-column br2 ba">
             <div class="w-100 flex flex-row items-center justify-between">
               <h3 class="pa0 ma0">My Tutorials</h3>
             </div>
@@ -90,33 +259,30 @@ function view (state, emit) {
             </div>
           </section>
 
-          <section class="w-100 pa3 mt2 h6 br2 bg-dark-pink black">
+          <section class="w-100 pa3 mt2 h6 br2 ba black">
             <div class="w-100 flex flex-row items-center justify-between">
               <h3 class="pa0 ma0">My Sections</h3>
               <a class="link">See all</a>
             </div>
             <div class="w-100 pa2 flex flex-row h-auto items-center overflow-x-scroll" >
               <div onclick=${() => appendItem(mySections, "section") } class="card w-100 h5 pa2 mr2 mt2 flex flex-column items-center justify-center br2 ba">
-                  <div class="br-100">Add new :)</div>
+                  <div class="br-100" onclick=${toggleSectionModal}>Add new :)</div>
               </div>
               ${mySections.map((d) => new SectionCard(d))}
             </div>
           </section>
-          <section class="w-100 mt2 pa3 h6 br2 bg-light-green mb3">
+          <section class="w-100 mt2 pa3 h6 br2 ba mb3">
             <div class="w-100 flex flex-row items-center justify-between">
               <h3 class="pa0 ma0">My Resources</h3>
               <a class="link">See all</a>
             </div>
             <div class="w-100 pa2 flex flex-row h-auto items-center overflow-x-scroll" >
               <div onclick=${() => appendItem(myResources, "resource") } class="card w-100 h5 pa2 mr2 mt2 flex flex-column items-center justify-center br2 ba">
-                  <div class="br-100">Add new :)</div>
+                  <div class="br-100" onclick=${toggleResourceModal}>Add new :)</div>
               </div>
               ${myResources.map((d) => new ResourceCard(d))}
             </div>
           </section>
         </div>
-      </main>
-      ${state.cache(NavbarBottom, "NavbarBottom")}
-    </body>
-  `
-}
+
+ */

@@ -45,9 +45,9 @@ function view (state, emit) {
   if (state.title !== TITLE) emit(state.events.DOMTITLECHANGE, TITLE)
 
   return html`
-    <body class="code lh-copy w-100 h-auto">
-      ${state.cache(NavbarTop, "NavbarTop")}
-      <main class="pl4 pr4 flex flex-column bg-washed-blue w-100 h-100 dark-pink mb3">
+  <body class="code w-100 h-100 bg-washed-blue flex flex-column items-center">
+    ${state.cache(NavbarTop, "NavbarTop", state, emit)}
+    <main class="w-100 h-auto flex flex-column mt2 mb2 pr4 pl4 dark-pink" style="flex-grow:1; max-width:1200px">
 
 
       ${state.cache(SearchBar, "SearchBar", state, emit)}

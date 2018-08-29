@@ -17,6 +17,8 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 app.use(require('./stores/clicks'))
+app.use(require('./stores/user'))
+app.use(require('./stores/db'))
 
 app.route('/', require('./views/main'))
 app.route('/create', require('./views/create'))
@@ -26,10 +28,5 @@ app.route('/edit', require('./views/edit'))
 app.route('/preview', require('./views/preview'))
 app.route('/*', require('./views/404'))
 
-// app.use((state, emitter) => {                  // 1.
-//   emitter.on('navigate', () => {               // 2.
-//     console.log(`Navigated to ${state.route}`) // 3.
-//   })
-// })
 
 module.exports = app.mount('body')

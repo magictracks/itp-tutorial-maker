@@ -48,9 +48,9 @@ function view (state, emit) {
 
   //               <div class="w-100 h-100" style="background: url(../assets/magic-tracks-logo.png); background-position:center; background-repeat: no-repeat; background-size: cover;"></div>
   return html`
-    <body class="code lh-copy w-100 h-100">
-      ${state.cache(NavbarTop, "NavbarTop")}
-      <main class="pl4 pr4 pb6 flex flex-column bg-washed-blue w-100 h-100 dark-pink mb4">
+  <body class="code w-100 h-100 bg-washed-blue flex flex-column">
+    ${state.cache(NavbarTop, "NavbarTop", state, emit)}
+    <main class="w-100 h-auto flex flex-column mt2 mb2 pr4 pl4 dark-pink" style="flex-grow:1">
         <div class="h2 w-100 mt3 flex-column flex justify-center">
           ${state.cache(BackBtn, "BackBtn", state, emit)}
         </div>
