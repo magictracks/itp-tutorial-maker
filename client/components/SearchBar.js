@@ -1,4 +1,12 @@
 var html = require("choo/html");
+var css = require("sheetify")
+
+
+css`
+#searchBar{
+  min-height:150px;
+}
+`
 
 
 module.exports = function(name, state, emit){
@@ -10,7 +18,7 @@ module.exports = function(name, state, emit){
   }
 
   return html`
-    <section class="flex flex-column w-100 mt3 mb2 br2 pa2 bg-washed-red">
+    <section id="searchBar" class="flex flex-column w-100 mt3 mb2 br2 pa2 bg-washed-red h-auto">
             <div>
               <h3 class="ma0 pa0 mb2"> What will you learn today? </h3>
             </div>

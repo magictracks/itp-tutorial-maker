@@ -2,6 +2,13 @@ var html = require("choo/html")
 var css = require("sheetify")
 
 
+css`
+footer{
+  min-height:100px;
+}
+`
+
+
 module.exports = function(state, emit) {
 
 

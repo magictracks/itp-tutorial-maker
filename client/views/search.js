@@ -71,9 +71,9 @@ function view (state, emit) {
   }
 
   return html`
-  <body class="code w-100 h-100 bg-washed-blue flex flex-column">
+  <body class="code w-100 h-100 bg-washed-blue flex flex-column items-center">
     ${state.cache(NavbarTop, "NavbarTop", state, emit)}
-    <main class="w-100 h-auto flex flex-column mt2 mb2 pr4 pl4 dark-pink" style="flex-grow:1">
+    <main class="w-100 h-auto mt2 mb2 pr4 pl4 dark-pink" style="max-width:1200px">
       ${state.cache(SearchBar, "SearchBar", state, emit)}
 
 
@@ -98,11 +98,6 @@ function view (state, emit) {
               <h2 class="pa0 ma0">Tutorials</h2>
             </div>
             <div class="w-100 h-auto flex flex-row flex-wrap justify-between content-between">
-              <!-- add new -->
-              <div onclick=${() => appendItem(myTutorials, "tutorial")} class="card w-30 h5 pa2 mr2 mt3 flex flex-column items-center justify-center br2 ba" style="width:324px; height:324px">
-                  <div class="br-100">Add new :)</div>
-              </div>
-
               ${myTutorials.map((d) => new TutorialCard(d))}
             </div>
           </div>
@@ -115,11 +110,6 @@ function view (state, emit) {
               <h2 class="pa0 ma0">Sections</h2>
             </div>
             <div class="w-100 h-auto flex flex-row flex-wrap justify-between">
-              <!-- add new -->
-              <div class="card w-30 h4 pa2 mr2 mt3 ba br2 flex flex-column grow items-center justify-center" style="width:320px;">
-                  <div class="br-100">Add new :)</div>
-              </div>
-
               ${mySections.map((d) => new SectionCard(d))}
             </div>
           </div>
@@ -132,11 +122,6 @@ function view (state, emit) {
               <h2 class="pa0 ma0">Resources</h2>
             </div>
             <div class="w-100 h-auto flex flex-row flex-wrap justify-between">
-                <!-- add new -->
-              <div class="card w-30 h5 pa2 mr2 mt3 flex flex-column items-center justify-center br2 ba" style="width:324px; height:324px">
-                  <div class="br-100">Add new :)</div>
-              </div>
-
               ${myResources.map((d) => new ResourceCard(d))}
             </div>
           </div>

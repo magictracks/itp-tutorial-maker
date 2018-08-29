@@ -14,7 +14,7 @@ function view (state, emit) {
   return html`
   <body class="code w-100 h-100 bg-washed-blue flex flex-column items-center">
     ${state.cache(NavbarTop, "NavbarTop", state, emit)}
-    <main class="w-100 h-auto flex flex-column mt2 mb2 pr4 pl4 dark-pink" style="flex-grow:1; max-width:1200px">
+    <main class="w-100 h-auto mt2 mb2 pr4 pl4 dark-pink" style="flex-grow:1; max-width:1200px">
         <!-- row1 -->
         <div class="w-100 h-100 flex flex-row items-center justify-center">
           <!-- left -->

@@ -11,11 +11,6 @@ var AddSectionModal = require("../components/AddSectionModal")
 
 var css = require("sheetify")
 
-css`
-.card{
-  min-width:200px;
-}
-`
 
 var TITLE = 'client - create'
 
@@ -116,7 +111,7 @@ function view (state, emit) {
   return html`
   <body class="code w-100 h-100 bg-washed-blue flex flex-column items-center">
     ${state.cache(NavbarTop, "NavbarTop", state, emit)}
-    <main class="w-100 h-auto flex flex-column mt2 mb2 pr4 pl4 dark-pink" style="flex-grow:1; max-width:1200px">
+    <main class="w-100 h-auto mt2 mb2 pr4 pl4 dark-pink" style="max-width:1200px">
 
       ${state.cache(SearchBar, "SearchBar", state, emit)}
 

@@ -50,7 +50,7 @@ function view (state, emit) {
   return html`
   <body class="code w-100 h-100 bg-washed-blue flex flex-column">
     ${state.cache(NavbarTop, "NavbarTop", state, emit)}
-    <main class="w-100 h-auto flex flex-column mt2 mb2 pr4 pl4 dark-pink" style="flex-grow:1">
+    <main class="w-100 h-auto mt2 mb2 pr4 pl4 dark-pink" style="max-width:1200px">
         <div class="h2 w-100 mt3 flex-column flex justify-center">
           ${state.cache(BackBtn, "BackBtn", state, emit)}
         </div>

@@ -2,6 +2,14 @@ var html = require("choo/html")
 
 var LoginModal = require("./LoginModal");
 
+var css = require("sheetify")
+
+css`
+header{
+  min-height:90px;
+}
+`
+
 
 module.exports = function(name, state, emit) {
 
@@ -19,7 +27,7 @@ module.exports = function(name, state, emit) {
 
 
   return html`
-  <header class="flex flex-row w-100 h-2 bg-navy dark-pink">
+  <header class="flex flex-row w-100 h2 bg-navy dark-pink">
     <nav class="z-1 flex flex-row w-100 h-100 justify-between pl4 pr4 pt2 pb2">
       <ul class="flex flex-row items-center navRight list ma0 pa0 h-100">
         <li class="mr4 f2"><a class="link" href="/">🚂🏳️‍🌈✨</a></li>
