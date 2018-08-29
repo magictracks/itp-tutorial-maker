@@ -5,6 +5,7 @@ var NavbarBottom = require("../components/NavbarBottom")
 var EditorToolbar = require("../components/EditorToolbar")
 var AddResourceModal = require("../components/AddResourceModal")
 var AddSectionModal = require("../components/AddSectionModal")
+var ResourceCard = require("../components/ResourceCard")
 
 var css = require("sheetify")
 
@@ -24,7 +25,7 @@ let myTutorials = [];
 let mySections = [];
 let myResources = [];
 
-for(let i = 0; i < 3; i++){
+for(let i = 0; i < 6; i++){
   let output = {
     title: "hello I'm a title",
     url:"#",
@@ -92,6 +93,7 @@ function view (state, emit) {
         </div>
         <h2 class="f2 ma0 pa0 pl2">Edit</h2>
 
+
         ${state.cache(EditorToolbar, "EditorToolbar", state, emit)}
 
         <!-- editor main area -->
@@ -121,6 +123,20 @@ function view (state, emit) {
             </div>
           </div>
 
+        </section>
+
+        <!-- resources not yet added to a section  -->
+        <section class="w-100 flex flex-column overflow-x-scroll pa2 justfy-between ba br2">
+          <p class="w-100 ma0 pa2">Saved while browsing the web - Organize us into sections!</p>
+          <div class="w-100 flex flex-row">
+            ${myResources.map( (resource) =>
+              html`
+                <div class="mr2">
+                  ${new ResourceCard(resource)}
+                </div>
+              `
+            )}
+          </div>
         </section>
 
       </main>
