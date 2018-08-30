@@ -21,37 +21,6 @@ var TITLE = 'client - edit'
 
 module.exports = view
 
-let myTutorials = [];
-let mySections = [];
-let myResources = [];
-
-for(let i = 0; i < 6; i++){
-  let output = {
-    title: "hello I'm a title",
-    url:"#",
-    urlName:"Link",
-    description: "Anim nisi nostrud aliquip officia eu laborum sint aliqua cupidatat minim dolor sint culpa."
-  }
-  myTutorials.push( Object.assign({type:"tutorial"}, output) )
-  mySections.push(Object.assign({type:"section"}, output))
-  myResources.push(Object.assign({type:"resource"}, output))
-}
-
-mySections = mySections.map( (section) => {
-    let output = {
-      title: "hello I'm a resource",
-      url:"#",
-      urlName:"https://link-to-somewhere-awesome.com/amazing",
-      description: "Resource description. Learn all the things",
-      tags:['magic tracks', 'inspiration', 'itp', 'creative code', 'education']
-    }
-    section.resources = [];
-    for(let i = 0; i < Math.random()*4; i++){
-      section.resources.push(output)
-    }
-
-    return section
-})
 
 
 function view (state, emit) {
@@ -129,7 +98,7 @@ function view (state, emit) {
         <section class="w-100 flex flex-column overflow-x-scroll pa2 justfy-between ba br2">
           <p class="w-100 ma0 pa2">Saved while browsing the web - Organize us into sections!</p>
           <div class="w-100 flex flex-row">
-            ${myResources.map( (resource) =>
+            ${state.resources.map( (resource) =>
               html`
                 <div class="mr2">
                   ${new ResourceCard(resource)}

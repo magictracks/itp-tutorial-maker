@@ -34,39 +34,6 @@ for(let i = 0; i < 10; i++){
   myResources.push(Object.assign({type:"resource"}, output))
 }
 
-let curators = [];
-  curators.push({user:"joeyklee", name:"Joey L", description:"Skateboards + Pixels = tools for awesome"})
-  curators.push({user:"sandy", name:"Sandy H", description:"I can make anything from fabric"})
-  curators.push({user:"hongky", name:"Hong K", description:"prosthetics are my thing"})
-  curators.push({user:"shiffman", name:"Dan Shiffman", description:"Prof. @ ITP"})
-  curators.push({user:"dano1234", name:"Dan O", description:"Prof. @ ITP"})
-  curators.push({user:"vanevery", name:"Shawn Van E", description:"Prof. @ ITP"})
-
-let tags =  [
-    "javascript",
-    "learning",
-    "tutorial",
-    "processing",
-    "Processing (Programming Language)",
-    "creative coding",
-    "p5.js",
-    "JavaScript (Programming Language)",
-    "HTML (Programming Language)",
-    "HTML5 (API)",
-    "Cascading Style Sheets (Programming Language)",
-    "Education (TV Genre)",
-    "Tutorial (Media Genre)",
-    "Intro",
-    "Lesson",
-    "Lessons",
-    "Teacher",
-    "p5js",
-    "daniel shiffman",
-    "p5 js",
-    "p5.js tutorial",
-    "coding",
-    "programming"
-  ]
 
 
 module.exports = view
@@ -149,7 +116,7 @@ function view (state, emit) {
           <section id="tutorials" class="contributions">
             <div class="w-100 br2 h-auto mt2 flex flex-column">
               <div class="w-100 h-auto flex flex-row flex-wrap justify-between content-between">
-                ${myTutorials.map((d) => new TutorialCard(d))}
+                ${state.tutorials.map((d) => new TutorialCard(d))}
               </div>
             </div>
           </section>
@@ -157,7 +124,7 @@ function view (state, emit) {
           <section id="sections" class="contributions dn">
             <div class="w-100 br2 h-auto mt2 flex flex-column">
               <div class="w-100 h-auto flex flex-row flex-wrap justify-between content-between">
-                ${mySections.map((d) => new SectionCard(d))}
+                ${state.sections.map((d) => new SectionCard(d))}
               </div>
             </div>
           </section>
@@ -165,7 +132,7 @@ function view (state, emit) {
           <section id="resources" class="contributions dn">
             <div class="w-100 br2 h-auto mt2 flex flex-column">
               <div class="w-100 h-auto flex flex-row flex-wrap justify-between content-between">
-                ${myResources.map((d) => new ResourceCard(d))}
+                ${state.resources.map((d) => new ResourceCard(d))}
               </div>
             </div>
           </section>
@@ -181,7 +148,7 @@ function view (state, emit) {
           <section id="curators" class="curators">
             <div class="w-100 br2 h-auto mt2 flex flex-column">
               <div class="w-100 h-auto flex flex-row flex-wrap justify-between content-between">
-                 ${ curators.map((curator) => new CuratorCard(curator)) }
+                 ${ state.curators.map((curator) => new CuratorCard(curator)) }
               </div>
             </div>
           </section>
@@ -198,7 +165,7 @@ function view (state, emit) {
           <section id="tags" class="curators">
             <div class="w-100 br2 h-auto mt2 flex flex-column">
               <div class="w-100 h-auto flex flex-row flex-wrap justify-between content-between">
-                ${tags.map( (tag) => html` <div class="ba br-pill pa3">${tag} </div> ` )}
+                ${state.tags.map( (tag) => html` <div class="ba br-pill pa3">${tag} </div> ` )}
               </div>
             </div>
           </section>

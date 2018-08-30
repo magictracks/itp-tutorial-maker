@@ -14,21 +14,6 @@ var css = require("sheetify")
 
 var TITLE = 'client - create'
 
-let myTutorials = [];
-let mySections = [];
-let myResources = [];
-
-for(let i = 0; i < 10; i++){
-  let output = {
-    title: "hello I'm a title",
-    url:"#",
-    urlName:"Link",
-    description: "Anim nisi nostrud aliquip officia eu laborum sint aliqua cupidatat minim dolor sint culpa."
-  }
-  myTutorials.push( Object.assign({type:"tutorial"}, output) )
-  mySections.push(Object.assign({type:"section"}, output))
-  myResources.push(Object.assign({type:"resource"}, output))
-}
 
 let appendItem = function(arr, resourceType){
     console.log("clicked!")
@@ -158,11 +143,11 @@ function view (state, emit) {
             </div>
             <div class="w-100 h-auto flex flex-row flex-wrap justify-between content-between">
               <!-- add new -->
-              <div onclick=${() => appendItem(myTutorials, "tutorial")} class="card w-30 h5 pa2 mr2 mt3 flex flex-column items-center justify-center br2 ba" style="width:324px; height:324px">
+              <div class="card w-30 h5 pa2 mr2 mt3 flex flex-column items-center justify-center br2 ba" style="width:324px; height:324px">
                   <div class="br-100">Add new :)</div>
               </div>
 
-              ${myTutorials.map((d) => new TutorialCard(d))}
+              ${state.tutorials.map((d) => new TutorialCard(d))}
             </div>
           </div>
         </section>
@@ -179,7 +164,7 @@ function view (state, emit) {
                   <div class="br-100">Add new :)</div>
               </div>
 
-              ${mySections.map((d) => new SectionCard(d))}
+              ${state.sections.map((d) => new SectionCard(d))}
             </div>
           </div>
         </section>
@@ -196,7 +181,7 @@ function view (state, emit) {
                   <div class="br-100">Add new :)</div>
               </div>
 
-              ${myResources.map((d) => new ResourceCard(d))}
+              ${state.resources.map((d) => new ResourceCard(d))}
             </div>
           </div>
         </section>

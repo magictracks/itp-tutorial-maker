@@ -102,6 +102,9 @@ module.exports = function(name, state, emit){
                         </section>
                         <section id="addResourceStep-2" class="addResourceStep dn">
                           <div class="w-100 flex flex-column h-auto">
+                            <div class="w-100">
+                              <small>url: https://super-awesome-link.com</small>
+                            </div>
                             <div class="w-100 h-100 flex flex-row">
                               <div class="w-60 h-100 flex flex-column">
                                 <input class="w-100 h2 pa2 br2 ba input-reset" type="text" placeholder="Resource Title">

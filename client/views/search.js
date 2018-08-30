@@ -17,22 +17,6 @@ css`
 
 var TITLE = 'client - search'
 
-let myTutorials = [];
-let mySections = [];
-let myResources = [];
-
-for(let i = 0; i < 10; i++){
-  let output = {
-    title: "hello I'm a title",
-    url:"#",
-    urlName:"Link",
-    description: "Anim nisi nostrud aliquip officia eu laborum sint aliqua cupidatat minim dolor sint culpa."
-  }
-  myTutorials.push( Object.assign({type:"tutorial"}, output) )
-  mySections.push(Object.assign({type:"section"}, output))
-  myResources.push(Object.assign({type:"resource"}, output))
-}
-
 
 module.exports = view
 
@@ -98,7 +82,7 @@ function view (state, emit) {
               <h2 class="pa0 ma0">Tutorials</h2>
             </div>
             <div class="w-100 h-auto flex flex-row flex-wrap justify-between content-between">
-              ${myTutorials.map((d) => new TutorialCard(d))}
+              ${state.tutorials.map((d) => new TutorialCard(d))}
             </div>
           </div>
         </section>
@@ -110,7 +94,7 @@ function view (state, emit) {
               <h2 class="pa0 ma0">Sections</h2>
             </div>
             <div class="w-100 h-auto flex flex-row flex-wrap justify-between">
-              ${mySections.map((d) => new SectionCard(d))}
+              ${state.sections.map((d) => new SectionCard(d))}
             </div>
           </div>
         </section>
@@ -122,7 +106,7 @@ function view (state, emit) {
               <h2 class="pa0 ma0">Resources</h2>
             </div>
             <div class="w-100 h-auto flex flex-row flex-wrap justify-between">
-              ${myResources.map((d) => new ResourceCard(d))}
+              ${state.resources.map((d) => new ResourceCard(d))}
             </div>
           </div>
         </section>
