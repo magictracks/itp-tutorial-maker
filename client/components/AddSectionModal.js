@@ -46,9 +46,21 @@ module.exports = function(name, state, emit){
 
   function addSection(e){
     console.log("added section!")
-    emit("tutorial:addSection", state.editing.tutorialid)
+    if(state.newSection.tutorialId){
+        emit("tutorial:addSection", state.newSection.tutorialId)
+    } else{
+        emit("tutorial:addSection", state.editing.tutorialid)
+    }
+
     stepForward();
     toggleSectionModal();
+  }
+
+  function updateSectionLocation(e){
+    console.log(e.target.value)
+
+    let tutorialId = e.target.value
+    state.newSection.tutorialId = tutorialId;
   }
 
   return html`
@@ -91,12 +103,18 @@ module.exports = function(name, state, emit){
                         <section id="addSectionStep-1" class="addSectionStep ${isCurrentStep(1)}">
                           <div class="w-100 flex flex-column mt2 mb2">
                             <small>step 3: select the tutorial you want your resource to live in</small>
-                            <select style="max-width:370px;">
-                            ${state.tutorials.map((tutorial, idx) =>
-                              html`
-                              <option>Tutorial ${idx}: ${tutorial.title}</option>
-                              `
-                            )}
+                            <select style="max-width:370px;" onchange=${updateSectionLocation}>
+                            ${state.tutorials.map((tutorial, idx) => {
+                              if(tutorial.id === state.editing.tutorialid){
+                                  return html`
+                                  <option value="${tutorial.id}" selected>Tutorial ${tutorial.id}: ${tutorial.title}</option>
+                                  `
+                              } else{
+                                return html`
+                                  <option value="${tutorial.id}">Tutorial ${tutorial.id}: ${tutorial.title}</option>
+                                  `
+                              }
+                              })}
                             </select>
                           </div>
                           <small>step 4: add it to your project!</small>
