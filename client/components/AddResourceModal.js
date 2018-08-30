@@ -47,11 +47,23 @@ module.exports = function(name, state, emit){
 
   function addResource(e){
     console.log("added resource!")
-    emit("tutorial:addResource", state.editing.tutorialid, state.editing.sectionid)
+    if(state.newResource.sectionId){
+        emit("tutorial:addResource", state.editing.tutorialid, state.newResource.sectionId)
+    } else{
+        emit("tutorial:addResource", state.editing.tutorialid, state.editing.sectionid)
+    }
+
     stepForward();
     toggleResourceModal();
   }
 
+  function updateResourceLocation(e){
+    console.log(e.target.value)
+
+    let sectionId = e.target.value
+    state.newResource.sectionId = sectionId;
+
+  }
 
   return html`
   <div id="addResourceModal" class="${isToggled()} w-100 h-100">
@@ -91,6 +103,7 @@ module.exports = function(name, state, emit){
                                 <input class="w-100 h2 pa2 br2 ba input-reset" onkeyup=${handleChange} name="title" type="text" placeholder="Resource Title">
                                 <textarea class="w-100 h3 pa2 br2 ba input-reset mt1" onkeyup=${handleChange} name="description" type="text" style="resize: none;"></textarea>
                                 <input class="w-100 h2 pa2 br2 ba input-reset mb2 mt1" onkeyup=${handleChange} name="tags" type="text" placeholder="tags: e.g. javascript, creative code">
+                                <!-- TODO -->
                                 <select class="w-100">
                                   <option>no rating</option>
                                   <option>beginner friendly</option>
@@ -117,12 +130,22 @@ module.exports = function(name, state, emit){
                         <section id="addResourceStep-2" class="addResourceStep ${isCurrentStep(2)}">
                           <div class="w-100 flex flex-column mt2 mb2">
                             <small>step 3: select the section you want your resource to live in</small>
-                            <select style="max-width:370px;">
-                            ${state.sections.map((section, idx) =>
-                              html`
-                              <option>Section ${idx}: ${section.title}</option>
-                              `
-                            )}
+                            <select style="max-width:370px;" onchange=${updateResourceLocation}>
+                            ${state.tutorials.map( (tutorial) => {
+                              if(tutorial.id === state.editing.tutorialid){
+                                return tutorial.sections.map((section, idx) => {
+                                  if(section.id === state.editing.sectionid){
+                                      return html`
+                                      <option value=${section.id} selected>Section ${idx}: ${section.title}</option>
+                                      `
+                                  } else{
+                                    return html`
+                                      <option value=${section.id}>Section ${idx}: ${section.title}</option>
+                                      `
+                                  }
+                                })
+                              }
+                            })}
                             </select>
                           </div>
                           <small>step 4: add it to your project! (if the resource is new we'll also add it to our collective resources)</small>
