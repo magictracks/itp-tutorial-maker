@@ -6,7 +6,7 @@ var html = require("choo/html");
 module.exports = function(name, state, emit){
 
   let toggleResourceModal = function(e){
-    emit("db:addResourceModalState:toggled")
+    emit("db:addResourceModalState:toggled", state.editing.tutorialid, state.editing.sectionid)
   }
 
 

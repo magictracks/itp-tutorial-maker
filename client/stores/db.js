@@ -93,6 +93,11 @@ function store (state, emitter) {
 
   emitter.on('DOMContentLoaded', function () {
 
+    emitter.on('db:addTutorial', function () {
+      state.tutorials.unshift( Object.assign({id: `uid-${state.tutorials.length}`}, state.newTutorial) )
+      emitter.emit(state.events.RENDER)
+    })
+
     emitter.on('db:updateProperty', function (d, id, featuretype, property) {
       // NOTE: NOT efficient at all? there must be a better way to do this?
       // Maybe it also is different using a different db.
@@ -147,7 +152,7 @@ function store (state, emitter) {
           if(tutorial.id === tutorialId){
             tutorial.sections = tutorial.sections.map( (section) => {
               if(section.id === sectionId){
-                section.resources.push( Object.assign({id:`uid-${section.resources.length}`}, state.newResource ))
+                section.resources.push( Object.assign({id:`uid-${section.resources.length}`,  tutorialId: tutorial.id,  sectionId: section.id}, state.newResource ))
               }
               return section;
             })
@@ -162,7 +167,7 @@ function store (state, emitter) {
       state.tutorials = state.tutorials.map((tutorial) => {
           if(tutorial.id === tutorialId){
             // add in the "uid-"
-            tutorial.sections.push( Object.assign({id:`uid-${tutorial.sections.length}`}, state.newSection) )
+            tutorial.sections.push( Object.assign({id:`uid-${tutorial.sections.length}`, tutorialId: tutorial.id}, state.newSection) )
           }
           return tutorial
       })
@@ -173,15 +178,16 @@ function store (state, emitter) {
     emitter.on('db:addResourceModalState:toggled', function (tutorialid, sectionid) {
       state.addResourceModalState.toggled = !state.addResourceModalState.toggled;
       // set which of the items is being edited
-      state.editing.tutorialid = tutorialid;
-      state.editing.sectionid = sectionid;
+      if(tutorialid !== "undefined") state.editing.tutorialid = tutorialid;
+      if(sectionid !== "undefined") state.editing.sectionid = sectionid;
+
 
       emitter.emit(state.events.RENDER)
     })
     emitter.on('db:addSectionModalState:toggled', function (tutorialid) {
       state.addSectionModalState.toggled = !state.addSectionModalState.toggled;
       // set which of the items is being edited
-      state.editing.tutorialid = tutorialid;
+      if(tutorialid !== undefined) state.editing.tutorialid = tutorialid;
 
       emitter.emit(state.events.RENDER)
     })

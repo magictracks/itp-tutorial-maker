@@ -30,35 +30,16 @@ function view (state, emit) {
   if (state.title !== TITLE) emit(state.events.DOMTITLECHANGE, TITLE)
 
   let toggleResourceModal = function(){
-    console.log("clicked")
-    let modal = document.querySelector("#addResourceModal")
-    modal.classList.toggle("dn")
 
-    let els = document.querySelectorAll(".addResourceStep")
-    for(let i = 0; i < els.length; i++){
-      console.log(els[i].classList)
-      els[i].classList.add("dn")
-    }
-    // default to having step 1 open
-    document.querySelector("#addResourceStep-1").classList.remove("dn");
   }
 
 
   let toggleSectionModal = function(){
-    console.log("clicked")
-    let modal = document.querySelector("#addSectionModal")
-    modal.classList.toggle("dn")
 
-    let els = document.querySelectorAll(".addSectionStep")
-    for(let i = 0; i < els.length; i++){
-      console.log(els[i].classList)
-      els[i].classList.add("dn")
-    }
-    // default to having step 1 open
-    document.querySelector("#addSectionStep-1").classList.remove("dn");
   }
 
 
+  // TODO: use state to manage this
   let toggleView = function(e){
     console.log("clicked!");
 
@@ -88,6 +69,10 @@ function view (state, emit) {
       }
     }
 
+  }
+
+  function addTutorialToStore(e){
+    emit("db:addTutorial")
   }
 
 
@@ -143,8 +128,8 @@ function view (state, emit) {
             </div>
             <div class="w-100 h-auto flex flex-row flex-wrap justify-between content-between">
               <!-- add new -->
-              <div class="card w-30 h5 pa2 mr2 mt3 flex flex-column items-center justify-center br2 ba" style="width:324px; height:324px">
-                  <div class="br-100">Add new :)</div>
+              <div class="card w-30 h5 pa2 mr2 mt3 flex flex-column items-center justify-center br2 ba grow" style="width:324px; height:324px">
+                  <div class="br-100" onclick=${addTutorialToStore}>Add new :)</div>
               </div>
 
               ${state.tutorials.map((d) => new TutorialCard(d))}
@@ -177,7 +162,7 @@ function view (state, emit) {
             </div>
             <div class="w-100 h-auto flex flex-row flex-wrap justify-between">
                 <!-- add new -->
-              <div class="card w-30 h5 pa2 mr2 mt3 flex flex-column items-center justify-center br2 ba" style="width:324px; height:324px">
+              <div class="card w-30 h5 pa2 mr2 mt3 flex flex-column items-center justify-center br2 ba grow" style="width:324px; height:324px">
                   <div class="br-100">Add new :)</div>
               </div>
 

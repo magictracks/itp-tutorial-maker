@@ -6,7 +6,7 @@ var html = require("choo/html");
 module.exports = function(name, state, emit){
 
   let toggleSectionModal = function(e){
-    emit("db:addSectionModalState:toggled")
+    emit("db:addSectionModalState:toggled", state.editing.tutorialid)
   }
 
   function handleChange(e){

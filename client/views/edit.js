@@ -27,6 +27,7 @@ function view (state, emit) {
   if (state.title !== TITLE) emit(state.events.DOMTITLECHANGE, TITLE)
 
   let toggleResourceModal = function(e){
+
     let sectionid = e.target.dataset.sectionid;
     let tutorialid = e.target.dataset.tutorialid;
     emit("db:addResourceModalState:toggled", tutorialid, sectionid)
@@ -50,8 +51,6 @@ function view (state, emit) {
   }
 
   let selectedData = state[state.params.featureType].filter( (feat) => feat.id === state.params.featureId )[0]
-  console.log(selectedData);
-
 
   function onChange(e){
     // console.log(e.target.textContent)
