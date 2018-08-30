@@ -5,6 +5,7 @@ var NavbarBottom = require("../components/NavbarBottom")
 var EditorToolbar = require("../components/EditorToolbar")
 var AddResourceModal = require("../components/AddResourceModal")
 var AddSectionModal = require("../components/AddSectionModal")
+var ResourceCard = require("../components/ResourceCard")
 
 var css = require("sheetify")
 
@@ -20,37 +21,6 @@ var TITLE = 'client - new'
 
 module.exports = view
 
-let myTutorials = [];
-let mySections = [];
-let myResources = [];
-
-for(let i = 0; i < 3; i++){
-  let output = {
-    title: "hello I'm a title",
-    url:"#",
-    urlName:"Link",
-    description: "Anim nisi nostrud aliquip officia eu laborum sint aliqua cupidatat minim dolor sint culpa."
-  }
-  myTutorials.push( Object.assign({type:"tutorial"}, output) )
-  mySections.push(Object.assign({type:"section"}, output))
-  myResources.push(Object.assign({type:"resource"}, output))
-}
-
-mySections = mySections.map( (section) => {
-    let output = {
-      title: "hello I'm a resource",
-      url:"#",
-      urlName:"https://link-to-somewhere-awesome.com/amazing",
-      description: "Resource description. Learn all the things",
-      tags:['magic tracks', 'inspiration', 'itp', 'creative code', 'education']
-    }
-    section.resources = [];
-    for(let i = 0; i < Math.random()*4; i++){
-      section.resources.push(output)
-    }
-
-    return section
-})
 
 
 function view (state, emit) {
@@ -92,6 +62,7 @@ function view (state, emit) {
         </div>
         <h2 class="f2 ma0 pa0 pl2">Edit</h2>
 
+
         ${state.cache(EditorToolbar, "EditorToolbar", state, emit)}
 
         <!-- editor main area -->
@@ -121,6 +92,20 @@ function view (state, emit) {
             </div>
           </div>
 
+        </section>
+
+        <!-- resources not yet added to a section  -->
+        <section class="w-100 flex flex-column overflow-x-scroll pa2 justfy-between ba br2">
+          <p class="w-100 ma0 pa2">Saved while browsing the web - Organize us into sections!</p>
+          <div class="w-100 flex flex-row">
+            ${state.resources.map( (resource) =>
+              html`
+                <div class="mr2">
+                  ${new ResourceCard(resource)}
+                </div>
+              `
+            )}
+          </div>
         </section>
 
       </main>
