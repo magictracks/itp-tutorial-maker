@@ -5,77 +5,55 @@ var html = require("choo/html");
 
 module.exports = function(name, state, emit){
 
-  var mySections = [];
+  let toggleResourceModal = function(e){
+    emit("db:addResourceModalState:toggled")
+  }
 
-    for(let i = 0; i < 3; i++){
-      let output = {
-        title: "hello I'm a title",
-        url:"#",
-        urlName:"Link",
-        description: "Anim nisi nostrud aliquip officia eu laborum sint aliqua cupidatat minim dolor sint culpa."
-      }
-      mySections.push(Object.assign({type:"section"}, output))
+
+
+  function handleChange(e){
+    e.preventDefault();
+    // console.log(e.target.name)
+    let k = e.target.name;
+    let v = e.target.value;
+
+    emit("db:updateNewResource", k, v)
+
+  }
+
+
+  function isToggled(){
+    if(state.addResourceModalState.toggled === true){
+      return ""
+    } else{
+      return "dn"
     }
+  }
 
-    mySections = mySections.map( (section) => {
-        let output = {
-          title: "hello I'm a resource",
-          url:"#",
-          urlName:"https://link-to-somewhere-awesome.com/amazing",
-          description: "Resource description. Learn all the things",
-          tags:['magic tracks', 'inspiration', 'itp', 'creative code', 'education']
-        }
-        section.resources = [];
-        for(let i = 0; i < Math.random()*4; i++){
-          section.resources.push(output)
-        }
-        return section
-    })
-
-
-  let toggleResourceModal = function(){
-    console.log("clicked")
-    let modal = document.querySelector("#addResourceModal")
-    modal.classList.toggle("dn")
-
-    let els = document.querySelectorAll(".addResourceStep")
-    for(let i = 0; i < els.length; i++){
-      console.log(els[i].classList)
-      els[i].classList.add("dn")
+  function isCurrentStep(step){
+    if(state.addResourceModalState.currentStep === step){
+      return ""
+    } else{
+      return "dn"
     }
-    // default to having step 1 open
-    document.querySelector("#addResourceStep-1").classList.remove("dn");
   }
 
-  let nextStep = function(e){
-
-    let currentElNumber = e.target.dataset.step;
-    let currentEl = document.querySelector(`#addResourceStep-${currentElNumber}`)
-    currentEl.classList.add("class","dn");
-
-    let nextElNumber = parseInt(currentEl.id.split("-").slice(-1)[0]) + 1
-    let nextEl = document.querySelector(`#addResourceStep-${nextElNumber}`)
-    nextEl.classList.remove("class", "dn");
-
+  function stepForward(e){
+    emit("db:addResourceModalState:stepForward");
   }
-  let backStep = function(e,  step){
-    let currentElNumber = e.target.dataset.step;
-    let currentEl = document.querySelector(`#addResourceStep-${currentElNumber}`)
-    currentEl.classList.add("dn");
-
-    let nextElNumber = parseInt(currentEl.id.split("-").slice(-1)[0]) - 1
-    let nextEl = document.querySelector(`#addResourceStep-${nextElNumber}`)
-    nextEl.classList.remove("dn");
+  function stepBack(e){
+    emit("db:addResourceModalState:stepBack");
   }
 
-  let addResource = function(e){
+  function addResource(e){
     console.log("added resource!")
+    stepForward();
     toggleResourceModal();
   }
 
 
   return html`
-  <div id="addResourceModal" class="dn w-100 h-100">
+  <div id="addResourceModal" class="${isToggled()} w-100 h-100">
     <div class="w-100 h-100 fixed flex flex-column justify-center items-center dark-pink" style="top:50%; left:50%; transform: translate(-50%, -50%); max-height:100%; max-width:100%; background-color:rgba(0,0,0,0.5);">
           <div class="w-100 h-100 flex flex-column justify-center items-center">
             <div class="w-50 bg-washed-blue pa2 ba br2">
@@ -91,19 +69,21 @@ module.exports = function(name, state, emit){
                   <div class="w-100 flex flex-column mt2">
                     <fieldset class="w-100 flex flex-column ba br2 bg-washed-green pl3 pr3 pb3 bw1 ba b--dark-pink">
                       <legend class="f6 pa3 bw1 ba bg-washed-green br2">New Resource</legend>
-                        <section id="addResourceStep-1" class="addResourceStep ">
+                        <section id="addResourceStep-0" class="addResourceStep ${isCurrentStep(0)}">
                           <div class="w-100 pa2"><small>step 1: add the url to the resource - if it exists in our collections, we'll autofill the details.</small></div>
                           <div class="w-100 flex flex-row">
                             <div class="w-80">
-                              <input class="w-100 h3 pa2 br2 ba input-reset" type="text" placeholder="add resource url">
+                              <input class="w-100 h3 pa2 br2 ba input-reset" type="text" name="url" onkeyup=${handleChange} placeholder="add resource url">
                             </div>
-                            <div class="w-20 flex flex-row justify-start items-center"><button class="ba br2 w-100 h3 bg-washed-red dark-pink" onclick=${nextStep} data-step="1">next</button></div>
+                            <div class="w-20 flex flex-row justify-start items-center">
+                              <div class="w-100 flex flex-row justify-start items-center"><button class="ba br2 w-100 h3 bg-washed-red dark-pink" data-step="0" onclick="${stepForward}">next</button></div>
+                            </div>
                           </div>
                         </section>
-                        <section id="addResourceStep-2" class="addResourceStep dn">
+                        <section id="addResourceStep-1" class="addResourceStep ${isCurrentStep(1)}">
                           <div class="w-100 flex flex-column h-auto">
                             <div class="w-100">
-                              <small>url: https://super-awesome-link.com</small>
+                              <small>url: ${state.newResource.url}</small>
                             </div>
                             <div class="w-100 h-100 flex flex-row">
                               <div class="w-60 h-100 flex flex-column">
@@ -128,16 +108,16 @@ module.exports = function(name, state, emit){
                               </div>
                             </div>
                             <div class="w-100 flex flex-row">
-                              <div class="w-20 flex flex-row justify-start items-center"><button class="ba br2 w-100 h3 bg-light-gray dark-pink" data-step="2" onclick="${backStep}">go back</button></div>
-                              <div class="w-20 flex flex-row justify-start items-center"><button class="ba br2 w-100 h3 bg-washed-red dark-pink" data-step="2" onclick="${nextStep}">next</button></div>
+                              <div class="w-20 flex flex-row justify-start items-center"><button class="ba br2 w-100 h3 bg-light-gray dark-pink" data-step="1" onclick="${stepBack}">go back</button></div>
+                              <div class="w-20 flex flex-row justify-start items-center"><button class="ba br2 w-100 h3 bg-washed-red dark-pink" data-step="1" onclick="${stepForward}">next</button></div>
                             </div>
                           </div>
                         </section>
-                        <section id="addResourceStep-3" class="addResourceStep dn">
+                        <section id="addResourceStep-2" class="addResourceStep ${isCurrentStep(2)}">
                           <div class="w-100 flex flex-column mt2 mb2">
                             <small>step 3: select the section you want your resource to live in</small>
                             <select>
-                            ${mySections.map((section, idx) =>
+                            ${state.sections.map((section, idx) =>
                               html`
                               <option>Section ${idx}: ${section.title}</option>
                               `
@@ -146,7 +126,7 @@ module.exports = function(name, state, emit){
                           </div>
                           <small>step 4: add it to your project! (if the resource is new we'll also add it to our collective resources)</small>
                           <div class="w-100 flex flex-row mt3">
-                            <div class="w-20 flex flex-row justify-start items-center"><button class="ba br2 w-100 h3 bg-light-gray dark-pink" data-step="2" onclick="${backStep}">go back</button> </div>
+                            <div class="w-20 flex flex-row justify-start items-center"><button class="ba br2 w-100 h3 bg-light-gray dark-pink" data-step="2" onclick="${stepBack}">go back</button> </div>
                             <div class="w-20 flex flex-row justify-start items-center"><button class="ba br2 w-100 h3 bg-washed-red dark-pink" data-step="2" onclick=${addResource}>add</button> </div>
                           </div>
                         </section>

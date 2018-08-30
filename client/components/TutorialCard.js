@@ -5,7 +5,7 @@ module.exports = function(tutorial){
   return html`
 
   <div class="card pa2 mt3 mb2 bg-light-green  br2 flex flex-column overflow-y-auto grow" style="width:324px; height:324px">
-    <a href="/edit/${tutorial.id}" class="link dark-pink">
+    <a href="/edit/tutorials/${tutorial.id}" class="link dark-pink">
         <!-- information -->
           <div class="flex flex-column pa2">
             <p class="f4 ma0 pa0">${tutorial.title}</p>

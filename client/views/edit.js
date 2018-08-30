@@ -26,32 +26,28 @@ module.exports = view
 function view (state, emit) {
   if (state.title !== TITLE) emit(state.events.DOMTITLECHANGE, TITLE)
 
-  let toggleResourceModal = function(){
-    let modal = document.querySelector("#addResourceModal")
-    modal.classList.toggle("dn")
+  let toggleResourceModal = function(e){
+    emit("db:addResourceModalState:toggled")
 
-    let els = document.querySelectorAll(".addResourceStep")
-    for(let i = 0; i < els.length; i++){
-      els[i].classList.add("dn")
-    }
-    // default to having step 1 open
-    document.querySelector("#addResourceStep-1").classList.remove("dn");
   }
 
 
-  let toggleSectionModal = function(){
-    let modal = document.querySelector("#addSectionModal")
-    modal.classList.toggle("dn")
-
-    let els = document.querySelectorAll(".addSectionStep")
-    for(let i = 0; i < els.length; i++){
-      els[i].classList.add("dn")
-    }
-    // default to having step 1 open
-    document.querySelector("#addSectionStep-1").classList.remove("dn");
+  let toggleSectionModal = function(e){
+    emit("db:addSectionModalState:toggled")
   }
 
+  let selectedData = state[state.params.featureType].filter( (feat) => feat.id === state.params.featureId )[0]
+  console.log(selectedData);
 
+
+  function onChange(e){
+    // console.log(e.target.textContent)
+    let d = e.target.textContent
+    let id = e.target.dataset.id
+    let featuretype = e.target.dataset.featuretype
+    let property = e.target.dataset.property
+    emit("db:updateProperty", d, id, featuretype, property )
+  }
 
   return html`
   <body class="code w-100 h-100 bg-washed-blue flex flex-column items-center min-h-100">
@@ -71,22 +67,49 @@ function view (state, emit) {
           <div class="w-80 pa2">
             <!-- title area -->
             <section class="w-100">
-              <div class="w-100 mt4 mb4" style="background: url(../assets/magic-tracks-logo.png); background-position:center; background-repeat: no-repeat; background-size: auto; height:200px"></div>
-              <h1 contenteditable="true" class="w-100 f1">How about this cheeky title, eh?</h1>
+              <div class="w-100 mt4 mb4" style="background: url('${selectedData.headerImage}'); background-position:center; background-repeat: no-repeat; background-size: auto; height:200px"></div>
+              <h1 contenteditable="true" class="w-100 f1" onkeyup=${onChange} data-id=${selectedData.id} data-featuretype="tutorials" data-property="title">${selectedData.title}</h1>
               <small>a wonderful learning pathway curated by @username</small>
-              <h3 contenteditable="true" class="w-100 f3">This description is as good as it's going to get. Pretty much pulitzer prize level right here. </h3>
+              <h3 contenteditable="true" class="w-100 f3" onkeyup=${onChange} data-id=${selectedData.id} data-featuretype="tutorials" data-property="description">${selectedData.description} </h3>
             </section>
 
             <h2 class="tc mt4 mb4">🌈 Sections 🌈</h2>
-            <!-- Section area -->
-            <section class="w-100 mt2 br1 b--none">
-              <h3 contenteditable="true" class="w-100 f3">Section titles get even cheekier</h3>
-              <p contenteditable="true" class="w-100">What would a section be without a really nice description?</p>
-              <div class="w-100 mt2 mb2">
-                <button class="pa2 ba br2" onclick=${toggleResourceModal}>+ add resource</button>
-              </div>
-            </section>
 
+            <!-- Section area -->
+
+            ${selectedData.sections.map( (section, sectionIdx) =>
+              html`
+                <section class="w-100 mt2 br1 b--none">
+                  <h3 contenteditable="true" class="w-100 f3" onkeyup=${onChange} data-id=${section.id} data-featuretype="sections" data-property="title">${section.title}</h3>
+                  <p contenteditable="true" class="w-100" onkeyup=${onChange} data-id=${section.id} data-featuretype="sections" data-property="description">${section.description}</p>
+
+                  <section class="w-100 pl2 pr2">
+                  ${section.resources.map( (resource, resourceIdx) =>
+                    html`
+                      <div class="w-100 h-auto mt2 mb2 ba br2 flex flex-row">
+                        <div class="w-70 h-100 pa2">
+                          <h4 class="pa0 ma0" contenteditable="true" onkeyup=${onChange} data-id=${resource.id} data-featuretype="resources" data-property="title">${resource.title}</h4>
+                          <p class="pa0 ma0" contenteditable="true" onkeyup=${onChange} data-id=${resource.id} data-featuretype="resources" data-property="description">${resource.description}</p>
+                          <small contenteditable="true">${resource.tags}</small>
+                        </div>
+                        <div class="w-30" style="height:150px; background: url(${resource.headerImage}); background-position:center; background-repeat: no-repeat; background-size: cover;">
+                        </div>
+                      </div>
+                    `
+                  )}
+
+                  <!-- toggle addResource -->
+                  <div class="w-100 mt2 mb2">
+                    <button class="pa2 ba br2" onclick=${toggleResourceModal} data-sectionid=${section.id}>+ add resource</button>
+                  </div>
+
+                  </section>
+
+                </section>
+              `
+            )}
+
+            <!-- toggle addSection -->
             <div class="w-100 mt2 mb2">
               <button class="pa2 ba br2" onclick=${toggleSectionModal}>+ add section</button>
             </div>
@@ -112,8 +135,9 @@ function view (state, emit) {
 
       ${state.cache(NavbarBottom, "NavbarBottom")}
       <!-- popups for add new, and change -->
-      ${state.cache(AddResourceModal, "AddResourceModal", state, emit)}
-      ${state.cache(AddSectionModal, "AddSectionModal", state, emit)}
+
+      ${new AddResourceModal("AddResourceModal", state, emit)}
+      ${new AddSectionModal("AddSectionModal", state, emit)}
     </body>
 
   `

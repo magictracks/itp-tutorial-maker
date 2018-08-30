@@ -8,6 +8,44 @@ function store (state, emitter) {
   state.sections = initialState.sections;
   state.resources = initialState.resources;
 
+  state.addResourceModalState = {
+      toggled: false,
+      currentStep: 0
+  }
+
+  state.addSectionModalState = {
+      toggled: false,
+      currentStep: 0
+  }
+
+
+  state.newTutorial = {
+    title: "hello I'm a tutorial title: I'm informative and wonderful.",
+    url:"#",
+    urlName:"https://link-to-somewhere-awesome.com/amazing",
+    description: "tutorial description. Learn all the things. In this tutorial we're going to learn about...",
+    headerImage:"https://raw.githubusercontent.com/joeyklee/itp-tutorial-maker/client-refactor/client/assets/magic-tracks-logo.png",
+    tags:['magic tracks', 'inspiration', 'itp', 'creative code', 'education'],
+    sections:[]
+  }
+  state.newSection = {
+    title: "hello I'm a section title: I'm informative and wonderful.",
+    url:"#",
+    urlName:"https://link-to-somewhere-awesome.com/amazing",
+    description: "Section description. Learn all the things. In this section we're going to learn about...",
+    headerImage:"https://raw.githubusercontent.com/joeyklee/itp-tutorial-maker/client-refactor/client/assets/magic-tracks-logo.png",
+    tags:['magic tracks', 'inspiration', 'itp', 'creative code', 'education']
+  }
+  state.newResource = {
+    title: "hello I'm a resource title: I'm informative and wonderful.",
+    url:"#",
+    urlName:"https://link-to-somewhere-awesome.com/amazing",
+    description: "resource description. taken from XYZ",
+    headerImage:"https://raw.githubusercontent.com/joeyklee/itp-tutorial-maker/client-refactor/client/assets/magic-tracks-logo.png",
+    tags:['magic tracks', 'inspiration', 'itp', 'creative code', 'education']
+  }
+
+
   state.curators = [];
   state.curators.push({user:"joeyklee", name:"Joey L", description:"Skateboards + Pixels = tools for awesome"})
   state.curators.push({user:"sandy", name:"Sandy H", description:"I can make anything from fabric"})
@@ -48,14 +86,68 @@ function store (state, emitter) {
 
   emitter.on('DOMContentLoaded', function () {
 
-    // emitter.on('db:addResource', function (count) {
-    //   emitter.emit(state.events.RENDER)
-    // })
+    emitter.on('db:updateProperty', function (d, id, featuretype, property) {
+      // NOTE: NOT efficient at all? there must be a better way to do this?
+      // Maybe it also is different using a different db.
+      console.log(featuretype)
+      state[featuretype].forEach( (feat) => {
+        if(feat.id === id){
+            feat[property] = d
+        }
+      })
+      // emitter.emit(state.events.RENDER)
+    })
+
+    emitter.on('db:updateNewResource', function (k,v) {
+      state.newResource[k] = v;
+      // emitter.emit(state.events.RENDER)
+    })
+
+    emitter.on('db:updateNewSection', function (k,v) {
+      state.newSection[k] = v;
+      // emitter.emit(state.events.RENDER)
+    })
 
     emitter.on('db:addResource', function (count) {
       emitter.emit(state.events.RENDER)
     })
 
+    // handle modal popup states
+    emitter.on('db:addResourceModalState:toggled', function () {
+      state.addResourceModalState.toggled = !state.addResourceModalState.toggled;
+      emitter.emit(state.events.RENDER)
+    })
+    emitter.on('db:addSectionModalState:toggled', function () {
+      state.addSectionModalState.toggled = !state.addSectionModalState.toggled;
+      emitter.emit(state.events.RENDER)
+    })
+
+    // handle modal popup states
+    emitter.on('db:addResourceModalState:stepForward', function () {
+      state.addResourceModalState.currentStep += 1;
+      if(state.addResourceModalState.currentStep >= 3){
+        state.addResourceModalState.currentStep = 0;
+      }
+      emitter.emit(state.events.RENDER)
+
+    })
+    emitter.on('db:addResourceModalState:stepBack', function () {
+      state.addResourceModalState.currentStep -= 1;
+      emitter.emit(state.events.RENDER)
+    })
+
+    emitter.on('db:addSectionModalState:stepForward', function () {
+      state.addSectionModalState.currentStep += 1;
+      if(state.addSectionModalState.currentStep >= 2){
+        state.addSectionModalState.currentStep = 0;
+      }
+      emitter.emit(state.events.RENDER)
+
+    })
+    emitter.on('db:addSectionModalState:stepBack', function () {
+      state.addSectionModalState.currentStep -= 1;
+      emitter.emit(state.events.RENDER)
+    })
 
   })
 }
@@ -78,6 +170,7 @@ function initState(){
       url:"#",
       urlName:"https://link-to-somewhere-awesome.com/amazing",
       description: "This description is as good as it's going to get. Pretty much pulitzer prize level right here.",
+      headerImage:"https://raw.githubusercontent.com/joeyklee/itp-tutorial-maker/client-refactor/client/assets/magic-tracks-logo.png",
       id:`uid-${i}`
     }
 
@@ -91,6 +184,7 @@ function initState(){
         url:"#",
         urlName:"https://link-to-somewhere-awesome.com/amazing",
         description: "Section description. Learn all the things. In this section we're going to learn about...",
+        headerImage:"https://raw.githubusercontent.com/joeyklee/itp-tutorial-maker/client-refactor/client/assets/magic-tracks-logo.png",
         tags:['magic tracks', 'inspiration', 'itp', 'creative code', 'education']
       }
       for(let i = 0; i < Math.random()*4; i++){
@@ -103,6 +197,7 @@ function initState(){
           url:"#",
           urlName:"https://link-to-somewhere-awesome.com/amazing",
           description: "Resource description. I'm a resource and I came from website XYZ",
+          headerImage:"https://raw.githubusercontent.com/joeyklee/itp-tutorial-maker/client-refactor/client/assets/magic-tracks-logo.png",
           tags:['magic tracks', 'inspiration', 'itp', 'creative code', 'education']
         }
         for(let i = 0; i < Math.random()*4; i++){
