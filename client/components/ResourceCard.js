@@ -1,5 +1,7 @@
 var html = require("choo/html")
 
+// TODO: add resource card to section or tutorial 
+
 module.exports = function(resource){
   return html`
   <div class="card pa2 mt3 bg-dark-pink moon-gray br2 flex flex-column grow" style="width:324px; height:324px">
