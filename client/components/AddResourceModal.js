@@ -47,6 +47,7 @@ module.exports = function(name, state, emit){
 
   function addResource(e){
     console.log("added resource!")
+    emit("tutorial:addResource", state.editing.tutorialid, state.editing.sectionid)
     stepForward();
     toggleResourceModal();
   }
@@ -87,9 +88,9 @@ module.exports = function(name, state, emit){
                             </div>
                             <div class="w-100 h-100 flex flex-row">
                               <div class="w-60 h-100 flex flex-column">
-                                <input class="w-100 h2 pa2 br2 ba input-reset" type="text" placeholder="Resource Title">
-                                <textarea class="w-100 h3 pa2 br2 ba input-reset mt1" type="text" style="resize: none;"></textarea>
-                                <input class="w-100 h2 pa2 br2 ba input-reset mb2 mt1" type="text" placeholder="tags: e.g. javascript, creative code">
+                                <input class="w-100 h2 pa2 br2 ba input-reset" onkeyup=${handleChange} name="title" type="text" placeholder="Resource Title">
+                                <textarea class="w-100 h3 pa2 br2 ba input-reset mt1" onkeyup=${handleChange} name="description" type="text" style="resize: none;"></textarea>
+                                <input class="w-100 h2 pa2 br2 ba input-reset mb2 mt1" onkeyup=${handleChange} name="tags" type="text" placeholder="tags: e.g. javascript, creative code">
                                 <select class="w-100">
                                   <option>no rating</option>
                                   <option>beginner friendly</option>
@@ -116,7 +117,7 @@ module.exports = function(name, state, emit){
                         <section id="addResourceStep-2" class="addResourceStep ${isCurrentStep(2)}">
                           <div class="w-100 flex flex-column mt2 mb2">
                             <small>step 3: select the section you want your resource to live in</small>
-                            <select>
+                            <select style="max-width:370px;">
                             ${state.sections.map((section, idx) =>
                               html`
                               <option>Section ${idx}: ${section.title}</option>

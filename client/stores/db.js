@@ -8,6 +8,12 @@ function store (state, emitter) {
   state.sections = initialState.sections;
   state.resources = initialState.resources;
 
+  state.editing = {
+    tutorialid: "",
+    sectionid:"",
+    resourceid:""
+  }
+
   state.addResourceModalState = {
       toggled: false,
       currentStep: 0
@@ -34,7 +40,8 @@ function store (state, emitter) {
     urlName:"https://link-to-somewhere-awesome.com/amazing",
     description: "Section description. Learn all the things. In this section we're going to learn about...",
     headerImage:"https://raw.githubusercontent.com/joeyklee/itp-tutorial-maker/client-refactor/client/assets/magic-tracks-logo.png",
-    tags:['magic tracks', 'inspiration', 'itp', 'creative code', 'education']
+    tags:['magic tracks', 'inspiration', 'itp', 'creative code', 'education'],
+    resources:[]
   }
   state.newResource = {
     title: "hello I'm a resource title: I'm informative and wonderful.",
@@ -108,17 +115,74 @@ function store (state, emitter) {
       // emitter.emit(state.events.RENDER)
     })
 
-    emitter.on('db:addResource', function (count) {
+    emitter.on('tutorial:removeSection', function (tutorialId, sectionId) {
+      state.tutorials = state.tutorials.map( (tutorial) => {
+        if(tutorial.id === tutorialId){
+          tutorial.sections = tutorial.sections.filter( (section) => {
+            return section.id !== sectionId
+          })
+        }
+        return tutorial
+      });
+      emitter.emit(state.events.RENDER)
+    })
+
+    emitter.on('tutorial:removeResource', function (tutorialId, sectionId, resourceId) {
+      state.tutorials = state.tutorials.map( (tutorial) => {
+        if(tutorial.id === tutorialId){
+          tutorial.sections = tutorial.sections.map( (section) => {
+            if(section.id == sectionId){
+                section.resources = section.resources.filter( (resource) => resource.id !== resourceId )
+            }
+            return section
+          })
+        }
+        return tutorial
+      });
+      emitter.emit(state.events.RENDER)
+    })
+
+    emitter.on('tutorial:addResource', function (tutorialId, sectionId) {
+      state.tutorials = state.tutorials.map((tutorial) => {
+          if(tutorial.id === tutorialId){
+            tutorial.sections = tutorial.sections.map( (section) => {
+              if(section.id === sectionId){
+                section.resources.push( Object.assign({id:`uid-${section.resources.length}`}, state.newResource ))
+              }
+              return section;
+            })
+          }
+          return tutorial
+      })
+      emitter.emit(state.events.RENDER)
+    })
+
+
+    emitter.on('tutorial:addSection', function (tutorialId) {
+      state.tutorials = state.tutorials.map((tutorial) => {
+          if(tutorial.id === tutorialId){
+            // add in the "uid-"
+            tutorial.sections.push( Object.assign({id:`uid-${tutorial.sections.length}`}, state.newSection) )
+          }
+          return tutorial
+      })
       emitter.emit(state.events.RENDER)
     })
 
     // handle modal popup states
-    emitter.on('db:addResourceModalState:toggled', function () {
+    emitter.on('db:addResourceModalState:toggled', function (tutorialid, sectionid) {
       state.addResourceModalState.toggled = !state.addResourceModalState.toggled;
+      // set which of the items is being edited
+      state.editing.tutorialid = tutorialid;
+      state.editing.sectionid = sectionid;
+
       emitter.emit(state.events.RENDER)
     })
-    emitter.on('db:addSectionModalState:toggled', function () {
+    emitter.on('db:addSectionModalState:toggled', function (tutorialid) {
       state.addSectionModalState.toggled = !state.addSectionModalState.toggled;
+      // set which of the items is being edited
+      state.editing.tutorialid = tutorialid;
+
       emitter.emit(state.events.RENDER)
     })
 

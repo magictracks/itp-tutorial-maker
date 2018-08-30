@@ -45,7 +45,8 @@ module.exports = function(name, state, emit){
   }
 
   function addSection(e){
-    console.log("added resource!")
+    console.log("added section!")
+    emit("tutorial:addSection", state.editing.tutorialid)
     stepForward();
     toggleSectionModal();
   }
@@ -90,7 +91,7 @@ module.exports = function(name, state, emit){
                         <section id="addSectionStep-1" class="addSectionStep ${isCurrentStep(1)}">
                           <div class="w-100 flex flex-column mt2 mb2">
                             <small>step 3: select the tutorial you want your resource to live in</small>
-                            <select>
+                            <select style="max-width:370px;">
                             ${state.tutorials.map((tutorial, idx) =>
                               html`
                               <option>Tutorial ${idx}: ${tutorial.title}</option>
