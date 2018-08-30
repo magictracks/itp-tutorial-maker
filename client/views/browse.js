@@ -86,7 +86,7 @@ function view (state, emit) {
           <h1 class="f2">Curate, learn, and share with Magic Tutorial Maker!</h1>
           <small>An open educational initiative by ITP</small>
         </div>
-        <div class="flex flex-column w-60 h-100">
+        <div class="flex flex-column w-60 h-100" style="height:300px">
           <div class="w-100 h-100 flex flex-column justify-center items-center br2 ba">
             <div class="br-100 ba w3 h3 flex flex-column justify-center items-center">
               <div class="w-100 tc">▷</div>
